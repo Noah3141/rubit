@@ -33,7 +33,7 @@ const Header = () => {
                 ></Image>
             </div>
             <div
-                className={`flex flex-col  border-b-2 border-b-orange-600 bg-stone-900 transition-all duration-100 md:h-auto md:flex-row  md:justify-end md:overflow-visible md:border-0 md:bg-stone-950 md:text-xl ${
+                className={`flex flex-col  border-b-2 border-b-orange-500 bg-stone-900 transition-all duration-100 md:h-auto md:flex-row  md:justify-end md:overflow-visible md:border-0 md:bg-stone-950 md:text-xl ${
                     unfolded ? "h-52" : "h-0 overflow-hidden"
                 }`}
             >
@@ -42,7 +42,7 @@ const Header = () => {
                         setUnfolded(false);
                     }}
                     href="/"
-                    className="cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:py-4  md:hover:border-b-2 md:hover:border-b-orange-600 md:hover:bg-stone-950 md:hover:text-orange-600"
+                    className="cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:py-4  md:hover:border-b-2 md:hover:border-b-orange-500 md:hover:bg-stone-950 md:hover:text-orange-600"
                 >
                     <div>List Generator</div>
                 </Link>
@@ -51,7 +51,7 @@ const Header = () => {
                         setUnfolded(false);
                     }}
                     href="/verb-pairs"
-                    className="cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-600 md:hover:bg-stone-950 md:hover:text-orange-600"
+                    className="cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-500 md:hover:bg-stone-950 md:hover:text-orange-600"
                 >
                     <div>Verb Pairs</div>
                 </Link>
@@ -60,7 +60,7 @@ const Header = () => {
                         setUnfolded(false);
                     }}
                     href="/verb-trees"
-                    className="cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-600 md:hover:bg-stone-950 md:hover:text-orange-600"
+                    className="cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-500 md:hover:bg-stone-950 md:hover:text-orange-600"
                 >
                     <div>Verb Trees</div>
                 </Link>
@@ -69,7 +69,7 @@ const Header = () => {
                         setUnfolded(false);
                     }}
                     href="/tree-model"
-                    className="me-0 cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200  md:py-4 md:hover:border-b-2 md:hover:border-b-orange-600 md:hover:bg-stone-950 md:hover:text-orange-600"
+                    className="me-0 cursor-pointer border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200  md:py-4 md:hover:border-b-2 md:hover:border-b-orange-500 md:hover:bg-stone-950 md:hover:text-orange-600"
                 >
                     <div>Tree Model</div>
                 </Link>
@@ -79,7 +79,7 @@ const Header = () => {
                             ? setDropdown((p) => !p)
                             : void signIn();
                     }}
-                    className="me-0 cursor-pointer  border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:me-6 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-600 md:hover:bg-stone-950 "
+                    className="me-0 cursor-pointer  border-b-2 border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:me-6 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-500 md:hover:bg-stone-950 "
                 >
                     <div className="w-full text-left">
                         {status == "authenticated" ? (
