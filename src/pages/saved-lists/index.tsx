@@ -12,7 +12,7 @@ const SavedLists = () => {
     if (status == "loading") {
         return (
             <div className="w-full">
-                <div className="mx-auto max-w-2xl">
+                <div className="mx-auto flex max-w-2xl flex-row justify-center">
                     <Triangle
                         height="90"
                         width="90"
