@@ -87,7 +87,7 @@ const Header = () => {
                                 <span className=" flex flex-row items-center gap-2 md:justify-center md:hover:text-orange-600">
                                     <span>{data.user.name}</span>
                                     <span>
-                                        <DownArrowSharp size="12px" />
+                                        <DownArrowSharp size={12} />
                                     </span>
                                 </span>
 
