@@ -8,6 +8,7 @@ import { api } from "~/utils/api";
 import { Triangle } from "react-loader-spinner";
 import { VocabEntry } from "@prisma/client";
 import toast, { useToasterStore } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 type ListState = Record<string, Fields>;
 type Fields = {
@@ -194,6 +195,10 @@ const RawVocabList = ({
         (1 - newWords.length / listData.entry_list.length)
     ).toFixed(0);
 
+    const { mutate: updateKnownPercentage, isLoading: updateKnownLoading } =
+        api.savedLists.updateKnownPercentage.useMutation();
+    const router = useRouter();
+
     const setGPTExample = (
         gptSentence: string | undefined,
         lemma_id: string,
@@ -300,6 +305,16 @@ const RawVocabList = ({
                                                     entryLemma:
                                                         vocabEntry.lemma,
                                                 });
+                                                if (
+                                                    typeof router.query.id ==
+                                                    "string"
+                                                ) {
+                                                    updateKnownPercentage({
+                                                        knownPercentage:
+                                                            knownPercent,
+                                                        listId: router.query.id,
+                                                    });
+                                                }
                                             }}
                                             className="flex flex-row items-center rounded-full p-1 text-stone-600 hover:bg-gradient-to-b hover:from-orange-700 hover:to-fuchsia-600 hover:text-stone-50"
                                         >

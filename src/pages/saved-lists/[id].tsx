@@ -10,6 +10,7 @@ import { api } from "~/utils/api";
 import { VscTrash } from "react-icons/vsc";
 import { getGPTExample } from "~/utils/request_gpt";
 import { redirect } from "next/navigation";
+import { Triangle } from "react-loader-spinner";
 
 const ListId = () => {
     const trpcUtils = api.useContext();
@@ -49,6 +50,24 @@ const ListId = () => {
 
     if (status == "unauthenticated") {
         return "Sign in please";
+    }
+
+    if (isLoading) {
+        return (
+            <div className="w-full">
+                <div className="mx-auto max-w-2xl">
+                    <Triangle
+                        height="90"
+                        width="90"
+                        color="#c2410c"
+                        ariaLabel="triangle-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            </div>
+        );
     }
 
     if (!data) {

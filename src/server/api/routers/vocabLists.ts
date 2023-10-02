@@ -65,6 +65,24 @@ export const savedListsRouter = createTRPCRouter({
             });
         }),
 
+    updateKnownPercentage: protectedProcedure
+        .input(
+            z.object({
+                listId: z.string(),
+                knownPercentage: z.string(),
+            }),
+        )
+        .mutation(async ({ ctx, input }) => {
+            const newListState = await ctx.db.vocabList.update({
+                where: { userId: ctx.session.user.id, id: input.listId },
+                data: {
+                    knownPercent: input.knownPercentage,
+                },
+            });
+
+            return "foo";
+        }),
+
     removeFromUserSavedLists: protectedProcedure
         .input(z.object({ listId: z.string() }))
         .mutation(async ({ ctx, input }) => {

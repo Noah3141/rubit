@@ -55,7 +55,13 @@ const SavedLists = () => {
                             >
                                 {list.title}
                             </Link>
-                            <span>{entryCount} forms</span>
+                            <div className="flex flex-row gap-3">
+                                <span>
+                                    {list.knownPercent &&
+                                        ` (${list.knownPercent}%)`}
+                                </span>
+                                <span>{entryCount} forms</span>
+                            </div>
                         </div>
                     );
                 })}
