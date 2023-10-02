@@ -38,12 +38,12 @@ const VerbPairs = () => {
             </Head>
             <main className="font-main w-full bg-stone-950 p-2 pb-16 pt-8 text-xl text-stone-300 ">
                 <div className="mx-auto max-w-2xl px-4 transition-all duration-200">
-                    <div className="flex flex-row gap-3">
+                    <h1 className="mb-6 text-2xl ">
                         Perfective - Imperfective 3368 Pairs
-                    </div>
-                    <div className={`fixed right-20 top-20`}>
+                    </h1>
+                    <div className={`fixed right-20 top-52`}>
                         <button
-                            className="rounded-full bg-orange-600 px-3 py-2 hover:bg-orange-600"
+                            className="rounded-full bg-orange-600 px-3 py-1 hover:bg-orange-700"
                             onClick={() => {
                                 setLang((p) => {
                                     if (p == "en") {

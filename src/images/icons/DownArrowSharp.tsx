@@ -1,11 +1,12 @@
 import React from "react";
 
-const DownArrowSharp = (props: { size: string }) => {
+const DownArrowSharp = (props: { size: number; className?: string }) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             version="1.1"
+            className={` ${props.className ?? ""}`}
             width={props.size ?? "32px"}
             height={props.size ?? "32px"}
             viewBox="0 0 32 32"

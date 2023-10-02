@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import type RawVocabularyList from "~/models/vocabulary_lists";
 import type RawVocabEntry from "~/models/vocabulary_lists";
 import RussianSentencer from "./russian_sentencer";
@@ -7,7 +7,7 @@ import { BiBrain } from "react-icons/bi";
 import { api } from "~/utils/api";
 import { Triangle } from "react-loader-spinner";
 import { VocabEntry } from "@prisma/client";
-import toast from "react-hot-toast";
+import toast, { useToasterStore } from "react-hot-toast";
 
 type ListState = Record<string, Fields>;
 type Fields = {
@@ -16,7 +16,7 @@ type Fields = {
     isLoading: boolean;
 };
 
-enum LinkLanguage {
+export enum LinkLanguage {
     Russian = 0,
     English = 1,
 }
@@ -24,16 +24,20 @@ enum LinkLanguage {
 const RawVocabList = ({
     listData,
     sourceText,
+    saved,
 }: {
     listData: RawVocabularyList;
     sourceText: string;
+    saved: boolean;
 }) => {
     const trpcUtils = api.useContext();
     const [linkLang, setLinkLang] = useState<LinkLanguage>(
         LinkLanguage.English,
     );
 
-    const [currentListSaved, setCurrentListSaved] = useState(false);
+    const { toasts, pausedAt } = useToasterStore();
+
+    const [currentListSaved, setCurrentListSaved] = useState(saved);
     const [titleField, setTitleField] = useState("");
     // const [knownWordsExpanded, setKnownWordsExpanded] = useState(false);
 
@@ -121,6 +125,7 @@ const RawVocabList = ({
         );
     };
 
+    const ref = useRef<HTMLInputElement>(null);
     const saveToast = () => {
         toast(
             (t) => {
@@ -130,17 +135,10 @@ const RawVocabList = ({
                             Enter a title for this text:
                         </span>
                         <input
-                            type="text"
-                            className="hidden"
-                            value={titleField}
-                        />
-                        <input
                             name="titlefield"
                             type="text"
+                            ref={ref}
                             id="titlefield"
-                            onChange={(e) => {
-                                setTitleField(e.target.value);
-                            }}
                             className="my-2 w-full rounded-md bg-stone-200 px-2 py-1 hover:cursor-pointer hover:outline hover:outline-1 hover:outline-orange-500 focus:cursor-text focus:outline-none"
                         />
                         <div className="flex flex-row justify-between ">
@@ -155,11 +153,14 @@ const RawVocabList = ({
                             <button
                                 className="text-stone-900 hover:text-orange-600"
                                 onClick={() => {
-                                    addToSavedLists({
-                                        sourceText: sourceText,
-                                        title: titleField,
-                                        listData: listData,
-                                    });
+                                    if (ref.current !== null) {
+                                        addToSavedLists({
+                                            sourceText: sourceText,
+                                            title: ref.current.value,
+                                            listData: listData,
+                                        });
+                                    }
+                                    setTitleField("");
                                 }}
                             >
                                 Save🧾
@@ -187,6 +188,11 @@ const RawVocabList = ({
               );
           })
         : listData.entry_list;
+
+    const knownPercent = (
+        100 *
+        (1 - newWords.length / listData.entry_list.length)
+    ).toFixed(0);
 
     const setGPTExample = (
         gptSentence: string | undefined,
@@ -267,6 +273,9 @@ const RawVocabList = ({
                     </button>
                 </div>
             </div>
+            <span className="cursor-default py-2 text-stone-400">
+                Known: {knownPercent}%
+            </span>
             <div>
                 {newWords.map((vocabEntry) => {
                     return (

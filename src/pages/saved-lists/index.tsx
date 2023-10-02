@@ -39,7 +39,8 @@ const SavedLists = () => {
 
     return (
         <div className="pt-12">
-            <div className="mx-auto max-w-2xl">
+            <div className="mx-auto min-h-screen max-w-2xl">
+                <h1 className="mb-3 text-4xl">Saved Lists</h1>
                 {lists?.map((list) => {
                     const entryCount = list.entries.length;
 

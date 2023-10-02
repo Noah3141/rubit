@@ -96,7 +96,7 @@ const Home: NextPage = () => {
                         {/* Text Field */}
                         <div className="w-full ">
                             <textarea
-                                className=" h-36 w-full rounded-sm bg-stone-900 p-3 outline-none outline-2 outline-offset-[-2px] outline-orange-600"
+                                className=" h-36 w-full whitespace-pre-wrap rounded-sm bg-stone-900 p-3  outline-none outline-2 outline-offset-[-2px] outline-orange-600"
                                 name="inputField"
                                 onChange={(e) => setInput(e.target.value)}
                                 id="inputField"
@@ -115,7 +115,7 @@ const Home: NextPage = () => {
                                 >
                                     Full List
                                     <div className="flex flex-col content-end justify-center px-2 text-stone-100">
-                                        <DownArrowSharp size="12px" />
+                                        <DownArrowSharp size={12} />
                                     </div>
                                 </button>
 
@@ -129,7 +129,7 @@ const Home: NextPage = () => {
                                 >
                                     Raw Vocabulary
                                     <div className="flex flex-col content-center justify-center pe-1 ps-2 text-stone-100">
-                                        <DownArrowSharp size="12px" />
+                                        <DownArrowSharp size={12} />
                                     </div>
                                 </button>
                             </div>
@@ -167,7 +167,11 @@ const Home: NextPage = () => {
                             />
                         </div>
                     ) : listData ? (
-                        <RawVocabList listData={listData} sourceText={input} />
+                        <RawVocabList
+                            saved={false}
+                            listData={listData}
+                            sourceText={input}
+                        />
                     ) : (
                         <>
                             <div>

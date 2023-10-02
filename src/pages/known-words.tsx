@@ -54,7 +54,7 @@ const KnownWords = () => {
     }
     return (
         <div className="pt-12 text-2xl ">
-            <div className="mx-auto max-w-2xl divide-y divide-stone-900  border-stone-900">
+            <div className="mx-auto min-h-screen max-w-2xl divide-y  divide-stone-900 border-stone-900">
                 <h1 className="mb-4">Known Words: {userKnownList?.length}</h1>
                 {userKnownList?.map((vocabEntry) => {
                     return (

@@ -95,7 +95,7 @@ model VocabEntry {
     perfective Boolean?
 
     listId    String?
-    VocabList VocabList? @relation(fields: [listId], references: [id], onDelete: Cascade)
+    VocabList VocabList? @relation(fields: [listId], references: [id])
 
     User   User?   @relation(fields: [userId], references: [id])
     userId String?
