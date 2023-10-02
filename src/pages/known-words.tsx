@@ -39,7 +39,7 @@ const KnownWords = () => {
 
     if (status == "loading") {
         return (
-            <div className="mt-12 flex w-full flex-row justify-center">
+            <div className="mb-12 mt-12 flex w-full flex-row justify-center">
                 <Triangle
                     height="90"
                     width="90"

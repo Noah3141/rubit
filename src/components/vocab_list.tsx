@@ -230,7 +230,7 @@ const RawVocabList = ({
 
     if (userKnownListLoading) {
         return (
-            <div className="mt-8 flex rotate-180 flex-row justify-center">
+            <div className="mb-8 mt-8 flex rotate-180 flex-row justify-center">
                 <Triangle
                     height="90"
                     width="90"

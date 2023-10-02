@@ -55,7 +55,7 @@ const ListId = () => {
     if (isLoading) {
         return (
             <div className="w-full">
-                <div className="mx-auto flex  max-w-2xl flex-row justify-center">
+                <div className="mx-auto flex  max-w-2xl flex-row justify-center py-12">
                     <Triangle
                         height="90"
                         width="90"
