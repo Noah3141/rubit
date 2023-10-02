@@ -63,12 +63,8 @@ const Home: NextPage = () => {
             <Head>
                 <title>Rubit - List Generator</title>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="icon" href="/favicon.ico?v=3" />
+                <link rel="icon" href="/favicon.ico?v=5" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;700;800&display=swap"
-                    rel="stylesheet"
-                />
             </Head>
             <main className="font-main min-h-screen w-full bg-stone-950 pb-16 pt-8 text-stone-200 ">
                 <div className="mx-auto max-w-4xl  px-3 transition-all duration-200">
