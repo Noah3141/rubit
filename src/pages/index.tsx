@@ -103,7 +103,7 @@ const Home: NextPage = () => {
                             <div className="flex flex-row">
                                 {/* Button 1 */}
                                 <button
-                                    className=" disabled mt-4 flex h-10 w-1/2 flex-row justify-between rounded-s-sm bg-stone-400 p-2 pe-1 ps-4 transition-all duration-100   focus:ring-inset focus:ring-orange-800 sm:w-auto"
+                                    className="disabled mt-4 hidden h-10 w-1/2 flex-row justify-between rounded-s-sm bg-stone-400 p-2 pe-1 ps-4 transition-all duration-100   focus:ring-inset focus:ring-orange-800 sm:w-auto"
                                     name="Output_Breadth"
                                     disabled
                                     id="Output_Breadth"
@@ -117,7 +117,7 @@ const Home: NextPage = () => {
 
                                 {/* Button 2 */}
                                 <button
-                                    className="disabled mt-4 flex h-10 w-1/2 flex-row  justify-between rounded-e-sm border-s-[1.5px] border-s-stone-700 bg-stone-400 p-2 px-2 ps-4 transition-all duration-100  focus:ring-inset focus:ring-orange-800  sm:w-auto"
+                                    className="disabled mt-4 hidden h-10 w-1/2 flex-row  justify-between rounded-e-sm border-s-[1.5px] border-s-stone-700 bg-stone-400 p-2 px-2 ps-4 transition-all duration-100  focus:ring-inset focus:ring-orange-800  sm:w-auto"
                                     name="Output_Style"
                                     disabled
                                     id="Output_Style"
@@ -170,10 +170,6 @@ const Home: NextPage = () => {
                         />
                     ) : (
                         <>
-                            <div>
-                                (Alternate settings are currently still in
-                                development)
-                            </div>
                             <div>
                                 Need some Russian text to try it out? Try this:
                                 Привет миру!
