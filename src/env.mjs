@@ -31,6 +31,8 @@ export const env = createEnv({
         // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
         DISCORD_CLIENT_ID: z.string(),
         DISCORD_CLIENT_SECRET: z.string(),
+        GOOGLE_CLIENT_ID: z.string(),
+        GOOGLE_CLIENT_SECRET: z.string(),
         OPENAI_API_KEY: z.string(),
     },
 
@@ -48,6 +50,8 @@ export const env = createEnv({
      * middlewares) or client-side so we need to destruct manually.
      */
     runtimeEnv: {
+        GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+        GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
         OPENAI_API_KEY: process.env.OPENAI_API_KEY,
         DATABASE_URL: process.env.DATABASE_URL,
         NODE_ENV: process.env.NODE_ENV,
