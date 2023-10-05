@@ -44,10 +44,11 @@ export const savedListsRouter = createTRPCRouter({
 
             if (input.title === "")
                 throw new TRPCError({ code: "PARSE_ERROR" });
-
+            console.log("Starting loop");
             const list = (input.listData as RawVocabularyList).entry_list.map(
                 (entry) => ({ lemma: entry.lemma, frequency: entry.frequency }),
             );
+            console.log("Ending loop and inputting to db");
 
             const newList = await ctx.db.vocabList.create({
                 data: {
@@ -59,10 +60,12 @@ export const savedListsRouter = createTRPCRouter({
                         },
                     },
                     entries: {
-                        create: list,
+                        createMany: { data: list, skipDuplicates: true },
                     },
                 },
             });
+
+            console.log("Input to db!");
         }),
 
     updateKnownPercentage: protectedProcedure

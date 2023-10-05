@@ -9,6 +9,7 @@ import { Triangle } from "react-loader-spinner";
 import { VocabEntry } from "@prisma/client";
 import toast, { useToasterStore } from "react-hot-toast";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 type ListState = Record<string, Fields>;
 type Fields = {
@@ -36,7 +37,7 @@ const RawVocabList = ({
         LinkLanguage.English,
     );
 
-    const { toasts, pausedAt } = useToasterStore();
+    const { data: session, status } = useSession();
 
     const [currentListSaved, setCurrentListSaved] = useState(saved);
     const [titleField, setTitleField] = useState("");
@@ -247,7 +248,7 @@ const RawVocabList = ({
     return (
         <>
             <div className="mb-5 mt-6 flex flex-col items-end gap-4 sm:mt-6">
-                {currentListSaved ? (
+                {currentListSaved || status == "unauthenticated" ? (
                     ""
                 ) : (
                     <button
