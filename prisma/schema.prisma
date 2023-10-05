@@ -104,7 +104,7 @@ model VocabEntry {
 
 model SourceText {
     id      String  @id @default(cuid())
-    content String  @db.MediumText
+    content String  @db.LongText
     source  String?
 
     VocabList VocabList[]
