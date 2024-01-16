@@ -5,10 +5,13 @@ import { Triangle } from "react-loader-spinner";
 import { api } from "~/utils/api";
 
 const SavedLists = () => {
+
     const { data: lists, isLoading: listsLoading } =
         api.savedLists.getUserSavedLists.useQuery();
+    
     const { data, status } = useSession();
 
+    
     if (status == "loading") {
         return (
             <div className="w-full">

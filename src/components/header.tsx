@@ -79,13 +79,15 @@ const Header = () => {
                             ? setDropdown((p) => !p)
                             : void signIn();
                     }}
-                    className="me-0 cursor-pointer border-b-2  border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:me-6 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-500 md:hover:bg-stone-950 md:hover:text-orange-600 "
+                    className="me-0  cursor-pointer flex-nowrap border-b-2  border-transparent px-5 py-2 text-stone-200 transition duration-100 hover:bg-orange-600 hover:text-stone-200 md:me-6 md:py-4 md:hover:border-b-2 md:hover:border-b-orange-500 md:hover:bg-stone-950 md:hover:text-orange-600 "
                 >
                     <div className="w-full text-left">
                         {status == "authenticated" ? (
                             <div className="relative w-32 overflow-visible ">
                                 <span className=" flex flex-row items-center gap-2 md:justify-center ">
-                                    <span>{data.user.name}</span>
+                                    <span className="flex-nowrap whitespace-nowrap">
+                                        {data.user.name}
+                                    </span>
                                     <span>
                                         <DownArrowSharp size={12} />
                                     </span>
