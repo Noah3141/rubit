@@ -36,8 +36,7 @@ const Home: NextPage = () => {
                     }),
                     headers: {
                         "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin":
-                            "https://rubit.vercel.app/",
+                        "Access-Control-Allow-Origin": "*",
                     },
                 },
             );
