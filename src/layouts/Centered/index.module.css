@@ -1,3 +1,7 @@
-.layout {
-    @apply grid grid-cols-1 gap-3 p-3 lg:p-12;
+.page {
+    @apply min-h-full;
+
+    .layout {
+        @apply grid grid-cols-1 gap-3 p-3 lg:p-12;
+    }
 }

@@ -7,8 +7,8 @@
     &.red {
         @apply bg-red-700 text-red-500;
     }
-    &.yellow {
-        @apply bg-yellow-700 text-yellow-500;
+    &.orange {
+        @apply bg-orange-700 text-orange-500;
     }
     &.green {
         @apply bg-green-700 text-green-500;

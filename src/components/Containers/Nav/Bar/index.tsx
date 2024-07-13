@@ -14,7 +14,7 @@ const Bar: FC<
     const [navOpen, setNavOpen] = useState(false);
 
     return (
-        <div className={classNames(styles.navbar)}>
+        <nav className={classNames(styles.navbar)}>
             {/* Desktop */}
             <div className="hidden lg:block">
                 <div className={classNames(styles.container)}>{children}</div>
@@ -24,15 +24,19 @@ const Bar: FC<
             <div className="lg:hidden">
                 <button
                     onMouseDown={() => setNavOpen((p) => !p)}
-                    className="relative ml-auto block size-12 w-16 p-3"
+                    className={classNames(styles.mobileNavButton)}
                 >
                     <CgClose
-                        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ${navOpen ? "scale-100" : "scale-0"}`}
                         size={36}
-                    />{" "}
+                        className={classNames(styles.icon, {
+                            [styles.show!]: navOpen,
+                        })}
+                    />
                     <FiMenu
-                        className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-200 ${!navOpen ? "scale-100" : "scale-0"}`}
                         size={36}
+                        className={classNames(styles.icon, {
+                            [styles.show!]: !navOpen,
+                        })}
                     />
                 </button>
 
@@ -44,7 +48,7 @@ const Bar: FC<
                     <div className="overflow-hidden">{children}</div>
                 </div>
             </div>
-        </div>
+        </nav>
     );
 };
 

@@ -6,7 +6,7 @@ import CenteredLayout from "~/layouts/Centered";
 export default async function Home() {
     return (
         <CenteredLayout>
-            <Banner color="yellow">This app is gonna blow ur socks off</Banner>
+            <Banner color="orange">This app is gonna blow ur socks off</Banner>
 
             <Header level="1">Rubit</Header>
             <Header level="2">Vocabulary List Maker</Header>

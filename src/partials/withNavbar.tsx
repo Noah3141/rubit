@@ -9,7 +9,9 @@ const WithNavbar: FC = async () => {
     return (
         <Nav.Bar>
             <Nav.Item link="/">Home</Nav.Item>
-            <Nav.Item>Languages</Nav.Item>
+            <Nav.Item link="/language/russian">Russian</Nav.Item>
+            <Nav.Item link="/language/belarusian">Belarusian</Nav.Item>
+            <Nav.Item link="/language/ukrainian">Ukrainian</Nav.Item>
             {!!session ? (
                 <>
                     <Nav.Item>Account</Nav.Item>

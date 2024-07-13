@@ -1,0 +1,7 @@
+.footer {
+    @apply bg-violet-950 border-violet-800 border-t;
+
+    > div {
+        @apply text-violet-400;
+    }
+}

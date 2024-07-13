@@ -1,1 +1,7 @@
-export type Color = "purple" | "red" | "yellow" | "green" | "neutral";
+export type Color =
+    | "purple"
+    | "red"
+    | "orange"
+    | "violet"
+    | "green"
+    | "neutral";

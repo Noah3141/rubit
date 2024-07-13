@@ -1,12 +1,24 @@
 .navbar {
-    @apply sticky left-0 top-0 bg-red-700 px-3 lg:px-12;
+    @apply bg-red-600 lg:px-12;
 
     .container {
-        @apply flex py-1;
+        @apply flex py-2;
+    }
+
+    .mobileNavButton {
+        @apply relative ml-auto block size-12 p-3;
+
+        .icon {
+            @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all duration-200;
+
+            &.show {
+                @apply scale-100;
+            }
+        }
     }
 
     .mobileContainer {
-        @apply grid grid-cols-1 grid-rows-[0fr] transition-all;
+        @apply grid grid-cols-1 grid-rows-[0fr] px-3 transition-all;
 
         &.open {
             @apply grid-rows-[1fr] pb-3;
