@@ -21,7 +21,9 @@ export default async function LanguageLayout({
                 <WithNavbar />
                 <WithLanguageNav />
             </StickyTop>
-            <div className={classnames(styles.page)}>{children}</div>
+            <div className={classnames(styles.page)}>
+                <div className={classnames(styles.layout)}>{children}</div>
+            </div>
             <WithFooter />
         </>
     );

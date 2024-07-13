@@ -7,23 +7,25 @@ import { usePathname } from "next/navigation";
 import { toTitleCase } from "~/utils/strings";
 
 import { FaChevronDown } from "react-icons/fa";
+import { Language } from "~/types/language";
 
 const Bar: FC<
     PropsWithChildren<{
-        //
+        language: string;
     }>
-> = ({ children }) => {
-    const pathname = usePathname();
-    const language = toTitleCase(pathname.split("/").at(2)!);
-
+> = ({ children, language }) => {
     const [navOpen, setNavOpen] = useState(false);
+
+    const languageTitle = toTitleCase(language) as Language;
 
     return (
         <nav className={classNames(styles.navbar)}>
             {/* Desktop */}
             <div className="hidden w-full lg:block">
                 <div className={classNames(styles.header)}>
-                    <h1 className={classNames(styles.title)}>{language}</h1>
+                    <h1 className={classNames(styles.title)}>
+                        {languageTitle}
+                    </h1>
                     <div className={classNames(styles.contents)}>
                         {children}
                     </div>
@@ -33,7 +35,9 @@ const Bar: FC<
             {/* Mobile */}
             <div className="w-full lg:hidden">
                 <div className={classNames(styles.headerMobile)}>
-                    <h1 className={classNames(styles.title)}>{language}</h1>
+                    <h1 className={classNames(styles.title)}>
+                        {languageTitle}
+                    </h1>
                     <button
                         onMouseDown={() => setNavOpen((p) => !p)}
                         className={classNames(styles.button)}

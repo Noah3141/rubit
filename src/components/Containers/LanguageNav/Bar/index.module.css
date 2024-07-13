@@ -21,8 +21,10 @@
         }
 
         .button {
+            @apply hover:bg-violet-800 rounded p-1;
+
             .icon {
-                @apply size-8 transition-all;
+                @apply size-6 transition-all;
 
                 &.flip {
                     @apply rotate-180;
@@ -39,7 +41,7 @@
         }
 
         .content {
-            @apply px-2 py-2;
+            @apply bg-violet-800 px-2 py-2 shadow-inner shadow-purple-950;
         }
     }
 }

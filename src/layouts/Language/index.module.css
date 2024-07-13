@@ -1,3 +1,7 @@
 .page {
     @apply min-h-full;
+
+    .layout {
+        @apply p-3 lg:p-12;
+    }
 }
