@@ -5,6 +5,8 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import BaseLayout from "~/layouts/Base";
+import { Toaster } from "react-hot-toast";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary List Maker",
@@ -12,13 +14,19 @@ export const metadata: Metadata = {
     icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en" className={`${GeistSans.variable}`}>
             <body>
                 <TRPCReactProvider>
+                    <Toaster
+                        position="top-right"
+                        toastOptions={{
+                            className: "!bg-violet-50 !text-violet-950",
+                        }}
+                    />
                     <BaseLayout>{children}</BaseLayout>
                 </TRPCReactProvider>
             </body>

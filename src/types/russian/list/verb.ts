@@ -1,0 +1,40 @@
+import { z } from "zod";
+
+export const VerbEntry = z.object({
+    type: z.literal("verb"),
+    frequency: z.number(),
+    entry: z.object({
+        lemma: z.string(),
+        commonality: z.number(),
+        dictionary_info: z.object({
+            dictionary_form: z.string(),
+            accented: z.string(),
+            ipa: z.string(),
+            is_imperfective: z.boolean(),
+            is_perfective: z.boolean(),
+            is_transitive: z.boolean(),
+            is_intransitive: z.boolean(),
+            root_space: z.string().nullable(),
+            aspectual_pair: z.string(),
+            // Forms
+            я_form: z.string(),
+            ты_form: z.string(),
+            он_form: z.string(),
+            мы_form: z.string(),
+            вы_form: z.string(),
+            они_form: z.string(),
+            fem_past: z.string(),
+            masc_past: z.string(),
+            neut_past: z.string(),
+            plur_past: z.string(),
+            present_active: z.string().nullable(),
+            present_passive: z.string().nullable(),
+            past_passive: z.string().nullable(),
+            past_active: z.string().nullable(),
+            present_adverbial: z.string().nullable(),
+            past_adverbial: z.string().nullable(),
+            singular_imperative: z.string(),
+            plural_imperative: z.string(),
+        }),
+    }),
+});

@@ -1,0 +1,3 @@
+.input {
+    @apply bg-violet-100 hover:bg-violet-50 text-violet-950 placeholder:!text-violet-300 rounded px-2 py-1 outline-none hover:cursor-pointer focus:cursor-text;
+}

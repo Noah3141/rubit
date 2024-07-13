@@ -1,11 +1,11 @@
 .container {
-    @apply flex w-fit flex-row gap-1 rounded bg-purple-950 p-1 shadow-inner shadow-neutral-950;
+    @apply bg-violet-900 flex w-fit flex-row gap-1 rounded-lg p-2;
 
     .option {
-        @apply rounded bg-neutral-500/20 px-4 py-2 text-neutral-200 hover:bg-red-500/20;
+        @apply hover:bg-orange-500/25 rounded bg-neutral-500/20 px-4 py-2 text-neutral-200;
 
         &.selected {
-            @apply cursor-default bg-red-500;
+            @apply bg-orange-600 cursor-default;
         }
     }
 }

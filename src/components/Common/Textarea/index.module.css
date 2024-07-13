@@ -1,0 +1,3 @@
+.textarea {
+    @apply bg-violet-100 text-violet-950 caret-violet-950 hover:bg-violet-50 max-h-[600px] min-h-32 w-full cursor-pointer rounded px-3 py-2 outline-none focus:cursor-text;
+}

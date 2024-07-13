@@ -2,22 +2,22 @@
     @apply text-inherit;
 
     &.h_1 {
-        @apply text-6xl font-extrabold;
+        @apply text-orange-500 text-6xl font-extrabold;
     }
 
     &.h_2 {
-        @apply text-3xl font-bold;
+        @apply text-orange-500 text-3xl font-bold;
     }
 
     &.h_3 {
-        @apply text-xl font-bold;
+        @apply text-orange-500 text-2xl font-semibold;
     }
 
     &.h_4 {
-        @apply text-xl italic;
+        @apply text-violet-500 text-xl font-bold;
     }
 
     &.h_5 {
-        @apply text-lg font-medium;
+        @apply text-lg font-medium text-neutral-50;
     }
 }
