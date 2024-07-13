@@ -1,0 +1,15 @@
+.navbar {
+    @apply sticky left-0 top-0 bg-red-700 px-3 lg:px-12;
+
+    .container {
+        @apply flex py-1;
+    }
+
+    .mobileContainer {
+        @apply grid grid-cols-1 grid-rows-[0fr] transition-all;
+
+        &.open {
+            @apply grid-rows-[1fr] pb-3;
+        }
+    }
+}

@@ -1,15 +1,19 @@
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { type GetServerSidePropsContext } from "next";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import {
     getServerSession,
     type DefaultSession,
     type NextAuthOptions,
+    User,
+    Session,
 } from "next-auth";
+import { type Adapter } from "next-auth/adapters";
+import { JWT, type DefaultJWT } from "next-auth/jwt";
 import DiscordProvider from "next-auth/providers/discord";
-import GoogleProvider from "next-auth/providers/google";
-
-import { env } from "~/env.mjs";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { env } from "~/env";
 import { db } from "~/server/db";
+import crypto from "crypto";
+import { type Role } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -21,16 +25,27 @@ declare module "next-auth" {
     interface Session extends DefaultSession {
         user: DefaultSession["user"] & {
             id: string;
-            // ...other properties
-            // role: UserRole;
+            role: Role;
         };
     }
 
-    // interface User {
-    //   // ...other properties
-    //   // role: UserRole;
-    // }
+    interface User {
+        id: string;
+        role: Role;
+    }
 }
+
+declare module "next-auth/jwt" {
+    // What's on the token
+    interface JWT extends DefaultJWT {
+        user: {
+            id: string;
+            role: Role;
+        };
+    }
+}
+
+export const salt = "38854defece4559aafd18a444";
 
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
@@ -38,34 +53,84 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-    callbacks: {
-        session: ({ session, user }) => ({
-            ...session,
-            user: {
-                ...session.user,
-                id: user.id,
-            },
-        }),
+    pages: {
+        signOut: "/",
+        signIn: "/auth/sign-in",
+        error: "/auth/error",
     },
-    adapter: PrismaAdapter(db),
+    session: {
+        strategy: "jwt",
+    },
+    callbacks: {
+        jwt: ({ token, user }): JWT => {
+            if (user) {
+                token.user = {
+                    id: user.id,
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    role: user.role,
+                };
+            }
+
+            return token;
+        },
+
+        session: ({ session, token }): Session => {
+            if (session.user) {
+                session.user.id = token.user.id;
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                session.user.role = token.user.role;
+            }
+
+            return session;
+        },
+    },
+    adapter: PrismaAdapter(db) as Adapter,
     providers: [
-        GoogleProvider({
-            clientId: env.GOOGLE_CLIENT_ID,
-            clientSecret: env.GOOGLE_CLIENT_SECRET,
+        CredentialsProvider({
+            name: "Credentials",
+            credentials: {
+                email: {
+                    label: "Email",
+                    type: "email",
+                    placeholder: "Email",
+                },
+                password: {
+                    label: "Password",
+                    type: "password",
+                    placeholder: "Password",
+                },
+            },
+            async authorize(credentials, req): Promise<User | null> {
+                if (!credentials) {
+                    throw new Error("No credentials provided!");
+                }
+
+                const encryptedPassword = crypto
+                    .createHash("sha256")
+                    .update(salt + credentials.password, "utf8")
+                    .digest("base64");
+
+                const user = await db.user.findUnique({
+                    where: {
+                        email: credentials.email,
+                    },
+                });
+
+                if (!user) {
+                    throw new Error("We couldn't find that user!");
+                }
+
+                if (user.password !== encryptedPassword) {
+                    throw new Error("Invalid credentials!");
+                }
+
+                return user;
+            },
         }),
         DiscordProvider({
             clientId: env.DISCORD_CLIENT_ID,
             clientSecret: env.DISCORD_CLIENT_SECRET,
         }),
-        /**
-         * ...add more providers here.
-         *
-         * Most other providers require a bit more work than the Discord provider. For example, the
-         * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-         * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-         *
-         * @see https://next-auth.js.org/providers/github
-         */
     ],
 };
 
@@ -74,9 +139,4 @@ export const authOptions: NextAuthOptions = {
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = (ctx: {
-    req: GetServerSidePropsContext["req"];
-    res: GetServerSidePropsContext["res"];
-}) => {
-    return getServerSession(ctx.req, ctx.res, authOptions);
-};
+export const getServerAuthSession = () => getServerSession(authOptions);
