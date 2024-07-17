@@ -1,13 +1,17 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { FC, useState } from "react";
+import toast from "react-hot-toast";
 import Header from "~/components/Base/Header";
 import Button from "~/components/Common/Button";
 import TextInput from "~/components/Common/TextInput";
 import CenteredLayout from "~/layouts/Centered";
 
 const SignInPage: FC = () => {
+    const router = useRouter();
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -36,7 +40,25 @@ const SignInPage: FC = () => {
                 />
             </section>
             <section>
-                <Button className={`ml-auto sm:ml-0`} onClick={() => {}}>
+                <Button
+                    className={`ml-auto sm:ml-0`}
+                    onClick={async () => {
+                        const res = await signIn("credentials", {
+                            redirect: false,
+                            email: form.email,
+                            password: form.password,
+                        });
+
+                        if (!!res) {
+                            if (res.ok) {
+                                toast.success("Welcome back!");
+                                router.push("/");
+                            } else {
+                                toast.error("Something went wrong!");
+                            }
+                        }
+                    }}
+                >
                     Sign In
                 </Button>
             </section>
