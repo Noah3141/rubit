@@ -84,13 +84,11 @@ enum Language {
 }
 
 model SavedList {
-    id               String   @id @default(cuid())
-    inputText        String   @db.MediumText
-    language         Language
-    title            String
-    entry_list       Json
-    form_frequencies Json
-    user             User?    @relation(fields: [userId], references: [id])
-    userId           String?
-    createdAt        DateTime @default(now())
+    id        String   @id @default(cuid())
+    language  Language
+    title     String
+    content   String   @db.MediumText
+    user      User?    @relation(fields: [userId], references: [id])
+    userId    String?
+    createdAt DateTime @default(now())
 }

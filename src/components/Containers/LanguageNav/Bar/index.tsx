@@ -3,11 +3,9 @@
 import classNames from "classnames";
 import styles from "./index.module.css";
 import React, { FC, PropsWithChildren, useState } from "react";
-import { usePathname } from "next/navigation";
 import { toTitleCase } from "~/utils/strings";
-
 import { FaChevronDown } from "react-icons/fa";
-import { Language } from "~/types/language";
+import type { Language } from "~/types/language";
 
 const Bar: FC<
     PropsWithChildren<{
@@ -15,7 +13,6 @@ const Bar: FC<
     }>
 > = ({ children, language }) => {
     const [navOpen, setNavOpen] = useState(false);
-
     const languageTitle = toTitleCase(language) as Language;
 
     return (

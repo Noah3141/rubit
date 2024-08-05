@@ -22,7 +22,7 @@ const SaveListForm: FC<{
             toast.error("Something went wrong!", { id: "saveList" });
         },
         onSuccess: (newList) => {
-            router.push(`/language/belarusian/list/${newList.id}`);
+            router.push(`/language/belarusian/my-lists/${newList.id}`);
             toast.success("Saved!", { id: "saveList" });
         },
     });

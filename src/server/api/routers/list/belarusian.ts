@@ -13,6 +13,7 @@ import { VerbEntry } from "~/types/belarusian/list/verb";
 import { AdjEntry } from "~/types/belarusian/list/adjective";
 import { AdvEntry } from "~/types/belarusian/list/adverb";
 import { Language } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 
 export const listBelarusianRouter = createTRPCRouter({
     vocabularyList: protectedProcedure
@@ -48,7 +49,7 @@ export const listBelarusianRouter = createTRPCRouter({
                     userId: ctx.session.user.id,
                     language: Language.Belarusian,
                     title: input.title,
-                    ...input.list,
+                    content: JSON.stringify(input.list),
                 },
                 select: {
                     id: true,
@@ -61,19 +62,36 @@ export const listBelarusianRouter = createTRPCRouter({
     get: publicProcedure
         .input(z.object({ listId: z.string() }))
         .query(async ({ ctx, input }) => {
-            return await ctx.db.savedList.findUnique({
+            const savedList = await ctx.db.savedList.findUnique({
                 where: {
                     id: input.listId,
                 },
             });
+
+            if (!savedList) {
+                throw new TRPCError({
+                    code: "NOT_FOUND",
+                    message: "We couldn't find that list!",
+                });
+            }
+
+            return {
+                ...savedList,
+                content: JSON.parse(savedList.content) as VocabularyListData,
+            };
         }),
 
     getUsers: protectedProcedure.query(async ({ ctx }) => {
-        return await ctx.db.savedList.findMany({
+        const savedLists = await ctx.db.savedList.findMany({
             where: {
                 userId: ctx.session.user.id,
                 language: Language.Belarusian,
             },
         });
+
+        return savedLists.map((list) => ({
+            ...list,
+            content: JSON.parse(list.content) as VocabularyListData,
+        }));
     }),
 });
