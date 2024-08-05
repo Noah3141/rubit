@@ -2,7 +2,7 @@
     @apply bg-red-600 lg:px-6;
 
     .container {
-        @apply flex py-2;
+        @apply flex flex-row gap-1 py-2;
     }
 
     .mobileNavButton {

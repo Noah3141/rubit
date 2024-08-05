@@ -27,7 +27,7 @@ const SignUpForm: FC = () => {
             toast.error(e.message, {
                 id: "signUp",
                 icon: (
-                    <RiErrorWarningFill className="!fill-violet-700 !size-6" />
+                    <RiErrorWarningFill className="!size-6 !fill-violet-700" />
                 ),
                 duration: 1000000,
             });
@@ -49,7 +49,7 @@ const SignUpForm: FC = () => {
                     {
                         id: "signUp",
                         icon: (
-                            <RiErrorWarningFill className="!fill-violet-700 !size-6" />
+                            <RiErrorWarningFill className="!size-6 !fill-violet-700" />
                         ),
                     },
                 );

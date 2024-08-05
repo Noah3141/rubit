@@ -31,6 +31,7 @@ const SignInPage: FC = () => {
                     }
                 />
                 <TextInput
+                    type="password"
                     className="sm:w-96"
                     value={form.password}
                     placeholder="Password"
@@ -54,7 +55,9 @@ const SignInPage: FC = () => {
                                 toast.success("Welcome back!");
                                 router.push("/");
                             } else {
-                                toast.error("Something went wrong!");
+                                toast.error(
+                                    res.error ?? "Something went wrong!",
+                                );
                             }
                         }
                     }}

@@ -7,23 +7,23 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["var(--font-geist-sans)", ...fontFamily.sans],
+                sans: [...fontFamily.sans],
             },
         },
         colors: {
             transparent,
             inherit,
             purple: {
-                50: "#F6F1F9",
-                100: "#EEE2F3",
-                200: "#DCC5E7",
-                300: "#CBA8DB",
-                400: "#BA8BCF",
-                500: "#A66BC2",
-                600: "#954EB6",
-                700: "#7E409B",
-                800: "#67347E",
-                900: "#4F2861",
+                50: "#F2E9F6",
+                100: "#E7D7EF",
+                200: "#CDACDD",
+                300: "#B684CC",
+                400: "#9C59BA",
+                500: "#7E409B",
+                600: "#6A3682",
+                700: "#582D6C",
+                800: "#442253",
+                900: "#32193D",
                 950: "#26132F",
             },
             violet: {

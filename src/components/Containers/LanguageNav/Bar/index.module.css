@@ -1,5 +1,5 @@
 .navbar {
-    @apply bg-violet-900 flex flex-row;
+    @apply flex flex-row bg-violet-900;
 
     .header {
         @apply flex w-full flex-row gap-3 px-6 py-2;
@@ -9,7 +9,7 @@
         }
 
         .contents {
-            @apply flex w-full flex-row justify-start;
+            @apply flex w-full flex-row justify-start gap-1;
         }
     }
 
@@ -21,7 +21,7 @@
         }
 
         .button {
-            @apply hover:bg-violet-800 rounded p-1;
+            @apply rounded p-1 hover:bg-violet-800;
 
             .icon {
                 @apply size-6 transition-all;

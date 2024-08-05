@@ -22,8 +22,10 @@ export const NounEntry = z.object({
             dat_plur: z.string().nullable(),
             ins_sing: z.string().nullable(),
             ins_plur: z.string().nullable(),
-            pre_sing: z.string().nullable(),
-            pre_plur: z.string().nullable(),
+            loc_sing: z.string().nullable(),
+            loc_plur: z.string().nullable(),
         }),
     }),
 });
+
+export type NounEntry = z.infer<typeof NounEntry>;

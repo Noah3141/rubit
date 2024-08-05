@@ -1,10 +1,8 @@
 import { z } from "zod";
 
 export const VerbEntry = z.object({
-    /** Frequency in input text */
     frequency: z.number(),
-    /** Stable info about lemma */
-    entry: z.object({
+    model: z.object({
         lemma: z.string(),
         type: z.literal("Verb"),
         commonality: z.number().nullable(),
@@ -18,10 +16,10 @@ export const VerbEntry = z.object({
             // Forms
             я_form: z.string().nullable(),
             ты_form: z.string().nullable(),
-            он_form: z.string().nullable(),
+            ён_form: z.string().nullable(),
             мы_form: z.string().nullable(),
             вы_form: z.string().nullable(),
-            они_form: z.string().nullable(),
+            яны_form: z.string().nullable(),
             fem_past: z.string().nullable(),
             masc_past: z.string().nullable(),
             neut_past: z.string().nullable(),
@@ -37,3 +35,5 @@ export const VerbEntry = z.object({
         }),
     }),
 });
+
+export type VerbEntry = z.infer<typeof VerbEntry>;

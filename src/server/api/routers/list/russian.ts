@@ -1,8 +1,13 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../../trpc";
+import {
+    createTRPCRouter,
+    protectedProcedure,
+    publicProcedure,
+} from "../../trpc";
 import { VocabularyListSchema } from "~/types/russian/list";
+import { Language } from "@prisma/client";
 
-export const generateRussianRouter = createTRPCRouter({
+export const listRussianRouter = createTRPCRouter({
     vocabularyList: protectedProcedure
         .input(z.object({ inputText: z.string() }))
         .output(VocabularyListSchema)
@@ -14,7 +19,6 @@ export const generateRussianRouter = createTRPCRouter({
                     method: "post",
                     body: JSON.stringify({
                         input_text: input.inputText,
-                        breadth: 100,
                     }),
                     headers: {
                         "Content-Type": "application/json",
@@ -25,4 +29,22 @@ export const generateRussianRouter = createTRPCRouter({
 
             return data;
         }),
+
+    get: publicProcedure
+        .input(z.object({ listId: z.string() }))
+        .query(async ({ ctx, input }) => {
+            return await ctx.db.savedList.findUnique({
+                where: {
+                    id: input.listId,
+                },
+            });
+        }),
+    getUsers: protectedProcedure.query(async ({ ctx }) => {
+        return await ctx.db.savedList.findMany({
+            where: {
+                userId: ctx.session.user.id,
+                language: Language.Russian,
+            },
+        });
+    }),
 });

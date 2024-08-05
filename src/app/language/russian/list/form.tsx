@@ -14,18 +14,11 @@ const Form: FC<{
         React.SetStateAction<VocabularyListData | undefined>
     >;
 }> = ({ setVocabularyList }) => {
-    const breadthOptions: Option[] = [
-        { text: "All" },
-        { text: "10%" },
-        { text: "25%" },
-        { text: "50%" },
-    ];
     const [form, setForm] = useState({
         inputText: "",
-        breadth: breadthOptions[0]!,
     });
 
-    const generateList = api.generate.russian.vocabularyList.useMutation({
+    const generateList = api.list.russian.vocabularyList.useMutation({
         onMutate: () => {
             toast.loading("Generating list...", { id: "generateList" });
         },
@@ -51,16 +44,6 @@ const Form: FC<{
                 onChange={(e) => {
                     setForm((p) => ({ ...p, inputText: e.target.value }));
                 }}
-            />
-
-            <Header level="3">Options</Header>
-
-            <Toggler
-                options={breadthOptions}
-                selected={form.breadth}
-                onChange={(newVal) =>
-                    setForm((p) => ({ ...p, breadth: newVal }))
-                }
             />
 
             <Button

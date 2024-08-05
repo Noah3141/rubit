@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Button from "~/components/Common/Button";
-import VocabularyList from "~/components/Lists/VocabularyList";
 import type { VocabularyListData } from "~/types/russian/list";
+import VocabularyList from "./_components/VocabularyList";
 
 const List: FC<{
     vocabularyList: VocabularyListData;

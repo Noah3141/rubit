@@ -1,0 +1,27 @@
+.item {
+    @apply rounded bg-purple-900 p-3 text-2xl hover:bg-purple-800;
+
+    .dropdown {
+        @apply grid grid-cols-1 grid-rows-[0fr] transition-all;
+
+        &.open {
+            @apply grid-rows-[1fr];
+        }
+
+        .adjTable {
+            @apply table table-auto text-center text-lg;
+
+            > thead {
+                @apply divide-x divide-violet-900 border-b border-violet-700 bg-violet-800/30;
+            }
+
+            > tbody {
+                @apply divide-y divide-violet-800;
+
+                > tr {
+                    @apply divide-x divide-violet-900;
+                }
+            }
+        }
+    }
+}

@@ -1,3 +1,3 @@
 .item {
-    @apply hover:bg-violet-700 block w-fit cursor-pointer rounded-lg px-3 py-1 hover:text-neutral-50 lg:py-2;
+    @apply block w-fit cursor-pointer rounded-lg px-3 py-1 hover:bg-violet-800 hover:text-neutral-50 lg:py-2;
 }

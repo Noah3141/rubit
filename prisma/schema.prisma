@@ -61,8 +61,7 @@ model User {
     sessions      Session[]
     role          Role      @default(User)
 
-    knownWords VocabEntry[]
-    savedLists VocabList[]
+    savedLists SavedList[]
 }
 
 enum Role {
@@ -78,42 +77,19 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-model VocabList {
-    id      String       @id @default(cuid())
-    title   String
-    // `VocabEntry` models listing the aggregations by lemma
-    entries VocabEntry[]
-
-    User         User    @relation(fields: [userId], references: [id])
-    userId       String
-    knownPercent String?
-
-    sourceText   SourceText @relation(fields: [sourceTextId], references: [id])
-    sourceTextId String
+enum Language {
+    Russian
+    Ukrainian
+    Belarusian
 }
 
-model VocabEntry {
-    id         String   @id @default(cuid())
-    // The forms that occured in the text
-    // forms      Json
-    /// The dictionary form for display
-    lemma      String
-    /// Frequency in the source text
-    frequency  Int?
-    perfective Boolean?
-
-    listId    String?
-    VocabList VocabList? @relation(fields: [listId], references: [id])
-
-    User    User?     @relation(fields: [userId], references: [id])
-    userId  String?
-    addedAt DateTime? @default(now())
-}
-
-model SourceText {
-    id      String  @id @default(cuid())
-    content String  @db.LongText
-    source  String?
-
-    VocabList VocabList[]
+model SavedList {
+    id               String   @id @default(cuid())
+    inputText        String   @db.MediumText
+    language         Language
+    entry_list       Json
+    form_frequencies Json
+    user             User?    @relation(fields: [userId], references: [id])
+    userId           String?
+    createdAt        DateTime @default(now())
 }
