@@ -24,7 +24,7 @@ export default async function RootLayout({
                     <Toaster
                         position="top-right"
                         toastOptions={{
-                            className: "!bg-violet-50 !text-violet-950",
+                            className: "!bg-violet-950 !text-violet-200",
                         }}
                     />
                     <BaseLayout>{children}</BaseLayout>

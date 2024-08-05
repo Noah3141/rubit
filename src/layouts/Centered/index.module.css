@@ -2,7 +2,7 @@
     @apply min-h-full;
 
     .layout {
-        @apply grid grid-cols-1 gap-6 p-3 lg:p-12;
+        @apply mx-auto grid max-w-7xl grid-cols-1 gap-6 p-3 lg:p-12;
 
         section {
             @apply grid grid-cols-1 gap-3;

@@ -45,37 +45,43 @@ const VocabularyList: FC<{
     return (
         <div className={classNames(styles.container)}>
             <section>
-                <Header level="2">Verb</Header>
-                <div className={classNames(styles.list)}>
-                    {verbs.map((entry) => (
-                        <VerbItem
-                            key={entry.model.lemma}
-                            entry={entry as VerbEntry}
-                        />
-                    ))}
-                </div>
+                <Header level="2">Verbs</Header>
+                {!!verbs.length ? (
+                    <div className={classNames(styles.list)}>
+                        {verbs.map((entry) => (
+                            <VerbItem key={entry.model.lemma} entry={entry} />
+                        ))}
+                    </div>
+                ) : (
+                    "None"
+                )}
             </section>
             <section>
                 <Header level="2">Nouns</Header>
-                <div className={classNames(styles.list)}>
-                    {nouns.map((entry) => (
-                        <NounItem
-                            key={entry.model.lemma}
-                            entry={entry as NounEntry}
-                        />
-                    ))}
-                </div>
+                {!!nouns.length ? (
+                    <div className={classNames(styles.list)}>
+                        {nouns.map((entry) => (
+                            <NounItem key={entry.model.lemma} entry={entry} />
+                        ))}
+                    </div>
+                ) : (
+                    "None"
+                )}
             </section>
             <section>
                 <Header level="2">Adjectives</Header>
-                <div className={classNames(styles.list)}>
-                    {adjectives.map((entry) => (
-                        <AdjectiveItem
-                            key={entry.model.lemma}
-                            entry={entry as AdjEntry}
-                        />
-                    ))}
-                </div>
+                {!!adjectives.length ? (
+                    <div className={classNames(styles.list)}>
+                        {adjectives.map((entry) => (
+                            <AdjectiveItem
+                                key={entry.model.lemma}
+                                entry={entry}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    "None"
+                )}
             </section>
         </div>
     );

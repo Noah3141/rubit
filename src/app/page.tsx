@@ -1,6 +1,5 @@
 import Banner from "~/components/Base/Banner";
 import Header from "~/components/Base/Header";
-import P from "~/components/Base/P";
 import CenteredLayout from "~/layouts/Centered";
 
 export default async function Home() {

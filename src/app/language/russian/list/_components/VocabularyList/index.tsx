@@ -14,16 +14,7 @@ const VocabularyList: FC<{
 
     return (
         <div className={classNames(styles.list)}>
-            {vocabularyList.entry_list.map((token) => {
-                return (
-                    <div
-                        key={token.entry.lemma}
-                        className={classNames(styles.item)}
-                    >
-                        {token.entry.lemma}
-                    </div>
-                );
-            })}
+           
         </div>
     );
 };

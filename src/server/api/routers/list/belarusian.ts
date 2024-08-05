@@ -32,45 +32,30 @@ export const listBelarusianRouter = createTRPCRouter({
                     },
                 },
             );
-
             const json = (await res.json()) as Omit<
                 VocabularyListData,
                 "inputText"
             >;
 
-            const nouns = json.entry_list
-                .filter((t) => t.model.type == "Noun")
-                .map((t) => NounEntry.parse(t));
-
-            const verbs = json.entry_list
-                .filter((t) => t.model.type == "Verb")
-                .map((t) => VerbEntry.parse(t));
-
-            const adj = json.entry_list
-                .filter((t) => t.model.type == "Adjective")
-                .map((t) => AdjEntry.parse(t));
-
-            const adv = json.entry_list
-                .filter((t) => t.model.type == "Adverb")
-                .map((t) => AdvEntry.parse(t));
-
-            z.record(z.number()).parse(json.form_frequencies);
-
             return json;
         }),
 
     save: protectedProcedure
-        .input(VocabularyListSchema)
+        .input(z.object({ list: VocabularyListSchema, title: z.string() }))
         .mutation(async ({ ctx, input }) => {
-            await ctx.db.savedList.create({
+            const list = await ctx.db.savedList.create({
                 data: {
-                    language: Language.Belarusian,
-                    entry_list: input.entry_list,
-                    inputText: input.inputText,
-                    form_frequencies: input.form_frequencies,
                     userId: ctx.session.user.id,
+                    language: Language.Belarusian,
+                    title: input.title,
+                    ...input.list,
+                },
+                select: {
+                    id: true,
                 },
             });
+
+            return list;
         }),
 
     get: publicProcedure

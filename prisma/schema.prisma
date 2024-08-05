@@ -87,6 +87,7 @@ model SavedList {
     id               String   @id @default(cuid())
     inputText        String   @db.MediumText
     language         Language
+    title            String
     entry_list       Json
     form_frequencies Json
     user             User?    @relation(fields: [userId], references: [id])

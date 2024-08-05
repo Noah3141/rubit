@@ -1,0 +1,11 @@
+.dropdown {
+    @apply rounded bg-purple-900 p-3 text-2xl hover:bg-purple-800;
+
+    .contents {
+        @apply grid grid-cols-1 grid-rows-[0fr] transition-all;
+
+        &.open {
+            @apply grid-rows-[1fr];
+        }
+    }
+}
