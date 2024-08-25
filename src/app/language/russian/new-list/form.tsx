@@ -5,9 +5,8 @@ import toast from "react-hot-toast";
 import Header from "~/components/Base/Header";
 import Button from "~/components/Common/Button";
 import Textarea from "~/components/Common/Textarea";
-import Toggler, { Option } from "~/components/Common/Toggler";
 import { api } from "~/trpc/react";
-import { VocabularyListData } from "~/types/russian/list";
+import type { VocabularyListData } from "~/types/russian/list";
 
 const Form: FC<{
     setVocabularyList: React.Dispatch<
@@ -22,9 +21,12 @@ const Form: FC<{
         onMutate: () => {
             toast.loading("Generating list...", { id: "generateList" });
         },
-        onSuccess: (data) => {
+        onSuccess: (newList) => {
             toast.success("Success!", { id: "generateList" });
-            setVocabularyList(data);
+            setVocabularyList({
+                ...newList,
+                inputText: form.inputText,  
+            });
         },
         onError: (e) => {
             toast.error(e.message, { id: "generateList" });

@@ -27,3 +27,5 @@ export const NounEntry = z.object({
         }),
     }),
 });
+
+export type NounEntry = z.infer<typeof NounEntry>;

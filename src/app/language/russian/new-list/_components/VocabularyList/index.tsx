@@ -3,14 +3,14 @@
 import classNames from "classnames";
 import React, { FC } from "react";
 import Button from "~/components/Common/Button";
+import { VocabularyListData } from "~/types/russian/list";
 import styles from "./index.module.css";
 import NounItem from "./NounItem";
 import AdjectiveItem from "./AdjectiveItem";
 import VerbItem from "./VerbItem";
-import type { VocabularyListData } from "~/types/belarusian/list";
-import type { VerbEntry } from "~/types/belarusian/list/verb";
-import type { AdjEntry } from "~/types/belarusian/list/adjective";
-import type { NounEntry } from "~/types/belarusian/list/noun";
+import type { VerbEntry } from "~/types/russian/list/verb";
+import type { AdjEntry } from "~/types/russian/list/adjective";
+import type { NounEntry } from "~/types/russian/list/noun";
 import Header from "~/components/Base/Header";
 
 const VocabularyList: FC<{

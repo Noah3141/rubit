@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import React, { FC, useState } from "react";
-import { NounEntry } from "~/types/belarusian/list/noun";
-
+import type { NounEntry } from "~/types/russian/list/noun";
 import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";
 import FrequencyLabel from "~/components/Common/FrequencyLabel";
@@ -73,19 +72,19 @@ const NounItem: FC<{
                             </td>
                         </tr>
                         <tr>
-                            <td className="p-1 text-right">locative</td>
+                            <td className="p-1 text-right">prepositional</td>
                             <td>
-                                {entry.model.dictionary_info.loc_sing ?? "-"}
+                                {entry.model.dictionary_info.pre_sing ?? "-"}
                             </td>
                             <td>
-                                {entry.model.dictionary_info.loc_plur ?? "-"}
+                                {entry.model.dictionary_info.pre_plur ?? "-"}
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div>
-                <GPTSentencer language="Belarusian" token={entry.model.lemma} />
+                <GPTSentencer language="Russian" token={entry.model.lemma} />
             </div>
         </Dropdown>
     );

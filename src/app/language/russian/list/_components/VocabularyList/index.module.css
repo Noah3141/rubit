@@ -1,7 +1,0 @@
-.list {
-    @apply divide-violet-800 flex flex-col divide-y;
-
-    .item {
-        @apply py-1;
-    }
-}

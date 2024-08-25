@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import Button from "~/components/Common/Button";
 import type { VocabularyListData } from "~/types/russian/list";
 import VocabularyList from "./_components/VocabularyList";
+import SaveListForm from "./_components/SaveListForm";
 
 const List: FC<{
     vocabularyList: VocabularyListData;
@@ -21,7 +22,7 @@ const List: FC<{
                 </button>
             </div>
             <section>
-                <Button>Save List</Button>
+                <SaveListForm vocabularyList={vocabularyList} />
             </section>
             <section>
                 <VocabularyList vocabularyList={vocabularyList} />

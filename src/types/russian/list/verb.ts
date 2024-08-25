@@ -4,7 +4,7 @@ export const VerbEntry = z.object({
     /** Frequency in input text */
     frequency: z.number(),
     /** Stable info about lemma */
-    entry: z.object({
+    model: z.object({
         lemma: z.string(),
         type: z.literal("Verb"),
         commonality: z.number().nullable(),
@@ -37,3 +37,5 @@ export const VerbEntry = z.object({
         }),
     }),
 });
+
+export type VerbEntry = z.infer<typeof VerbEntry>;

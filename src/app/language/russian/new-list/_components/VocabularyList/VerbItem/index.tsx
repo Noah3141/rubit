@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { FC, useState } from "react";
-import { VerbEntry } from "~/types/belarusian/list/verb";
+import { VerbEntry } from "~/types/russian/list/verb";
 
 import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";
@@ -56,10 +56,10 @@ const VerbItem: FC<{
                         <tr>
                             <td className="p-1 text-right">3rd person</td>
                             <td>
-                                {entry.model.dictionary_info.ён_form ?? "-"}
+                                {entry.model.dictionary_info.он_form ?? "-"}
                             </td>
                             <td>
-                                {entry.model.dictionary_info.яны_form ?? "-"}
+                                {entry.model.dictionary_info.они_form ?? "-"}
                             </td>
                         </tr>
                         <tr>
@@ -139,7 +139,7 @@ const VerbItem: FC<{
                 </table>
             </div>
             <div>
-                <GPTSentencer language="Belarusian" token={entry.model.lemma} />
+                <GPTSentencer language="Russian" token={entry.model.lemma} />
             </div>
             <div>Tree:</div>
         </Dropdown>

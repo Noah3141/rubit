@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Form from "./form";
-import { VocabularyListData } from "~/types/russian/list";
+import type { VocabularyListData } from "~/types/russian/list";
 import List from "./list";
 
 const RussianGeneratePage = () => {

@@ -4,13 +4,17 @@ import {
     protectedProcedure,
     publicProcedure,
 } from "../../trpc";
-import { VocabularyListSchema } from "~/types/russian/list";
+import {
+    type VocabularyListData,
+    VocabularyListSchema,
+} from "~/types/russian/list";
 import { Language } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 
 export const listRussianRouter = createTRPCRouter({
     vocabularyList: protectedProcedure
         .input(z.object({ inputText: z.string() }))
-        .output(VocabularyListSchema)
+        .output(VocabularyListSchema.omit({ inputText: true }))
         .mutation(async ({ ctx, input }) => {
             // Hit rust
             const res = await fetch(
@@ -25,26 +29,65 @@ export const listRussianRouter = createTRPCRouter({
                     },
                 },
             );
-            const data = VocabularyListSchema.parse(await res.json());
+            const json = (await res.json()) as Omit<
+                VocabularyListData,
+                "inputText"
+            >;
 
-            return data;
+            return json;
+        }),
+
+    save: protectedProcedure
+        .input(z.object({ list: VocabularyListSchema, title: z.string() }))
+        .mutation(async ({ ctx, input }) => {
+            const list = await ctx.db.savedList.create({
+                data: {
+                    userId: ctx.session.user.id,
+                    language: Language.Russian,
+                    title: input.title,
+                    content: JSON.stringify(input.list),
+                },
+                select: {
+                    id: true,
+                },
+            });
+
+            return list;
         }),
 
     get: publicProcedure
         .input(z.object({ listId: z.string() }))
         .query(async ({ ctx, input }) => {
-            return await ctx.db.savedList.findUnique({
+            const savedList = await ctx.db.savedList.findUnique({
                 where: {
                     id: input.listId,
                 },
             });
+
+            if (!savedList) {
+                throw new TRPCError({
+                    code: "NOT_FOUND",
+                    message: "We couldn't find that list!",
+                });
+            }
+
+            return {
+                ...savedList,
+                content: JSON.parse(savedList.content) as VocabularyListData,
+            };
         }),
+
     getUsers: protectedProcedure.query(async ({ ctx }) => {
-        return await ctx.db.savedList.findMany({
+        const savedLists = await ctx.db.savedList.findMany({
             where: {
                 userId: ctx.session.user.id,
                 language: Language.Russian,
             },
         });
+
+        return savedLists.map((list) => ({
+            ...list,
+            content: JSON.parse(list.content) as VocabularyListData,
+        }));
     }),
 });

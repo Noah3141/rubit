@@ -42,3 +42,5 @@ export const AdjEntry = z.object({
         }),
     }),
 });
+
+export type AdjEntry = z.infer<typeof AdjEntry>;
