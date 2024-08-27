@@ -1,10 +1,10 @@
 import React from "react";
-import SavedListRow from "~/app/language/belarusian/my-lists/_components/SavedListRow";
 import Header from "~/components/Base/Header";
 import { api } from "~/trpc/server";
+import SavedListRow from "./_components/SavedListRow";
 
 const SavedListsPage = async () => {
-    const myLists = await api.list.belarusian.bySessionUser();
+    const myLists = await api.list.ukrainian.bySessionUser();
 
     return (
         <>

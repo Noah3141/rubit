@@ -41,6 +41,7 @@ const GPTSentencer: FC<{
                 Example
             </Button>{" "}
             <Button
+                disabled={!example?.sentence}
                 onClick={() => {
                     setShowTranslation((p) => !p);
                 }}
@@ -48,7 +49,9 @@ const GPTSentencer: FC<{
                 {showTranslation ? "Hide English" : "Show English"}
             </Button>
             <div>{example?.sentence}</div>
-            {showTranslation && <div>{example?.translation}</div>}
+            {showTranslation && (
+                <div>{example?.translation ?? "Something went wrong"}</div>
+            )}
         </div>
     );
 };

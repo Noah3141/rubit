@@ -6,6 +6,7 @@ export const AdvEntry = z.object({
         lemma: z.string(),
         type: z.literal("Adverb"),
         commonality: z.number().nullable(),
+        id: z.number(),
         dictionary_info: z.object({
             dictionary_form: z.string(),
             accented: z.string(),

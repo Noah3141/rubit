@@ -6,6 +6,7 @@ export const AdjEntry = z.object({
         lemma: z.string(),
         commonality: z.number().nullable(),
         type: z.literal("Adjective"),
+        id: z.number(),
         dictionary_info: z.object({
             lemma: z.string(),
             ipa: z.string(),

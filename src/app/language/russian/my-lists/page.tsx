@@ -4,7 +4,7 @@ import Header from "~/components/Base/Header";
 import { api } from "~/trpc/server";
 
 const SavedListsPage = async () => {
-    const myLists = await api.list.russian.getUsers();
+    const myLists = await api.list.russian.bySessionUser();
 
     return (
         <>

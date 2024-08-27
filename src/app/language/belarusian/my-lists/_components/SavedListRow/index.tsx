@@ -6,7 +6,7 @@ import type { RouterOutputs } from "~/trpc/react";
 import Link from "next/link";
 
 const SavedListRow: FC<{
-    savedList: RouterOutputs["list"]["belarusian"]["getUsers"][0];
+    savedList: RouterOutputs["list"]["belarusian"]["bySessionUser"][0];
 }> = ({ savedList }) => {
     return (
         <div className={classNames(styles.row)}>

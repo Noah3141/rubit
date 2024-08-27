@@ -81,7 +81,7 @@ export const listBelarusianRouter = createTRPCRouter({
             };
         }),
 
-    getUsers: protectedProcedure.query(async ({ ctx }) => {
+    bySessionUser: protectedProcedure.query(async ({ ctx }) => {
         const savedLists = await ctx.db.savedList.findMany({
             where: {
                 userId: ctx.session.user.id,

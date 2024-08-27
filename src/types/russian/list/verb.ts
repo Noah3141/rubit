@@ -8,6 +8,7 @@ export const VerbEntry = z.object({
         lemma: z.string(),
         type: z.literal("Verb"),
         commonality: z.number().nullable(),
+        id: z.number(),
         dictionary_info: z.object({
             lemma: z.string(),
             ipa: z.string(),

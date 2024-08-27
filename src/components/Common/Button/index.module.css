@@ -34,6 +34,10 @@
 
     &.idle {
         @apply cursor-pointer;
+
+        &:disabled {
+            @apply cursor-default opacity-60;
+        }
     }
 
     &.pending {
