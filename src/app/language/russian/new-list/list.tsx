@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import Button from "~/components/Common/Button";
 import type { VocabularyListData } from "~/types/russian/list";
-import VocabularyList from "./_components/VocabularyList";
 import SaveListForm from "./_components/SaveListForm";
+import VocabularyList from "~/app/language/russian/_components/VocabularyList";
 
 const List: FC<{
     vocabularyList: VocabularyListData;

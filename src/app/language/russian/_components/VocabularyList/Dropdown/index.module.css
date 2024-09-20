@@ -1,5 +1,5 @@
 .dropdown {
-    @apply rounded-lg bg-purple-900 p-3 text-xl hover:bg-purple-800;
+    @apply p-3 hover:bg-purple-800;
 
     .contents {
         @apply grid grid-cols-1 grid-rows-[0fr] transition-all;

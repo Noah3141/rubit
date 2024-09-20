@@ -5,6 +5,7 @@ import React, { FC, useState } from "react";
 import styles from "./index.module.css";
 import Button from "../Button";
 import { api } from "~/trpc/react";
+import toast from "react-hot-toast";
 
 const GPTSentencer: FC<{
     language: Language;
@@ -22,6 +23,10 @@ const GPTSentencer: FC<{
             setTimeout(() => {
                 gptGenerate.reset();
             }, 2000);
+        },
+        onError: (e) => {
+            console.error(e);
+            toast.error("Something went wrong!");
         },
     });
 

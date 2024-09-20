@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";
 import FrequencyLabel from "~/components/Common/FrequencyLabel";
 import GPTSentencer from "~/components/Common/GPTSentencer";
-import Dropdown from "~/components/Containers/Dropdown";
+import Dropdown from "../Dropdown";
 
 const NounItem: FC<{
     entry: NounEntry;

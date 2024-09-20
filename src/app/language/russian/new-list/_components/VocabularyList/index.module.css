@@ -1,7 +1,0 @@
-.container {
-    @apply flex flex-col gap-6;
-
-    .list {
-        @apply flex flex-col gap-1;
-    }
-}

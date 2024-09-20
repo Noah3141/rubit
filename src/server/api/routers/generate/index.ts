@@ -14,7 +14,9 @@ export const generateRouter = createTRPCRouter({
                 messages: [
                     {
                         role: "system",
-                        content: `You are a ${input.language} language teacher. Given a word, respond only with: a simple example quote using the word, following by the English, separated by a newline.`,
+                        content: `You are a ${input.language} language teacher. 
+                        Given a word, respond only with: a simple example sentence using the word, 
+                        following by the English, separated by a newline.`,
                     },
                     {
                         role: "user",
@@ -22,7 +24,7 @@ export const generateRouter = createTRPCRouter({
                     },
                 ],
                 model: "gpt-3.5-turbo",
-                temperature: 0.45,
+                temperature: 0.55,
             });
 
             const lines = completion.choices

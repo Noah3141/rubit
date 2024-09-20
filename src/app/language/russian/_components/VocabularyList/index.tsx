@@ -1,9 +1,8 @@
 "use client";
 
 import classNames from "classnames";
-import React, { FC } from "react";
-import Button from "~/components/Common/Button";
-import { VocabularyListData } from "~/types/russian/list";
+import React, { type FC } from "react";
+import type { VocabularyListData } from "~/types/russian/list";
 import styles from "./index.module.css";
 import NounItem from "./NounItem";
 import AdjectiveItem from "./AdjectiveItem";
@@ -21,6 +20,11 @@ const VocabularyList: FC<{
     vocabularyList.entry_list
         .sort((a, b) => b.frequency - a.frequency)
         .sort((a, b) => a.model.type.localeCompare(b.model.type));
+
+    //TODO
+    // BUNCH OF COOL SICK STATE
+    //
+    //
 
     const nouns: NounEntry[] = [];
     const verbs: VerbEntry[] = [];
@@ -46,42 +50,27 @@ const VocabularyList: FC<{
         <div className={classNames(styles.container)}>
             <section>
                 <Header level="2">Verbs</Header>
-                {!!verbs.length ? (
-                    <div className={classNames(styles.list)}>
-                        {verbs.map((entry) => (
-                            <VerbItem key={entry.model.lemma} entry={entry} />
-                        ))}
-                    </div>
-                ) : (
-                    "None"
-                )}
+                <div className={classNames(styles.list)}>
+                    {verbs.map((entry) => (
+                        <VerbItem key={entry.model.lemma} entry={entry} />
+                    ))}
+                </div>
             </section>
             <section>
                 <Header level="2">Nouns</Header>
-                {!!nouns.length ? (
-                    <div className={classNames(styles.list)}>
-                        {nouns.map((entry) => (
-                            <NounItem key={entry.model.lemma} entry={entry} />
-                        ))}
-                    </div>
-                ) : (
-                    "None"
-                )}
+                <div className={classNames(styles.list)}>
+                    {nouns.map((entry) => (
+                        <NounItem key={entry.model.lemma} entry={entry} />
+                    ))}
+                </div>
             </section>
             <section>
                 <Header level="2">Adjectives</Header>
-                {!!adjectives.length ? (
-                    <div className={classNames(styles.list)}>
-                        {adjectives.map((entry) => (
-                            <AdjectiveItem
-                                key={entry.model.lemma}
-                                entry={entry}
-                            />
-                        ))}
-                    </div>
-                ) : (
-                    "None"
-                )}
+                <div className={classNames(styles.list)}>
+                    {adjectives.map((entry) => (
+                        <AdjectiveItem key={entry.model.lemma} entry={entry} />
+                    ))}
+                </div>
             </section>
         </div>
     );

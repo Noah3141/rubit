@@ -1,7 +1,12 @@
 import React from "react";
+import Content from "./content";
 
-const MyListPage = () => {
-    return <div>MyListPage</div>;
+const MyListPage = async () => {
+    return (
+        <div>
+            <Content></Content>
+        </div>
+    );
 };
 
 export default MyListPage;

@@ -6,7 +6,7 @@ import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";
 import FrequencyLabel from "~/components/Common/FrequencyLabel";
 import GPTSentencer from "~/components/Common/GPTSentencer";
-import Dropdown from "~/components/Containers/Dropdown";
+import Dropdown from "../Dropdown";
 
 const VerbItem: FC<{
     entry: VerbEntry;
@@ -15,11 +15,10 @@ const VerbItem: FC<{
         <Dropdown
             header={
                 <>
-                    {" "}
                     <FrequencyLabel>{entry.frequency}</FrequencyLabel>{" "}
                     {entry.model.lemma}
                     <IPA>{entry.model.dictionary_info.ipa}</IPA>
-                    <span className="text-lg">
+                    <span>
                         (
                         {entry.model.dictionary_info.is_perfective
                             ? "pf."
@@ -29,7 +28,7 @@ const VerbItem: FC<{
                 </>
             }
         >
-            <div className="w-full overflow-hidden rounded border border-violet-600">
+            <div className="w-full overflow-hidden rounded border-violet-600">
                 <table className={classNames(styles.verbTable)}>
                     <thead>
                         <th className="w-36 px-3 py-1"></th>

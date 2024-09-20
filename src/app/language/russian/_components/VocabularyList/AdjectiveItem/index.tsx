@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";
 import FrequencyLabel from "~/components/Common/FrequencyLabel";
 import GPTSentencer from "~/components/Common/GPTSentencer";
-import Dropdown from "~/components/Containers/Dropdown";
+import Dropdown from "../Dropdown";
 
 const AdjectiveItem: FC<{
     entry: AdjEntry;
@@ -14,7 +14,6 @@ const AdjectiveItem: FC<{
         <Dropdown
             header={
                 <>
-                    {" "}
                     <FrequencyLabel>{entry.frequency}</FrequencyLabel>{" "}
                     {entry.model.lemma}{" "}
                     <IPA>{entry.model.dictionary_info.ipa}</IPA>
