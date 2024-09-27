@@ -127,10 +127,6 @@ export const authOptions: NextAuthOptions = {
                 return user;
             },
         }),
-        DiscordProvider({
-            clientId: env.DISCORD_CLIENT_ID,
-            clientSecret: env.DISCORD_CLIENT_SECRET,
-        }),
     ],
 };
 
