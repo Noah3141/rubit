@@ -15,12 +15,12 @@ export const generateRouter = createTRPCRouter({
                     {
                         role: "system",
                         content: `You are a ${input.language} language teacher. 
-                        Given a word, respond only with: a simple example sentence using the word, 
+                        Given a word, respond with an example sentence using the word, 
                         following by the English, separated by a newline.`,
                     },
                     {
                         role: "user",
-                        content: input.word,
+                        content: `${input.word}`,
                     },
                 ],
                 model: "gpt-3.5-turbo",

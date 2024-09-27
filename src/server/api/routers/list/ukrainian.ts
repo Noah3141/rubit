@@ -11,6 +11,8 @@ import {
 import { Language } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
+import { env } from "~/env";
+
 export const listUkrainianRouter = createTRPCRouter({
     vocabularyList: protectedProcedure
         .input(z.object({ inputText: z.string() }))
@@ -18,7 +20,7 @@ export const listUkrainianRouter = createTRPCRouter({
         .mutation(async ({ ctx, input }) => {
             // Hit rust
             const res = await fetch(
-                "http://api.russianvocabularylistmaker.com/list/ukrainian/vocabulary",
+                `${env.RUBIT_API_URL}/list/ukrainian/vocabulary`,
                 {
                     method: "post",
                     body: JSON.stringify({

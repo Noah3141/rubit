@@ -15,6 +15,8 @@ import { AdvEntry } from "~/types/belarusian/list/adverb";
 import { Language } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
+import { env } from "~/env";
+
 export const listBelarusianRouter = createTRPCRouter({
     vocabularyList: protectedProcedure
         .input(z.object({ inputText: z.string() }))
@@ -22,7 +24,7 @@ export const listBelarusianRouter = createTRPCRouter({
         .mutation(async ({ ctx, input }) => {
             // Hit rust
             const res = await fetch(
-                "http://api.russianvocabularylistmaker.com/list/belarusian/vocabulary",
+                `${env.RUBIT_API_URL}/list/belarusian/vocabulary`,
                 {
                     method: "post",
                     body: JSON.stringify({
