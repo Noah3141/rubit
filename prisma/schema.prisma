@@ -87,7 +87,7 @@ model SavedList {
     id        String   @id @default(cuid())
     language  Language
     title     String
-    content   String   @db.Medium
+    content   String   @db.Text
     user      User?    @relation(fields: [userId], references: [id])
     userId    String?
     createdAt DateTime @default(now())
