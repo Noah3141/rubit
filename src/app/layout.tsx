@@ -6,7 +6,6 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import BaseLayout from "~/layouts/Base";
 import { Toaster } from "react-hot-toast";
-import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary List Maker",

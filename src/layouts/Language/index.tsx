@@ -1,10 +1,12 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
+import React from "react";
 import classnames from "classnames";
 import styles from "./index.module.css";
 import WithNavbar from "~/partials/withNavbar";
 import WithFooter from "~/partials/withFooter";
 import WithLanguageNav from "~/partials/withLanguageNav";
 import StickyTop from "~/components/Containers/StickyTop";
+import { getServerAuthSession } from "~/server/auth";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary",
@@ -15,11 +17,13 @@ export const metadata: Metadata = {
 export default async function LanguageLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
+    const session = await getServerAuthSession();
+
     return (
         <>
             <StickyTop>
-                <WithNavbar />
-                <WithLanguageNav />
+                <WithNavbar session={session} />
+                <WithLanguageNav session={session} />
             </StickyTop>
             <div className={classnames(styles.page)}>
                 <div className={classnames(styles.layout)}>{children}</div>

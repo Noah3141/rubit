@@ -3,10 +3,9 @@ import { getServerAuthSession } from "~/server/auth";
 import { signIn, signOut } from "next-auth/react";
 import Nav from "~/components/Containers/Nav";
 import SignOutButton from "~/components/Auth/SignOutButton";
+import { type Session } from "next-auth";
 
-const WithNavbar: FC = async () => {
-    const session = await getServerAuthSession();
-
+const WithNavbar: FC<{ session: Session | null }> = ({ session }) => {
     return (
         <Nav.Bar>
             <Nav.Item link="/">Home</Nav.Item>

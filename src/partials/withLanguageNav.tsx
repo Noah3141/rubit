@@ -1,10 +1,11 @@
 "use client";
 
+import { type Session } from "next-auth";
 import { usePathname } from "next/navigation";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import LanguageNav from "~/components/Containers/LanguageNav";
 
-const WithLanguageNav: FC = () => {
+const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
     const pathname = usePathname();
     const language = pathname.split("/").at(2)!;
 
@@ -21,9 +22,13 @@ const WithLanguageNav: FC = () => {
                     <LanguageNav.Item link={`/language/${language}/new-list`}>
                         Make New List
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/my-lists`}>
-                        My Lists
-                    </LanguageNav.Item>
+                    {!!session && (
+                        <LanguageNav.Item
+                            link={`/language/${language}/my-lists`}
+                        >
+                            My Lists
+                        </LanguageNav.Item>
+                    )}
                 </LanguageNav.Bar>
             );
 
@@ -39,9 +44,13 @@ const WithLanguageNav: FC = () => {
                     <LanguageNav.Item link={`/language/${language}/new-list`}>
                         Make New List
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/my-lists`}>
-                        My Lists
-                    </LanguageNav.Item>
+                    {!!session && (
+                        <LanguageNav.Item
+                            link={`/language/${language}/my-lists`}
+                        >
+                            My Lists
+                        </LanguageNav.Item>
+                    )}
                 </LanguageNav.Bar>
             );
         case "ukrainian":
@@ -56,9 +65,13 @@ const WithLanguageNav: FC = () => {
                     <LanguageNav.Item link={`/language/${language}/new-list`}>
                         Make New List
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/my-lists`}>
-                        My Lists
-                    </LanguageNav.Item>
+                    {!!session && (
+                        <LanguageNav.Item
+                            link={`/language/${language}/my-lists`}
+                        >
+                            My Lists
+                        </LanguageNav.Item>
+                    )}
                 </LanguageNav.Bar>
             );
     }
