@@ -2,10 +2,10 @@
     @apply p-3 hover:bg-purple-800;
 
     .contents {
-        @apply grid grid-cols-1 grid-rows-[0fr] transition-all;
+        @apply grid select-none grid-cols-1 grid-rows-[0fr] transition-all print:hidden;
 
         &.open {
-            @apply grid-rows-[1fr];
+            @apply select-text grid-rows-[1fr] print:grid;
         }
     }
 }

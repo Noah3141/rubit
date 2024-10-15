@@ -1,0 +1,13 @@
+.page {
+    .list {
+        @apply table divide-y divide-purple-700 border border-purple-700;
+
+        th {
+            @apply px-2 py-1;
+        }
+
+        .body {
+            @apply divide-y divide-purple-700;
+        }
+    }
+}

@@ -31,7 +31,7 @@ const Dropdown: FC<
                     [styles.open!]: open,
                 })}
             >
-                <div className="overflow-hidden">
+                <div className={`overflow-hidden`}>
                     <div className="flex flex-col gap-6 p-6">{children}</div>
                 </div>
             </div>

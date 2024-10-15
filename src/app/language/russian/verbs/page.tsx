@@ -1,5 +1,8 @@
 import React from "react";
 import { api } from "~/trpc/server";
+import VerbEntry from "./_components/VerbEntry";
+import classNames from "classnames";
+import styles from "./index.module.css";
 
 const RussianVerbsPage = async () => {
     const verbs = await api.verbs.russian.getAll();
@@ -8,10 +11,23 @@ const RussianVerbsPage = async () => {
     );
 
     return (
-        <div>
-            {verbs.items.map((item) => (
-                <div key={item.id}>{item.lemma}</div>
-            ))}
+        <div className={classNames(styles.page)}>
+            <table className={classNames(styles.list)}>
+                <thead className="text-left">
+                    <tr>
+                        <th>lemma</th>
+                        <th>aspect</th>
+                        <th>я</th>
+                        <th>ты</th>
+                        <th>они</th>
+                    </tr>
+                </thead>
+                <tbody className={classNames(styles.body)}>
+                    {verbs.items.map((item) => (
+                        <VerbEntry key={item.id} verb={item} />
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 };

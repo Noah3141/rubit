@@ -44,6 +44,16 @@ const SignInPage: FC = () => {
                 <Button
                     className={`ml-auto sm:ml-0`}
                     onClick={async () => {
+                        if (form.email == "") {
+                            toast.error("Please provide an email!");
+                            return;
+                        }
+
+                        if (form.password == "") {
+                            toast.error("Please provide a password!");
+                            return;
+                        }
+
                         const res = await signIn("credentials", {
                             redirect: false,
                             email: form.email,
