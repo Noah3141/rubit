@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import Button from "~/components/Common/Button";
 import type { VocabularyListData } from "~/types/russian/list";
 import SaveListForm from "./_components/SaveListForm";

@@ -1,5 +1,5 @@
 .navbar {
-    @apply flex flex-row bg-violet-900;
+    @apply z-50 flex flex-row bg-violet-900;
 
     .header {
         @apply flex w-full flex-row gap-3 px-6 py-2;

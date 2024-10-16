@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import styles from "./index.module.css";
 
-import React, { FC, TextareaHTMLAttributes, useState } from "react";
+import React, { type FC, TextareaHTMLAttributes, useState } from "react";
 
 const Textarea: FC<
     {

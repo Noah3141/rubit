@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import { VerbEntry } from "~/types/belarusian/list/verb";
 
 import styles from "./index.module.css";

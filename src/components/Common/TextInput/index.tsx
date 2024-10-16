@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import styles from "./index.module.css";
 
-import React, { FC } from "react";
+import React, { type FC } from "react";
 
 const TextInput: FC<
     {

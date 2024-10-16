@@ -5,13 +5,9 @@ import {
     publicProcedure,
 } from "../../trpc";
 import {
-    VocabularyListData,
+    type VocabularyListData,
     VocabularyListSchema,
 } from "~/types/belarusian/list";
-import { NounEntry } from "~/types/belarusian/list/noun";
-import { VerbEntry } from "~/types/belarusian/list/verb";
-import { AdjEntry } from "~/types/belarusian/list/adjective";
-import { AdvEntry } from "~/types/belarusian/list/adverb";
 import { Language } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 

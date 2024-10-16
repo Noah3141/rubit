@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import Header from "~/components/Base/Header";
 import Button from "~/components/Common/Button";

@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import styles from "./index.module.css";
-import React, { FC, PropsWithChildren, useState } from "react";
+import React, { type FC, type PropsWithChildren, useState } from "react";
 import { toTitleCase } from "~/utils/strings";
 import { FaChevronDown } from "react-icons/fa";
 import type { Language } from "~/types/language";

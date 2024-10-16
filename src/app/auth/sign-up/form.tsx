@@ -1,8 +1,8 @@
 "use client";
 
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import Header from "~/components/Base/Header";
 import Button from "~/components/Common/Button";

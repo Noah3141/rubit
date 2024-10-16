@@ -1,6 +1,4 @@
-import React, { FC } from "react";
-import { getServerAuthSession } from "~/server/auth";
-import { signIn, signOut } from "next-auth/react";
+import React, { type FC } from "react";
 import Nav from "~/components/Containers/Nav";
 import SignOutButton from "~/components/Auth/SignOutButton";
 import { type Session } from "next-auth";

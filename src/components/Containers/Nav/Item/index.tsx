@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import React, { FC, PropsWithChildren } from "react";
+import React, { type FC, PropsWithChildren } from "react";
 import styles from "./index.module.css";
 import Link from "next/link";
 

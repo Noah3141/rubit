@@ -3,7 +3,7 @@
 import classNames from "classnames";
 import styles from "./index.module.css";
 
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import Option from "./Option";
 
 export type Option = {

@@ -1,5 +1,5 @@
 .navbar {
-    @apply bg-red-600 lg:px-6;
+    @apply z-50 bg-red-600 lg:px-6;
 
     .container {
         @apply flex flex-row gap-1 py-2;

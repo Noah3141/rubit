@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import styles from "./index.module.css";
 
 const Footer: FC = () => {

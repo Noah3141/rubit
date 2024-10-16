@@ -3,14 +3,13 @@ import {
     getServerSession,
     type DefaultSession,
     type NextAuthOptions,
-    User,
-    Session,
+    type User,
+    type Session,
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
-import { JWT, type DefaultJWT } from "next-auth/jwt";
-import DiscordProvider from "next-auth/providers/discord";
+import { type JWT, type DefaultJWT } from "next-auth/jwt";
+// import DiscordProvider from "next-auth/providers/discord";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { env } from "~/env";
 import { db } from "~/server/db";
 import crypto from "crypto";
 import { type Role } from "@prisma/client";

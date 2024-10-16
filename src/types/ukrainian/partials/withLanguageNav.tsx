@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import LanguageNav from "~/components/Containers/LanguageNav";
 import { Language } from "~/types/language";
 import { toTitleCase } from "~/utils/strings";

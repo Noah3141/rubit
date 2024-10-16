@@ -1,6 +1,6 @@
 import { Language } from "@prisma/client";
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 
 import styles from "./index.module.css";
 import Button from "../Button";

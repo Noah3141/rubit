@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import type { VocabularyListData } from "~/types/russian/list";
 
 import VocabularyList from "~/app/language/russian/_components/VocabularyList";

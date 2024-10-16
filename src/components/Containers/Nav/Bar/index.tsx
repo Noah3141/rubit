@@ -1,7 +1,7 @@
 "use client";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import React, { FC, PropsWithChildren, useState } from "react";
+import React, { type FC, type PropsWithChildren, useState } from "react";
 import Item from "../Item";
 import { FiMenu } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";

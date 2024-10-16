@@ -1,8 +1,8 @@
 "use client";
 
 import classNames from "classnames";
-import React, { FC, PropsWithChildren } from "react";
-import { Color } from "~/types/colors";
+import React, { type FC, type PropsWithChildren } from "react";
+import { type Color } from "~/types/colors";
 import styles from "./index.module.css";
 
 const Button: FC<

@@ -1,7 +1,7 @@
 "use client";
 
 import classNames from "classnames";
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import Button from "~/components/Common/Button";
 import styles from "./index.module.css";
 import NounItem from "./NounItem";

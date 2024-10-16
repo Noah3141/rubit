@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React, { type FC } from "react";
 import type { NounEntry } from "~/types/russian/list/noun";
 import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";

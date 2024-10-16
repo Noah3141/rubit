@@ -3,12 +3,11 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import Header from "~/components/Base/Header";
 import Button from "~/components/Common/Button";
 import TextInput from "~/components/Common/TextInput";
-import CenteredLayout from "~/layouts/Centered";
 
 const SignInPage: FC = () => {
     const router = useRouter();
@@ -42,6 +41,7 @@ const SignInPage: FC = () => {
             </section>
             <section>
                 <Button
+                    type="submit"
                     className={`ml-auto sm:ml-0`}
                     onClick={async () => {
                         if (form.email == "") {

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 import { getServerAuthSession } from "~/server/auth";
 import { signIn, signOut } from "next-auth/react";
 import Nav from "~/components/Containers/Nav";

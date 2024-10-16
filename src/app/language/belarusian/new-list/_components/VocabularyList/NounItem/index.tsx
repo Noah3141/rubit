@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import { NounEntry } from "~/types/belarusian/list/noun";
 
 import styles from "./index.module.css";

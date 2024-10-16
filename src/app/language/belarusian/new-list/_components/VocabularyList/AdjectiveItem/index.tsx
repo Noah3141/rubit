@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import { AdjEntry } from "~/types/belarusian/list/adjective";
 import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import styles from "./index.module.css";
 
-import React, { FC, PropsWithChildren } from "react";
+import React, { type FC, type PropsWithChildren } from "react";
 
 const Header: FC<
     PropsWithChildren<{

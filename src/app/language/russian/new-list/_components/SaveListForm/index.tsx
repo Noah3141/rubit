@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { FC, useState } from "react";
+import React, { type FC, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "~/components/Common/Button";
 import TextInput from "~/components/Common/TextInput";

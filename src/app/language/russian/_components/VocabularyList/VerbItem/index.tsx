@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import React, { FC, useState } from "react";
-import { VerbEntry } from "~/types/russian/list/verb";
+import React, { type FC } from "react";
+import { type VerbEntry } from "~/types/russian/list/verb";
 
 import styles from "./index.module.css";
 import IPA from "~/components/Common/IPA";

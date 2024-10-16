@@ -1,5 +1,5 @@
-import { FC, useState } from "react";
-import Toggler, { Option } from "~/components/Common/Toggler";
+import { type FC, useState } from "react";
+import Toggler, { type Option } from "~/components/Common/Toggler";
 
 const Form: FC = () => {
     const viewOptions = [{ text: "All" }, { text: "Top" }, { text: "Bottom" }];
