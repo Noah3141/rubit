@@ -13,3 +13,5 @@ else
     echo -e"\nBuild failed. Service not restarted."
     exit 1
 fi
+
+echo -e "\nComplete!"
