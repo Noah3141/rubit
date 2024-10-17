@@ -1,6 +1,6 @@
 import { Language } from "@prisma/client";
 import classNames from "classnames";
-import React, { type FC, useState } from "react";
+import React, { type FC, useEffect, useState } from "react";
 
 import styles from "./index.module.css";
 import Button from "../Button";
@@ -30,15 +30,22 @@ const GPTSentencer: FC<{
         },
     });
 
+    useEffect(() => {
+        setExample(undefined);
+        setShowTranslation(false);
+    }, [token]);
+
     const [showTranslation, setShowTranslation] = useState(false);
 
     return (
         <div className={classNames(styles.container)}>
             <Button
+                size="small"
+                color="green"
                 status={gptGenerate.status}
                 onClick={() => {
                     gptGenerate.mutate({
-                        word: token,
+                        word: token.replace("\u0301", ""),
                         language,
                     });
                 }}
@@ -46,6 +53,8 @@ const GPTSentencer: FC<{
                 Example
             </Button>{" "}
             <Button
+                size="small"
+                color="neutral"
                 disabled={!example?.sentence}
                 onClick={() => {
                     setShowTranslation((p) => !p);

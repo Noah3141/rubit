@@ -1,5 +1,5 @@
 .page {
-    @apply min-h-full;
+    @apply mt-24 min-h-full;
 
     .layout {
         @apply mx-auto grid max-w-7xl grid-cols-1 gap-6 p-3 lg:p-12;

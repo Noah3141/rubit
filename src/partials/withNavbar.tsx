@@ -7,9 +7,9 @@ const WithNavbar: FC<{ session: Session | null }> = ({ session }) => {
     return (
         <Nav.Bar>
             <Nav.Item link="/">Home</Nav.Item>
-            <Nav.Item link="/language/russian">Russian</Nav.Item>
-            <Nav.Item link="/language/belarusian">Belarusian</Nav.Item>
-            <Nav.Item link="/language/ukrainian">Ukrainian</Nav.Item>
+            <Nav.Item link="/russian">Russian</Nav.Item>
+            <Nav.Item link="/belarusian">Belarusian</Nav.Item>
+            <Nav.Item link="/ukrainian">Ukrainian</Nav.Item>
             <div className="ml-auto flex flex-row">
                 {!!session ? (
                     <>

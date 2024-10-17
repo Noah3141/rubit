@@ -4,8 +4,8 @@ import classnames from "classnames";
 import styles from "./index.module.css";
 import WithNavbar from "~/partials/withNavbar";
 import WithFooter from "~/partials/withFooter";
-import StickyTop from "~/components/Containers/StickyTop";
 import { getServerAuthSession } from "~/server/auth";
+import FixedTop from "~/components/Containers/FixedTop";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary",
@@ -20,9 +20,9 @@ export default async function CenteredLayout({
 
     return (
         <>
-            <StickyTop>
+            <FixedTop>
                 <WithNavbar session={session} />
-            </StickyTop>
+            </FixedTop>
             <div className={classnames(styles.page)}>
                 <div className={classnames(styles.layout)}>{children}</div>
             </div>

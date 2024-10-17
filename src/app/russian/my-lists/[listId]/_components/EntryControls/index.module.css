@@ -1,0 +1,27 @@
+.column {
+    @apply p-6 lg:w-52;
+
+    .placement {
+        @apply sticky top-32 rounded border border-purple-700 p-3;
+
+        .controls {
+            @apply text-left;
+
+            .filters {
+                @apply flex flex-col gap-1;
+
+                .option {
+                    @apply flex flex-row justify-start gap-3;
+                }
+            }
+
+            .sorters {
+                @apply mt-3;
+
+                .option {
+                    @apply flex flex-row justify-end gap-3;
+                }
+            }
+        }
+    }
+}

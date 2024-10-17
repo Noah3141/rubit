@@ -1,0 +1,7 @@
+.box {
+    @apply size-6 rounded border;
+
+    &.checked {
+        @apply bg-green-500;
+    }
+}

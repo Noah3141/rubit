@@ -1,6 +1,10 @@
 .button {
     @apply rounded text-base font-normal;
 
+    &.small {
+        @apply w-fit px-2 py-1;
+    }
+
     &.fit {
         @apply w-fit px-3 py-2;
     }

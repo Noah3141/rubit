@@ -14,13 +14,13 @@ const WithLanguageNav: FC = () => {
         case "russian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/language/${language}/list`}>
+                    <LanguageNav.Item link={`/${language}/list`}>
                         Make New List
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/verbs`}>
+                    <LanguageNav.Item link={`/${language}/verbs`}>
                         Verbs
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/trees`}>
+                    <LanguageNav.Item link={`/${language}/trees`}>
                         Trees
                     </LanguageNav.Item>
                 </LanguageNav.Bar>
@@ -29,13 +29,13 @@ const WithLanguageNav: FC = () => {
         case "belarusian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/language/${language}/list`}>
+                    <LanguageNav.Item link={`/${language}/list`}>
                         Make New List
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/verbs`}>
+                    <LanguageNav.Item link={`/${language}/verbs`}>
                         Verbs
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/trees`}>
+                    <LanguageNav.Item link={`/${language}/trees`}>
                         Trees
                     </LanguageNav.Item>
                 </LanguageNav.Bar>
@@ -43,13 +43,13 @@ const WithLanguageNav: FC = () => {
         case "ukrainian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/language/${language}/list`}>
+                    <LanguageNav.Item link={`/${language}/list`}>
                         Make New List
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/verbs`}>
+                    <LanguageNav.Item link={`/${language}/verbs`}>
                         Verbs
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/trees`}>
+                    <LanguageNav.Item link={`/${language}/trees`}>
                         Trees
                     </LanguageNav.Item>
                 </LanguageNav.Bar>

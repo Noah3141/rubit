@@ -5,13 +5,14 @@ import styles from "./index.module.css";
 import WithNavbar from "~/partials/withNavbar";
 import WithFooter from "~/partials/withFooter";
 import WithLanguageNav from "~/partials/withLanguageNav";
-import StickyTop from "~/components/Containers/StickyTop";
 import { getServerAuthSession } from "~/server/auth";
+import AbsoluteTop from "~/components/Containers/FixedTop";
+import { globalIcons } from "~/app/_globals";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary",
     description: "Learn fast and break things",
-    icons: [{ rel: "icon", url: "/favicon.ico" }],
+    icons: globalIcons,
 };
 
 export default async function LanguageLayout({
@@ -21,10 +22,10 @@ export default async function LanguageLayout({
 
     return (
         <>
-            <StickyTop>
+            <AbsoluteTop>
                 <WithNavbar session={session} />
                 <WithLanguageNav session={session} />
-            </StickyTop>
+            </AbsoluteTop>
             <div className={classnames(styles.page)}>
                 <div className={classnames(styles.layout)}>{children}</div>
             </div>

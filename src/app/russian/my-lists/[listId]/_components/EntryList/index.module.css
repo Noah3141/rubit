@@ -1,0 +1,7 @@
+.list {
+    @apply table-auto border border-purple-800 lg:w-fit lg:min-w-[500px];
+
+    .body {
+        @apply divide-y divide-purple-800;
+    }
+}

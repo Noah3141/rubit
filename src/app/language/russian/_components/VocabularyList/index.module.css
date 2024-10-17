@@ -1,7 +1,0 @@
-.container {
-    @apply flex flex-col gap-6;
-
-    .list {
-        @apply flex w-full flex-col divide-y divide-purple-800 border border-purple-800;
-    }
-}

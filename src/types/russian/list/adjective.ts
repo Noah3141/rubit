@@ -3,10 +3,10 @@ import { z } from "zod";
 export const AdjEntry = z.object({
     frequency: z.number(),
     model: z.object({
+        id: z.number(),
         lemma: z.string(),
         type: z.literal("Adjective"),
         commonality: z.number().nullable(),
-        id: z.number(),
         dictionary_info: z.object({
             lemma: z.string(),
             ipa: z.string(),

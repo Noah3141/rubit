@@ -9,7 +9,7 @@ const Button: FC<
     PropsWithChildren<
         {
             color?: Color;
-            size?: "fit" | "wide" | "full";
+            size?: "small" | "fit" | "wide" | "full";
             status?: "pending" | "success" | "error" | "idle";
         } & React.ButtonHTMLAttributes<HTMLButtonElement>
     >

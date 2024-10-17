@@ -7,25 +7,23 @@ import LanguageNav from "~/components/Containers/LanguageNav";
 
 const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
     const pathname = usePathname();
-    const language = pathname.split("/").at(2)!;
+    const language = pathname.split("/").at(1)!;
 
     switch (language) {
         case "russian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/language/${language}/verbs`}>
+                    <LanguageNav.Item link={`/${language}/verbs`}>
                         Verbs
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/trees`}>
+                    <LanguageNav.Item link={`/${language}/trees`}>
                         Trees
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/new-list`}>
+                    <LanguageNav.Item link={`/${language}/new-list`}>
                         Make New List
                     </LanguageNav.Item>
                     {!!session && (
-                        <LanguageNav.Item
-                            link={`/language/${language}/my-lists`}
-                        >
+                        <LanguageNav.Item link={`/${language}/my-lists`}>
                             My Lists
                         </LanguageNav.Item>
                     )}
@@ -35,19 +33,17 @@ const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
         case "belarusian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/language/${language}/verbs`}>
+                    <LanguageNav.Item link={`/${language}/verbs`}>
                         Verbs
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/trees`}>
+                    <LanguageNav.Item link={`/${language}/trees`}>
                         Trees
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/new-list`}>
+                    <LanguageNav.Item link={`/${language}/new-list`}>
                         Make New List
                     </LanguageNav.Item>
                     {!!session && (
-                        <LanguageNav.Item
-                            link={`/language/${language}/my-lists`}
-                        >
+                        <LanguageNav.Item link={`/${language}/my-lists`}>
                             My Lists
                         </LanguageNav.Item>
                     )}
@@ -56,19 +52,17 @@ const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
         case "ukrainian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/language/${language}/verbs`}>
+                    <LanguageNav.Item link={`/${language}/verbs`}>
                         Verbs
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/trees`}>
+                    <LanguageNav.Item link={`/${language}/trees`}>
                         Trees
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/language/${language}/new-list`}>
+                    <LanguageNav.Item link={`/${language}/new-list`}>
                         Make New List
                     </LanguageNav.Item>
                     {!!session && (
-                        <LanguageNav.Item
-                            link={`/language/${language}/my-lists`}
-                        >
+                        <LanguageNav.Item link={`/${language}/my-lists`}>
                             My Lists
                         </LanguageNav.Item>
                     )}

@@ -6,32 +6,12 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import BaseLayout from "~/layouts/Base";
 import { Toaster } from "react-hot-toast";
+import { globalIcons } from "./_globals";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary List Maker",
     description: "Learn fast and break things",
-    icons: [
-        { rel: "icon", url: "/favicon.ico" },
-
-        {
-            rel: "apple-touch-icon",
-            sizes: "180x180",
-            url: "/apple-touch-icon.png",
-        },
-        {
-            rel: "icon",
-            type: "image/png",
-            sizes: "32x32",
-            url: "/favicon-32x32.png",
-        },
-        {
-            rel: "icon",
-            type: "image/png",
-            sizes: "16x16",
-            url: "/favicon-16x16.png",
-        },
-        { rel: "manifest", url: "/site.webmanifest" },
-    ],
+    icons: globalIcons,
 };
 
 export default async function RootLayout({
