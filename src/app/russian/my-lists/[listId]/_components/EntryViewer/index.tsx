@@ -28,6 +28,8 @@ const EntryViewer: FC<{
                                     {entry.frequency}
                                 </FrequencyLabel>
                             </Header>
+                            {entry.model.type}
+                            <div>({entry.model.commonality ?? "na"})</div>
                         </span>
                         <div
                             onClick={() => setEntry(undefined)}

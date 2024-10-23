@@ -39,7 +39,7 @@ const SORTERS = {
         a: VocabularyListData["entry_list"][0],
         b: VocabularyListData["entry_list"][0],
     ) => {
-        return 0;
+        return (a.model.commonality ?? 0.0) - (b.model.commonality ?? 0.0);
     },
 };
 

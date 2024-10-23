@@ -20,9 +20,9 @@ export const listBelarusianRouter = createTRPCRouter({
         .mutation(async ({ ctx, input }) => {
             // Hit rust
             const res = await fetch(
-                `${env.RUBIT_API_URL}/list/belarusian/vocabulary`,
+                `${env.RUBIT_API_URL}/list/belarusian/vocabulary/`,
                 {
-                    method: "post",
+                    method: "POST",
                     body: JSON.stringify({
                         input_text: input.inputText,
                     }),
