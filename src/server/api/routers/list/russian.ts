@@ -13,6 +13,15 @@ import { TRPCError } from "@trpc/server";
 
 import { env } from "~/env";
 
+type StoredList = {
+    inputText: string;
+    form_frequencies: Record<string, number>;
+    entry_list: {
+        frequency: number;
+        modelId: number;
+    }[];
+};
+
 export const listRussianRouter = createTRPCRouter({
     vocabularyList: protectedProcedure
         .input(z.object({ inputText: z.string() }))
@@ -28,6 +37,7 @@ export const listRussianRouter = createTRPCRouter({
                     }),
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${env.RUBIT_API_KEY}`,
                     },
                 },
             );
@@ -50,7 +60,14 @@ export const listRussianRouter = createTRPCRouter({
                     userId: ctx.session.user.id,
                     language: Language.Russian,
                     title: input.title,
-                    content: JSON.stringify(input.list),
+                    content: JSON.stringify({
+                        inputText: input.list.inputText,
+                        form_frequencies: input.list.form_frequencies,
+                        entry_list: input.list.entry_list.map((entry) => ({
+                            frequency: entry.frequency,
+                            modelId: entry.model.id,
+                        })),
+                    } satisfies StoredList),
                 },
                 select: {
                     id: true,
@@ -92,7 +109,7 @@ export const listRussianRouter = createTRPCRouter({
 
         return savedLists.map((list) => ({
             ...list,
-            content: JSON.parse(list.content) as VocabularyListData,
+            content: JSON.parse(list.content) as StoredList,
         }));
     }),
 });

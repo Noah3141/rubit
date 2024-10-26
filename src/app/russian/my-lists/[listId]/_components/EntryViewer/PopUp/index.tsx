@@ -12,7 +12,6 @@ const PopUp: FC<{
     if (state == null) {
         return null;
     }
-
     return (
         <div className={classNames(styles.position)}>
             <div className={classNames(styles.container)}>

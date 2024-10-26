@@ -28,6 +28,7 @@ export const listUkrainianRouter = createTRPCRouter({
                     }),
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${env.RUBIT_API_KEY}`,
                     },
                 },
             );
