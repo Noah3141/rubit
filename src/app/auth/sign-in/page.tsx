@@ -20,7 +20,7 @@ const SignInPage: FC = () => {
         <>
             <Header level="1">Sign In</Header>
 
-            <section>
+            <div className="flex flex-col gap-3">
                 <TextInput
                     className="sm:w-96"
                     value={form.email}
@@ -38,8 +38,6 @@ const SignInPage: FC = () => {
                         setForm((p) => ({ ...p, password: e.target.value }))
                     }
                 />
-            </section>
-            <section>
                 <Button
                     type="submit"
                     className={`ml-auto sm:ml-0`}
@@ -74,7 +72,7 @@ const SignInPage: FC = () => {
                 >
                     Sign In
                 </Button>
-            </section>
+            </div>
 
             <span>
                 {`Don't have an account? `}

@@ -1,0 +1,15 @@
+.verbTable {
+    @apply table w-full table-auto text-center text-lg;
+
+    > thead {
+        @apply divide-x divide-violet-900 border-b border-violet-700 bg-violet-800/30;
+    }
+
+    > tbody {
+        @apply divide-y divide-violet-800;
+
+        > tr {
+            @apply divide-x divide-violet-900;
+        }
+    }
+}

@@ -3,7 +3,7 @@ import React, { type FC } from "react";
 import type { NounEntry } from "~/types/russian/list/noun";
 import styles from "./index.module.css";
 
-const NounItem: FC<{
+const NounForms: FC<{
     entry: NounEntry;
 }> = ({ entry }) => {
     return (
@@ -46,4 +46,4 @@ const NounItem: FC<{
     );
 };
 
-export default NounItem;
+export default NounForms;

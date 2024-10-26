@@ -1,0 +1,39 @@
+.position {
+    @apply pointer-events-none fixed left-0 top-0 grid h-screen w-screen place-items-center;
+
+    .container {
+        @apply pointer-events-auto h-screen w-screen overflow-hidden rounded border border-neutral-950 bg-purple-800 shadow-lg shadow-neutral-950 transition-all sm:max-h-[600px] sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg;
+
+        .contents {
+            @apply flex h-full flex-col;
+
+            .header {
+                @apply flex flex-row justify-between p-3;
+
+                .title {
+                    @apply inline text-3xl font-semibold text-orange-500;
+                }
+            }
+
+            .body {
+                @apply flex h-full flex-row border-t border-purple-900;
+
+                .tabs {
+                    @apply flex w-64 flex-col;
+
+                    .tab {
+                        @apply cursor-pointer p-3 hover:bg-purple-900/40;
+
+                        &.selected {
+                            @apply cursor-default bg-purple-700/40 font-semibold text-orange-500 hover:bg-purple-700/40;
+                        }
+                    }
+                }
+
+                .viewedTab {
+                    @apply h-full w-full border-l border-purple-900;
+                }
+            }
+        }
+    }
+}

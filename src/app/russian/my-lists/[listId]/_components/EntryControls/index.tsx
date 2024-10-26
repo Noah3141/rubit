@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Checkbox from "~/components/Common/Checkbox";
-import { Sorter, type Filter } from "../../content";
+import { type Sorter, type Filter } from "../../content";
 import styles from "./index.module.css";
 import classNames from "classnames";
 import Header from "~/components/Base/Header";
@@ -74,6 +74,7 @@ const EntryControls: FC<{
                                     "alphabetical",
                                     "frequency",
                                     "length",
+                                    "commonality",
                                     // "commonality",
                                 ] satisfies Sorter[]
                             }

@@ -31,6 +31,7 @@ export const listBelarusianRouter = createTRPCRouter({
                     },
                 },
             );
+            
             const json = (await res.json()) as Omit<
                 VocabularyListData,
                 "inputText"

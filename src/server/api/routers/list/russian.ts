@@ -31,10 +31,13 @@ export const listRussianRouter = createTRPCRouter({
                     },
                 },
             );
+
             const json = (await res.json()) as Omit<
                 VocabularyListData,
                 "inputText"
             >;
+
+            console.log(json.entry_list[0]);
 
             return json;
         }),

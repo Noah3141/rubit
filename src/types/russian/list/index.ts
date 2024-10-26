@@ -11,6 +11,8 @@ export const VocabularyEntry = z.union([
     AdvEntry,
 ]);
 
+export type Type = "Noun" | "Adjective" | "Verb" | "Adverb";
+
 export const VocabularyListSchema = z.object({
     inputText: z.string(),
     form_frequencies: z.record(z.number()),

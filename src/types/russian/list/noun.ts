@@ -7,6 +7,7 @@ export const NounEntry = z.object({
         id: z.number(),
         lemma: z.string(),
         commonality: z.number().nullable(),
+        meanings: z.string().nullable(),
         type: z.literal("Noun"),
         dictionary_info: z.object({
             lemma: z.string(),

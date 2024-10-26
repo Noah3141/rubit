@@ -38,14 +38,14 @@ const VerbItem: FC<{
                     </thead>
                     <tbody>
                         <tr>
-                            <td className="p-1 text-right">1st person</td>
+                            <td className="p-1 text-right">1st</td>
                             <td>{entry.model.dictionary_info.я_form ?? "-"}</td>
                             <td>
                                 {entry.model.dictionary_info.ми_form ?? "-"}
                             </td>
                         </tr>
                         <tr>
-                            <td className="p-1 text-right">2nd person</td>
+                            <td className="p-1 text-right">2nd</td>
                             <td>
                                 {entry.model.dictionary_info.ти_form ?? "-"}
                             </td>
@@ -54,7 +54,7 @@ const VerbItem: FC<{
                             </td>
                         </tr>
                         <tr>
-                            <td className="p-1 text-right">3rd person</td>
+                            <td className="p-1 text-right">3rd</td>
                             <td>
                                 {entry.model.dictionary_info.він_form ?? "-"}
                             </td>

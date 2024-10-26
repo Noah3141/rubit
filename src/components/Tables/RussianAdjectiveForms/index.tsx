@@ -3,7 +3,7 @@ import React, { type FC } from "react";
 import type { AdjEntry } from "~/types/russian/list/adjective";
 import styles from "./index.module.css";
 
-const AdjectiveItem: FC<{
+const AdjectiveForms: FC<{
     entry: AdjEntry;
 }> = ({ entry }) => {
     return (
@@ -64,4 +64,4 @@ const AdjectiveItem: FC<{
     );
 };
 
-export default AdjectiveItem;
+export default AdjectiveForms;

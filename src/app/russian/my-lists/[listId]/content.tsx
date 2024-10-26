@@ -110,7 +110,10 @@ const Content: FC<{
                     );
                 })}
             </EntryList>
-            <EntryViewer entry={viewedEntry} setEntry={setViewedEntry} />
+
+            {!!viewedEntry && (
+                <EntryViewer entry={viewedEntry} setEntry={setViewedEntry} />
+            )}
         </div>
     );
 };
