@@ -9,7 +9,7 @@ const StudyListPage = async ({ params }: { params: { listId: string } }) => {
 
     return (
         <div>
-            <Content vocabularyList={russianVocabularyList.content} />
+            <Content vocabularyList={russianVocabularyList} />
         </div>
     );
 };

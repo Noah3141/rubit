@@ -5,6 +5,7 @@ import {
     publicProcedure,
 } from "../../trpc";
 import {
+    VocabularyEntry,
     type VocabularyListData,
     VocabularyListSchema,
 } from "~/types/russian/list";
@@ -92,11 +93,46 @@ export const listRussianRouter = createTRPCRouter({
                     message: "We couldn't find that list!",
                 });
             }
-
-            return {
+            const extractedList = {
                 ...savedList,
-                content: JSON.parse(savedList.content) as VocabularyListData,
+                content: JSON.parse(savedList.content) as StoredList,
             };
+
+            const res = await fetch(`${env.RUBIT_API_URL}/get/entries-by-ids`, {
+                method: "POST",
+                body: JSON.stringify({
+                    entries: extractedList.content.entry_list.map(
+                        (entry) => entry.modelId,
+                    ),
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${env.RUBIT_API_KEY}`,
+                },
+            });
+
+            const json = (await res.json()) as {
+                entries: VocabularyListData["entry_list"][0]["model"][];
+            };
+
+            const rebuiltList: VocabularyListData = {
+                entry_list: extractedList.content.entry_list.map(
+                    (entry): VocabularyListData["entry_list"][0] => {
+                        const model = json.entries.find(
+                            (found) => found.id == entry.modelId,
+                        )!;
+
+                        return {
+                            frequency: entry.frequency,
+                            model,
+                        } as VocabularyListData["entry_list"][0];
+                    },
+                ),
+                inputText: extractedList.content.inputText,
+                form_frequencies: extractedList.content.form_frequencies,
+            };
+
+            return rebuiltList;
         }),
 
     bySessionUser: protectedProcedure.query(async ({ ctx }) => {

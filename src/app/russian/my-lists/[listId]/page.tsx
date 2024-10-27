@@ -7,7 +7,7 @@ const MyListPage = async ({ params }: { params: { listId: string } }) => {
         listId: params.listId,
     });
 
-    return <Content vocabularyList={russianVocabularyList.content} />;
+    return <Content vocabularyList={russianVocabularyList} />;
 };
 
 export default MyListPage;
