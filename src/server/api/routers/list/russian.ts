@@ -48,8 +48,6 @@ export const listRussianRouter = createTRPCRouter({
                 "inputText"
             >;
 
-            console.log(json.entry_list[0]);
-
             return json;
         }),
 
@@ -101,7 +99,7 @@ export const listRussianRouter = createTRPCRouter({
             const res = await fetch(`${env.RUBIT_API_URL}/get/entries-by-ids`, {
                 method: "POST",
                 body: JSON.stringify({
-                    entries: extractedList.content.entry_list.map(
+                    ids: extractedList.content.entry_list.map(
                         (entry) => entry.modelId,
                     ),
                 }),
