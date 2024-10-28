@@ -3,6 +3,7 @@ import { listRouter } from "./routers/list";
 import { authRouter } from "./routers/auth";
 import { generateRouter } from "./routers/generate";
 import { verbsRouter } from "./routers/verbs";
+import { autoUpdateRouter } from "./routers/autoUpdate";
 
 /**
  * This is the primary router for your server.
@@ -14,6 +15,7 @@ export const appRouter = createTRPCRouter({
     auth: authRouter,
     generate: generateRouter,
     verbs: verbsRouter,
+    autoUpdate: autoUpdateRouter,
 });
 
 // export type definition of API

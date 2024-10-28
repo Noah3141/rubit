@@ -6,6 +6,9 @@ import EntryList, { Row } from "./_components/EntryList";
 import EntryViewer from "./_components/EntryViewer";
 import EntryControls from "./_components/EntryControls";
 import PopUp, { PopUpState } from "./_components/PopUp";
+import Header from "~/components/Base/Header";
+import { RouterOutputs } from "~/trpc/react";
+import Dropdown from "~/components/Containers/Dropdown";
 
 //
 // State Prep
@@ -51,7 +54,7 @@ export type Sorter = "frequency" | "alphabetical" | "commonality" | "length";
 ///
 
 const Content: FC<{
-    vocabularyList: VocabularyListData;
+    vocabularyList: RouterOutputs["list"]["russian"]["get"];
 }> = ({ vocabularyList }) => {
     const [viewedEntry, setViewedEntry] =
         useState<VocabularyListData["entry_list"][0]>();
@@ -69,58 +72,70 @@ const Content: FC<{
     vocabularyList.entry_list.sort(SORTERS[sorter]);
 
     return (
-        <div className="flex flex-col lg:flex-row">
-            <EntryControls
-                filter={filter}
-                setFilter={setFilter}
-                sorter={sorter}
-                setSorter={setSorter}
-            />
-            <EntryList>
-                {vocabularyList.entry_list.map((entry) => {
-                    if (!filter[entry.model.type]) {
-                        return <></>;
-                    }
-                    return (
-                        <Row
-                            key={entry.model.id}
-                            selected={viewedEntry?.model.id == entry.model.id}
-                            lemma={entry.model.lemma}
-                            label={
-                                entry.model.type == "Noun"
-                                    ? entry.model.dictionary_info.gender
-                                          .at(0)
-                                          ?.toLowerCase()
-                                    : entry.model.type == "Verb"
-                                      ? entry.model.dictionary_info
-                                            .is_perfective
-                                          ? "pf."
-                                          : "imp."
-                                      : entry.model.type == "Adjective"
-                                        ? entry.model.dictionary_info.n_short
-                                        : ""
-                            }
-                            onClick={() => {
-                                setViewedEntry(
-                                    vocabularyList.entry_list.find(
-                                        (found) =>
-                                            found.model.id == entry.model.id,
-                                    ),
-                                );
-                            }}
-                        />
-                    );
-                })}
-            </EntryList>
+        <>
+            <Header level="2">{vocabularyList.title}</Header>
+            <Dropdown header="Original Text">
+                <div className="whitespace-pre-wrap">
+                    {vocabularyList.inputText}
+                </div>
+            </Dropdown>
+            <div className="flex flex-col lg:flex-row">
+                <EntryControls
+                    filter={filter}
+                    setFilter={setFilter}
+                    sorter={sorter}
+                    setSorter={setSorter}
+                />
+                <EntryList>
+                    {vocabularyList.entry_list.map((entry) => {
+                        if (!filter[entry.model.type]) {
+                            return <></>;
+                        }
+                        return (
+                            <Row
+                                key={entry.model.id}
+                                selected={
+                                    viewedEntry?.model.id == entry.model.id
+                                }
+                                lemma={entry.model.lemma}
+                                label={
+                                    // entry.model.type == "Noun"
+                                    //     ? entry.model.dictionary_info.gender
+                                    //           .at(0)
+                                    //           ?.toLowerCase()
+                                    //     : entry.model.type == "Verb"
+                                    //       ? entry.model.dictionary_info
+                                    //             .is_perfective
+                                    //           ? "pf."
+                                    //           : "imp."
+                                    //       : entry.model.type == "Adjective"
+                                    //         ? entry.model.dictionary_info.n_short
+                                    //         : ""
+                                    entry.frequency
+                                }
+                                onClick={() => {
+                                    setViewedEntry(
+                                        vocabularyList.entry_list.find(
+                                            (found) =>
+                                                found.model.id ==
+                                                entry.model.id,
+                                        ),
+                                    );
+                                }}
+                            />
+                        );
+                    })}
+                </EntryList>
 
-            <EntryViewer
-                entry={viewedEntry}
-                setEntry={setViewedEntry}
-                setPopUp={setPopUp}
-            />
+                <EntryViewer
+                    entry={viewedEntry}
+                    setEntry={setViewedEntry}
+                    setPopUp={setPopUp}
+                />
 
-            <PopUp state={popUp} setState={setPopUp} />
-        </div>
+                <PopUp state={popUp} setState={setPopUp} />
+            </div>
+        </>
     );
 };
 

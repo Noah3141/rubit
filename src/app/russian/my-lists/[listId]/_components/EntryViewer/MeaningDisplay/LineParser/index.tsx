@@ -2,7 +2,7 @@ import React, { type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
 import BracketLink from "../BracketLink";
-import LabelMacro from "../LabelMacro";
+import WikiMacro from "../WikiMacro";
 //
 // to [[mean]], to [[signify]]
 // to [[mean]], to [[be]] [[of]] [[importance]], to [[matter]]
@@ -79,7 +79,7 @@ const LineParser: FC<{
 
         if (char === "}}") {
             if (withinMacro) {
-                result.push(<LabelMacro macroText={componentBuffer} />);
+                result.push(<WikiMacro macroText={componentBuffer} />);
                 withinMacro = false;
                 componentBuffer = "";
             }

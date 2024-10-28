@@ -1,12 +1,11 @@
 "use client";
 
 import classNames from "classnames";
-import React, { useEffect, useState, type FC } from "react";
+import React, { useEffect, type FC } from "react";
 import { type Type, type VocabularyListData } from "~/types/russian/list";
 import styles from "./index.module.css";
 import Header from "~/components/Base/Header";
 import IPA from "~/components/Common/IPA";
-import { CgClose } from "react-icons/cg";
 import FrequencyLabel from "~/components/Common/FrequencyLabel";
 import GPTSentencer from "~/components/Common/GPTSentencer";
 import { TiFlag } from "react-icons/ti";
@@ -19,7 +18,9 @@ import type { NounEntry } from "~/types/russian/list/noun";
 import type { AdjEntry } from "~/types/russian/list/adjective";
 import MeaningDisplay from "~/app/russian/my-lists/[listId]/_components/EntryViewer/MeaningDisplay";
 import Link from "~/components/Common/Link";
-import PopUp, { PopUpState } from "../PopUp";
+import type { PopUpState } from "../PopUp";
+import CloseButton from "~/components/Icons/CloseButton";
+import { api } from "~/trpc/react";
 
 const EntryViewer: FC<{
     entry: VocabularyListData["entry_list"][0] | undefined;
@@ -29,6 +30,8 @@ const EntryViewer: FC<{
     setPopUp: React.Dispatch<React.SetStateAction<PopUpState>>;
 }> = ({ entry, setEntry, setPopUp }) => {
     const unaccentedLemma = entry?.model.lemma.replace("\u0301", "");
+
+    const autoUpdate = api.autoUpdate.entry.useQuery({ entry });
 
     useEffect(() => {
         setPopUp(null);
@@ -65,17 +68,17 @@ const EntryViewer: FC<{
                                 <i className="font-serif">{unaccentedLemma}</i>
                             </div>
                         </span>
-                        <div
-                            onClick={() => setEntry(undefined)}
-                            className={classNames(styles.closeButton)}
-                        >
-                            <CgClose size={24} />
-                        </div>
+                        <CloseButton onMouseDown={() => setEntry(undefined)} />
                     </div>
 
                     <hr className="my-3 border-purple-700" />
                     <div className="flex flex-col gap-3">
-                        <MeaningDisplay meanings={entry.model.meanings} />
+                        <MeaningDisplay
+                            status={autoUpdate.status}
+                            meanings={
+                                entry.model.meanings ?? autoUpdate.data ?? null
+                            }
+                        />
 
                         <GPTSentencer
                             token={entry.model.lemma}
@@ -115,17 +118,17 @@ const EntryViewer: FC<{
                                 Викисловарь
                             </Link>
                         </div>
-                    </div>
-                    <div className="mt-12">
-                        <Button
-                            onClick={() => {
-                                setPopUp({ tab: "Flag", entry });
-                            }}
-                            color="red"
-                            size="small"
-                        >
-                            <TiFlag size={24} className="fill-red-950" />
-                        </Button>
+                        <div className="mt-6">
+                            <Button
+                                onClick={() => {
+                                    setPopUp({ tab: "Flag", entry });
+                                }}
+                                color="red"
+                                size="small"
+                            >
+                                <TiFlag size={24} className="fill-red-950" />
+                            </Button>
+                        </div>
                     </div>
                 </div>
             )}

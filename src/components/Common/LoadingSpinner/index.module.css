@@ -1,5 +1,13 @@
 .spinner {
-    @apply z-0 box-border inline-block h-12 w-12 animate-spin rounded-full border-4 border-orange-500 border-b-transparent;
+    @apply z-0 box-border inline-block animate-spin rounded-full border-4 border-orange-500 border-b-transparent;
+
+    &.small {
+        @apply size-6;
+    }
+
+    &.medium {
+        @apply size-12;
+    }
 }
 .wrapper {
     @apply grid h-full max-h-96 w-full place-items-center;

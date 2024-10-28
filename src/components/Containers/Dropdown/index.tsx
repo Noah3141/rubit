@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { type FC, type PropsWithChildren, useState } from "react";
 import styles from "./index.module.css";
+import CloseButton from "~/components/Icons/CloseButton";
 
 const Dropdown: FC<
     PropsWithChildren<{
@@ -14,25 +15,25 @@ const Dropdown: FC<
             onClick={() => setOpen((p) => true)}
             className={classNames(styles.dropdown)}
         >
-            <div className="flex flex-row items-center gap-3 text-2xl">
+            <div className="flex flex-row items-center justify-between gap-3 text-xl">
                 {header}
                 <span
                     onClick={(e) => {
                         e.stopPropagation();
                         setOpen(false);
                     }}
-                    className={`ml-auto cursor-pointer transition-all ${open ? "scale-100" : "scale-0"}`}
+                    className={`transition-all ${open ? "scale-100" : "scale-0"}`}
                 >
-                    x
+                    <CloseButton />
                 </span>
             </div>
             <div
-                className={classNames(styles.contents, {
+                className={classNames(styles.wrapper, {
                     [styles.open!]: open,
                 })}
             >
                 <div className="overflow-hidden">
-                    <div className="flex flex-col gap-6 p-6">{children}</div>
+                    <div className={classNames(styles.content)}>{children}</div>
                 </div>
             </div>
         </div>

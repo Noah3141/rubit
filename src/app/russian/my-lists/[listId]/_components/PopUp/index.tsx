@@ -1,9 +1,8 @@
 import React, { useEffect, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import { CgClose } from "react-icons/cg";
-import Header from "~/components/Base/Header";
 import { type VocabularyListData } from "~/types/russian/list";
+import CloseButton from "~/components/Icons/CloseButton";
 
 export type PopUpState =
     | { tab: "Flag"; entry: VocabularyListData["entry_list"][0] }
@@ -27,13 +26,7 @@ const PopUp: FC<{
                                 {state.entry.model.lemma}
                             </h2>{" "}
                         </div>
-                        <CgClose
-                            size={24}
-                            className="cursor-pointer"
-                            onClick={() => {
-                                setState(null);
-                            }}
-                        />
+                        <CloseButton onMouseDown={() => setState(null)} />
                     </div>
                     <div className={classNames(styles.body)}>
                         <div className={classNames(styles.tabs)}>

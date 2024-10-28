@@ -2,10 +2,19 @@ import React, { type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
 import LineParser from "./LineParser";
+import LoadingSpinner from "~/components/Common/LoadingSpinner";
 
 const MeaningDisplay: FC<{
     meanings: string | null;
-}> = ({ meanings }) => {
+    status: "pending" | "idle" | "error" | "success";
+}> = ({ meanings, status }) => {
+    if (!meanings && status == "pending") {
+        return (
+            <div className={classNames(styles.container)}>
+                <LoadingSpinner fill size="small" />
+            </div>
+        );
+    }
     if (!meanings) return <div>No definitions yet!</div>;
 
     const items = meanings.split("#").filter(

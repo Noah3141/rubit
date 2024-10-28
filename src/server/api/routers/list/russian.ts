@@ -113,7 +113,8 @@ export const listRussianRouter = createTRPCRouter({
                 entries: VocabularyListData["entry_list"][0]["model"][];
             };
 
-            const rebuiltList: VocabularyListData = {
+            const rebuiltList = {
+                ...extractedList,
                 entry_list: extractedList.content.entry_list.map(
                     (entry): VocabularyListData["entry_list"][0] => {
                         const model = json.entries.find(
