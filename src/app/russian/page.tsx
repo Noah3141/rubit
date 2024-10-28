@@ -19,8 +19,42 @@ const RussianPage = () => {
                     acquires further data. (This means old saved lists will
                     completely lack new features, too)
                 </li>
+                <li>
+                    Writing exercise with input analysis, potentially syntax
+                    highlighting and word rarity scores to guide usage of wider
+                    vocabulary
+                </li>
             </ol>
             <Header level="3">Changelog</Header>
+
+            <Header level="4">10/28/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>
+                    Database wipe had to occur in part due to a reset of data
+                    transfer methods intended to increase efficiency. You{" "}
+                    <i>may</i>
+                    need to {`'sign out'`} of a no longer existant account, and
+                    sign up anew, if strange errors appear.
+                </li>
+                <li>
+                    A good bit of mobile functionality was improved, and
+                    prepared. Lists should be vaguely studyable on phone.
+                </li>
+                <li>
+                    Added an autoupdate feature to fill the gaps of the initial
+                    WikiDump parsing. You may now see meanings labeled{" "}
+                    {`'autoparsed'`}. If these are strange, or the meanings
+                    never end up loading, consider letting me know the word that
+                    led to the issue. In the future, if this stabilizes, I will
+                    shift this into a local update, to minimize the {`app's`}{" "}
+                    need to ping the external wiki server.
+                </li>
+                <li>
+                    Language {`nav's`} language name is now also a link to its
+                    home page, not just the top {`nav's`} (basic UX fix)
+                </li>
+            </ol>
+
             <Header level="4">10/26/2024</Header>
             <ol className="list-disc ps-5">
                 <li>
