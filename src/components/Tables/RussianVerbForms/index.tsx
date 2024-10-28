@@ -8,12 +8,47 @@ const VerbForms: FC<{
     entry: VerbEntry;
 }> = ({ entry }) => {
     return (
-        <div className="w-full overflow-hidden rounded border border-violet-600">
+        <div className={classNames(styles.container)}>
             <table className={classNames(styles.verbTable)}>
                 <thead>
+                    <th className=""></th>
+                    <th className="">past</th>
+                    <th className="">present</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td className="p-1 text-right">passive</td>
+                        <td>
+                            {entry.model.dictionary_info.past_passive ?? "-"}
+                        </td>
+                        <td>
+                            {entry.model.dictionary_info.present_passive ?? "-"}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="p-1 text-right">active</td>
+                        <td>
+                            {entry.model.dictionary_info.past_active ?? "-"}
+                        </td>
+                        <td>
+                            {entry.model.dictionary_info.present_active ?? "-"}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="p-1 text-right">adv.</td>
+                        <td>
+                            {entry.model.dictionary_info.past_adverbial ?? "-"}
+                        </td>
+                        <td>
+                            {entry.model.dictionary_info.present_adverbial ??
+                                "-"}
+                        </td>
+                    </tr>
+                </tbody>
+                <thead>
                     <th className="py-1"></th>
-                    <th className="min-w-36 px-3 py-1">Singular</th>
-                    <th className="min-w-36 px-3 py-1">Plural</th>
+                    <th className="px-3 py-1">Singular</th>
+                    <th className="px-3 py-1">Plural</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -58,41 +93,6 @@ const VerbForms: FC<{
                             </div>
                         </td>
                         <td>{entry.model.dictionary_info.plur_past ?? "-"}</td>
-                    </tr>
-                </tbody>
-                <thead>
-                    <th className=""></th>
-                    <th className="min-w-36">past</th>
-                    <th className="min-w-36">present</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td className="p-1 text-right">passive</td>
-                        <td>
-                            {entry.model.dictionary_info.past_passive ?? "-"}
-                        </td>
-                        <td>
-                            {entry.model.dictionary_info.present_passive ?? "-"}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="p-1 text-right">active</td>
-                        <td>
-                            {entry.model.dictionary_info.past_active ?? "-"}
-                        </td>
-                        <td>
-                            {entry.model.dictionary_info.present_active ?? "-"}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="p-1 text-right">adv.</td>
-                        <td>
-                            {entry.model.dictionary_info.past_adverbial ?? "-"}
-                        </td>
-                        <td>
-                            {entry.model.dictionary_info.present_adverbial ??
-                                "-"}
-                        </td>
                     </tr>
                 </tbody>
             </table>

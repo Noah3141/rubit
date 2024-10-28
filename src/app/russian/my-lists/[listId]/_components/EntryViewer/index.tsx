@@ -19,25 +19,20 @@ import type { NounEntry } from "~/types/russian/list/noun";
 import type { AdjEntry } from "~/types/russian/list/adjective";
 import MeaningDisplay from "~/app/russian/my-lists/[listId]/_components/EntryViewer/MeaningDisplay";
 import Link from "~/components/Common/Link";
-import PopUp from "./PopUp";
-
-export type PopUpState =
-    | { tab: "Flag"; entry: VocabularyListData["entry_list"][0] }
-    | { tab: "Add Info"; entry: VocabularyListData["entry_list"][0] }
-    | null;
+import PopUp, { PopUpState } from "../PopUp";
 
 const EntryViewer: FC<{
-    entry: VocabularyListData["entry_list"][0];
+    entry: VocabularyListData["entry_list"][0] | undefined;
     setEntry: React.Dispatch<
         React.SetStateAction<VocabularyListData["entry_list"][0] | undefined>
     >;
-}> = ({ entry, setEntry }) => {
-    const [popUp, setPopUp] = useState<PopUpState>(null);
-    const unaccentedLemma = entry.model.lemma.replace("\u0301", "");
+    setPopUp: React.Dispatch<React.SetStateAction<PopUpState>>;
+}> = ({ entry, setEntry, setPopUp }) => {
+    const unaccentedLemma = entry?.model.lemma.replace("\u0301", "");
 
     useEffect(() => {
         setPopUp(null);
-    }, [entry.model.id]);
+    }, [entry?.model.id]);
 
     return (
         <div className={classNames(styles.column, { [styles.open!]: !!entry })}>
@@ -115,13 +110,13 @@ const EntryViewer: FC<{
                             </Link>
                             <Link
                                 target="_blank"
-                                href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}
+                                href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}
                             >
                                 Викисловарь
                             </Link>
                         </div>
                     </div>
-                    <div className="mt-24">
+                    <div className="mt-12">
                         <Button
                             onClick={() => {
                                 setPopUp({ tab: "Flag", entry });
@@ -131,7 +126,6 @@ const EntryViewer: FC<{
                         >
                             <TiFlag size={24} className="fill-red-950" />
                         </Button>
-                        <PopUp state={popUp} setState={setPopUp} />
                     </div>
                 </div>
             )}

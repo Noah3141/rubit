@@ -5,6 +5,7 @@ import type { VocabularyListData } from "~/types/russian/list";
 import EntryList, { Row } from "./_components/EntryList";
 import EntryViewer from "./_components/EntryViewer";
 import EntryControls from "./_components/EntryControls";
+import PopUp, { PopUpState } from "./_components/PopUp";
 
 //
 // State Prep
@@ -61,6 +62,7 @@ const Content: FC<{
         Adjective: true,
         Adverb: false,
     });
+    const [popUp, setPopUp] = useState<PopUpState>(null);
 
     const [sorter, setSorter] = useState<Sorter>("frequency");
 
@@ -111,9 +113,13 @@ const Content: FC<{
                 })}
             </EntryList>
 
-            {!!viewedEntry && (
-                <EntryViewer entry={viewedEntry} setEntry={setViewedEntry} />
-            )}
+            <EntryViewer
+                entry={viewedEntry}
+                setEntry={setViewedEntry}
+                setPopUp={setPopUp}
+            />
+
+            <PopUp state={popUp} setState={setPopUp} />
         </div>
     );
 };

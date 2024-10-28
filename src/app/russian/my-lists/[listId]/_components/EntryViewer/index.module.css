@@ -1,12 +1,12 @@
 .column {
-    @apply w-1/2 p-6 transition-all;
+    @apply pointer-events-none fixed left-0 top-24 h-screen w-full translate-y-full transition-all duration-300 lg:pointer-events-auto lg:static lg:top-0 lg:h-auto lg:w-fit lg:translate-y-0 lg:p-6;
 
     &.open {
-        @apply w-full;
+        @apply pointer-events-auto translate-y-0;
     }
 
     .viewer {
-        @apply sticky top-32 flex flex-col gap-1 rounded bg-purple-900 p-3;
+        @apply sticky top-24 flex max-h-svh w-full flex-col gap-1 overflow-y-auto overscroll-contain rounded border border-purple-500 bg-purple-900 p-3 pb-24 shadow-lg lg:top-32 lg:max-h-[calc(100vh-136px)] lg:border-none lg:p-3 lg:shadow-none;
 
         .header {
             @apply flex flex-row items-start justify-between;

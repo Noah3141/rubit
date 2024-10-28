@@ -1,10 +1,16 @@
 "use client";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import React, { type FC, type PropsWithChildren, useState } from "react";
+import React, {
+    type FC,
+    type PropsWithChildren,
+    useEffect,
+    useState,
+} from "react";
 import Item from "../Item";
 import { FiMenu } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
+import { usePathname } from "next/navigation";
 
 const Bar: FC<
     PropsWithChildren<{
@@ -12,6 +18,11 @@ const Bar: FC<
     }>
 > = ({ children }) => {
     const [navOpen, setNavOpen] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setNavOpen(false);
+    }, [pathname]);
 
     return (
         <nav className={classNames(styles.navbar)}>

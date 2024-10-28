@@ -7,12 +7,12 @@ const NounForms: FC<{
     entry: NounEntry;
 }> = ({ entry }) => {
     return (
-        <div className="w-full overflow-hidden rounded border border-violet-600">
+        <div className={classNames(styles.container)}>
             <table className={classNames(styles.nounTable)}>
                 <thead>
                     <th className="w-36 px-3 py-1"></th>
-                    <th className="min-w-36 px-3 py-1">Singular</th>
-                    <th className="min-w-36 px-3 py-1">Plural</th>
+                    <th className="px-3 py-1">Singular</th>
+                    <th className="px-3 py-1">Plural</th>
                 </thead>
                 <tbody>
                     <tr>

@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { useState, type FC } from "react";
 import styles from "./index.module.css";
+import { FaCheck } from "react-icons/fa";
 
 const Checkbox: FC<
     {
@@ -14,7 +15,13 @@ const Checkbox: FC<
         <div
             {...props}
             className={classNames(styles.box, { [styles.checked!]: value })}
-        ></div>
+        >
+            <FaCheck
+                className={classNames(styles.icon, {
+                    [styles.checked!]: value,
+                })}
+            />
+        </div>
     );
 };
 

@@ -1,7 +1,15 @@
 .box {
-    @apply size-6 rounded border;
+    @apply grid size-5 place-items-center rounded border;
 
     &.checked {
         @apply bg-green-500;
+    }
+
+    .icon {
+        @apply size-0;
+
+        &.checked {
+            @apply size-3;
+        }
     }
 }

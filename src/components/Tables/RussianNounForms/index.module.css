@@ -1,15 +1,19 @@
-.nounTable {
-    @apply table w-full table-auto text-center text-lg;
+.container {
+    @apply w-full max-w-screen-sm overflow-hidden rounded border border-violet-600;
 
-    > thead {
-        @apply divide-x divide-violet-900 border-b border-violet-700 bg-violet-800/30;
-    }
+    .nounTable {
+        @apply table w-full table-auto text-center text-sm;
 
-    > tbody {
-        @apply divide-y divide-violet-800;
+        > thead {
+            @apply divide-x divide-violet-900 border-b border-violet-700 bg-violet-800/30;
+        }
 
-        > tr {
-            @apply divide-x divide-violet-900;
+        > tbody {
+            @apply divide-y divide-violet-800;
+
+            > tr {
+                @apply divide-x divide-violet-900;
+            }
         }
     }
 }

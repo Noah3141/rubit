@@ -1,8 +1,8 @@
 .position {
-    @apply pointer-events-none fixed left-0 top-0 grid h-screen w-screen place-items-center;
+    @apply pointer-events-none fixed left-0 top-24 grid h-screen w-screen place-items-center lg:top-0;
 
     .container {
-        @apply pointer-events-auto h-screen w-screen overflow-hidden rounded border border-neutral-950 bg-purple-800 shadow-lg shadow-neutral-950 transition-all sm:max-h-[600px] sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg;
+        @apply pointer-events-auto h-full w-screen overflow-hidden rounded border border-neutral-950 bg-purple-800 shadow-lg shadow-neutral-950 transition-all sm:max-h-[600px] sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg;
 
         .contents {
             @apply flex h-full flex-col;
@@ -16,10 +16,10 @@
             }
 
             .body {
-                @apply flex h-full flex-row border-t border-purple-900;
+                @apply flex h-full flex-col border-t border-purple-900 lg:flex-row;
 
                 .tabs {
-                    @apply flex w-64 flex-col;
+                    @apply flex flex-row border-b border-purple-900 lg:w-64 lg:flex-col lg:border-b-0;
 
                     .tab {
                         @apply cursor-pointer p-3 hover:bg-purple-900/40;
@@ -31,7 +31,7 @@
                 }
 
                 .viewedTab {
-                    @apply h-full w-full border-l border-purple-900;
+                    @apply h-[calc(100vh-10rem)] w-full overflow-y-auto border-l border-purple-900 p-3;
                 }
             }
         }

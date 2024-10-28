@@ -1,9 +1,14 @@
 import React, { useEffect, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import { PopUpState } from "..";
 import { CgClose } from "react-icons/cg";
 import Header from "~/components/Base/Header";
+import { type VocabularyListData } from "~/types/russian/list";
+
+export type PopUpState =
+    | { tab: "Flag"; entry: VocabularyListData["entry_list"][0] }
+    | { tab: "Add Info"; entry: VocabularyListData["entry_list"][0] }
+    | null;
 
 const PopUp: FC<{
     state: PopUpState;

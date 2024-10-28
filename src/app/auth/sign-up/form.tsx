@@ -29,7 +29,7 @@ const SignUpForm: FC = () => {
                 icon: (
                     <RiErrorWarningFill className="!size-6 !fill-violet-700" />
                 ),
-                duration: 1000000,
+                duration: 5_000,
             });
         },
         onSuccess: async () => {
