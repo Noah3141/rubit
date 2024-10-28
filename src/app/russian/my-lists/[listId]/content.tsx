@@ -54,7 +54,7 @@ export type Sorter = "frequency" | "alphabetical" | "commonality" | "length";
 ///
 
 const Content: FC<{
-    vocabularyList: RouterOutputs["list"]["russian"]["get"];
+    vocabularyList: VocabularyListData & { title?: string };
 }> = ({ vocabularyList }) => {
     const [viewedEntry, setViewedEntry] =
         useState<VocabularyListData["entry_list"][0]>();

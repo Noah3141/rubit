@@ -30,6 +30,10 @@ const RussianPage = () => {
             <Header level="4">10/28/2024</Header>
             <ol className="list-disc ps-5">
                 <li>
+                    Added original text input to {`list's`}, along with their
+                    title (editability to come)
+                </li>
+                <li>
                     Database wipe had to occur in part due to a reset of data
                     transfer methods intended to increase efficiency. You{" "}
                     <i>may</i>

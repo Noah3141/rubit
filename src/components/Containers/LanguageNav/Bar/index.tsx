@@ -12,6 +12,7 @@ import { toTitleCase } from "~/utils/strings";
 import { FaChevronDown } from "react-icons/fa";
 import type { Language } from "~/types/language";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const Bar: FC<
     PropsWithChildren<{
@@ -32,7 +33,7 @@ const Bar: FC<
             <div className="hidden w-full lg:block">
                 <div className={classNames(styles.header)}>
                     <h1 className={classNames(styles.title)}>
-                        {languageTitle}
+                        <Link href={`/${language}`}> {languageTitle}</Link>
                     </h1>
                     <div className={classNames(styles.contents)}>
                         {children}
