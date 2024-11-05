@@ -9,9 +9,15 @@ const EntryList: FC<
     }>
 > = ({ children }) => {
     return (
-        <table className={classNames(styles.list)}>
-            <tbody className={classNames(styles.body)}>{children}</tbody>
-        </table>
+        <div className={classNames(styles.container)}>
+            <table className={classNames(styles.list)}>
+                <tbody className={classNames(styles.body)}>
+                    <tr></tr>
+                    {/* blank row prevents styling flash */}
+                    {children}
+                </tbody>
+            </table>
+        </div>
     );
 };
 

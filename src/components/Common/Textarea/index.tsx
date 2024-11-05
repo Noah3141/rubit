@@ -8,7 +8,7 @@ import React, { type FC, TextareaHTMLAttributes, useState } from "react";
 const Textarea: FC<
     {
         value: string;
-        onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+        onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
     } & TextareaHTMLAttributes<HTMLTextAreaElement>
 > = ({ value, onChange, ...props }) => {
     return (

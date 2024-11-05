@@ -1,19 +1,19 @@
 .row {
-    @apply cursor-pointer text-left transition-all hover:!bg-purple-800 lg:w-12;
+    @apply cursor-pointer text-left transition-all even:bg-purple-800/40 hover:!bg-purple-800 lg:w-12;
 
     > td {
-        @apply p-1;
+        @apply px-3 py-1;
     }
 
     .lemma {
-        @apply text-ellipsis;
+        @apply text-ellipsis text-lg font-light;
     }
 
     &.selected {
-        @apply cursor-default bg-purple-800/50;
+        @apply cursor-default bg-purple-800;
 
         .lemma {
-            @apply font-bold;
+            @apply font-medium;
         }
     }
 }

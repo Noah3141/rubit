@@ -1,0 +1,19 @@
+.select {
+    @apply relative;
+
+    .selected {
+        @apply cursor-pointer rounded border border-purple-700 px-1 hover:bg-purple-700;
+    }
+
+    .options {
+        @apply absolute top-full flex h-0 flex-col overflow-hidden rounded bg-purple-900;
+
+        &.open {
+            @apply h-fit w-full shadow;
+        }
+
+        .option {
+            @apply cursor-pointer rounded px-1 hover:bg-purple-800;
+        }
+    }
+}

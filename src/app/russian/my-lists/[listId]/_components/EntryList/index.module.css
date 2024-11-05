@@ -1,7 +1,11 @@
-.list {
-    @apply table-auto border border-purple-800 lg:w-fit lg:min-w-[500px];
+.container {
+    @apply shrink-0 overflow-hidden rounded border-purple-700 bg-purple-900;
 
-    .body {
-        @apply divide-y divide-purple-800;
+    .list {
+        @apply w-full table-auto lg:w-fit lg:min-w-[360px];
+
+        .body {
+            @apply w-full;
+        }
     }
 }

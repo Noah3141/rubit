@@ -9,6 +9,10 @@ import PopUp, { PopUpState } from "./_components/PopUp";
 import Header from "~/components/Base/Header";
 import { RouterOutputs } from "~/trpc/react";
 import Dropdown from "~/components/Containers/Dropdown";
+import TextInput from "~/components/Common/TextInput";
+import Link from "~/components/Common/Link";
+import Button from "~/components/Common/Button";
+import PageSelector from "./_components/PageSelector";
 
 //
 // State Prep
@@ -20,41 +24,35 @@ export type Filter = {
     Adjective: boolean;
     Adverb: boolean;
 };
-const SORTERS = {
-    frequency: (
+export const SORTERS: Record<
+    Sorter,
+    (
         a: VocabularyListData["entry_list"][0],
         b: VocabularyListData["entry_list"][0],
-    ) => {
-        return a.frequency - b.frequency;
+    ) => number
+> = {
+    Frequency: (a, b) => {
+        return b.frequency - a.frequency;
     },
-    alphabetical: (
-        a: VocabularyListData["entry_list"][0],
-        b: VocabularyListData["entry_list"][0],
-    ) => {
+    Alphabetical: (a, b) => {
         return a.model.lemma.localeCompare(b.model.lemma);
     },
-    length: (
-        a: VocabularyListData["entry_list"][0],
-        b: VocabularyListData["entry_list"][0],
-    ) => {
+    Length: (a, b) => {
         return a.model.lemma.length - b.model.lemma.length;
     },
-    commonality: (
-        a: VocabularyListData["entry_list"][0],
-        b: VocabularyListData["entry_list"][0],
-    ) => {
-        return (a.model.commonality ?? 0.0) - (b.model.commonality ?? 0.0);
+    Commonality: (a, b) => {
+        return (b.model.commonality ?? 0.0) - (a.model.commonality ?? 0.0);
     },
 };
 
-export type Sorter = "frequency" | "alphabetical" | "commonality" | "length";
+export type Sorter = "Frequency" | "Alphabetical" | "Commonality" | "Length";
 
 ///
 /// Component
 ///
 
 const Content: FC<{
-    vocabularyList: VocabularyListData & { title?: string };
+    vocabularyList: RouterOutputs["list"]["russian"]["get"];
 }> = ({ vocabularyList }) => {
     const [viewedEntry, setViewedEntry] =
         useState<VocabularyListData["entry_list"][0]>();
@@ -66,19 +64,21 @@ const Content: FC<{
         Adverb: false,
     });
     const [popUp, setPopUp] = useState<PopUpState>(null);
-
-    const [sorter, setSorter] = useState<Sorter>("frequency");
+    const [sorter, setSorter] = useState<Sorter>("Frequency");
 
     vocabularyList.entry_list.sort(SORTERS[sorter]);
 
     return (
         <>
             <Header level="2">{vocabularyList.title}</Header>
+            <PageSelector vocabularyList={vocabularyList} />
+
             <Dropdown header="Original Text">
                 <div className="whitespace-pre-wrap">
                     {vocabularyList.inputText}
                 </div>
             </Dropdown>
+
             <div className="flex flex-col lg:flex-row">
                 <EntryControls
                     filter={filter}
@@ -98,21 +98,7 @@ const Content: FC<{
                                     viewedEntry?.model.id == entry.model.id
                                 }
                                 lemma={entry.model.lemma}
-                                label={
-                                    // entry.model.type == "Noun"
-                                    //     ? entry.model.dictionary_info.gender
-                                    //           .at(0)
-                                    //           ?.toLowerCase()
-                                    //     : entry.model.type == "Verb"
-                                    //       ? entry.model.dictionary_info
-                                    //             .is_perfective
-                                    //           ? "pf."
-                                    //           : "imp."
-                                    //       : entry.model.type == "Adjective"
-                                    //         ? entry.model.dictionary_info.n_short
-                                    //         : ""
-                                    entry.frequency
-                                }
+                                label={entry.frequency}
                                 onClick={() => {
                                     setViewedEntry(
                                         vocabularyList.entry_list.find(

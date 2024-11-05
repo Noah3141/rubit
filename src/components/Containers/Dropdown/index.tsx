@@ -1,3 +1,5 @@
+"use client";
+
 import classNames from "classnames";
 import React, { type FC, type PropsWithChildren, useState } from "react";
 import styles from "./index.module.css";

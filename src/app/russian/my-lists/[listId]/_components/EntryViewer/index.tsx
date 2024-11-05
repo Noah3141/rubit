@@ -31,11 +31,9 @@ const EntryViewer: FC<{
 }> = ({ entry, setEntry, setPopUp }) => {
     const unaccentedLemma = entry?.model.lemma.replace("\u0301", "");
 
-    const autoUpdate = api.autoUpdate.entry.useQuery({ entry });
-
     useEffect(() => {
         setPopUp(null);
-    }, [entry?.model.id]);
+    }, [entry?.model.id, setPopUp]);
 
     return (
         <div className={classNames(styles.column, { [styles.open!]: !!entry })}>
@@ -49,7 +47,13 @@ const EntryViewer: FC<{
                                     {entry.frequency}
                                 </FrequencyLabel>
                             </Header>
-                            {entry.model.type}
+                            <span>
+                                {entry.model.type}{" "}
+                                {entry.model.type == "Verb" &&
+                                entry.model.dictionary_info.is_perfective
+                                    ? "(perfective)"
+                                    : "(imperfective)"}
+                            </span>
                             <div>
                                 {typeof entry.model.commonality == "number"
                                     ? Math.floor(1 / entry.model.commonality)
@@ -73,12 +77,7 @@ const EntryViewer: FC<{
 
                     <hr className="my-3 border-purple-700" />
                     <div className="flex flex-col gap-3">
-                        <MeaningDisplay
-                            status={autoUpdate.status}
-                            meanings={
-                                entry.model.meanings ?? autoUpdate.data ?? null
-                            }
-                        />
+                        <MeaningDisplay entry={entry} />
 
                         <GPTSentencer
                             token={entry.model.lemma}

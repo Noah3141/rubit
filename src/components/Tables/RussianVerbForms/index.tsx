@@ -12,8 +12,8 @@ const VerbForms: FC<{
             <table className={classNames(styles.verbTable)}>
                 <thead>
                     <th className=""></th>
-                    <th className="">past</th>
-                    <th className="">present</th>
+                    <th className="">Past</th>
+                    <th className="">Present</th>
                 </thead>
                 <tbody>
                     <tr>

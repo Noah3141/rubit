@@ -27,6 +27,32 @@ const RussianPage = () => {
             </ol>
             <Header level="3">Changelog</Header>
 
+            <Header level="4">11/05/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>Some styling changes that will all be thrown out later</li>
+                <li>
+                    Better testing page now cycles items at random, while
+                    providing answer beneath
+                </li>
+                <li>
+                    Beginnings of a within-list navigation system, to jump
+                    between Study, Info, and Viewing the list
+                </li>
+                <li>Fixed adjectives not showing short forms</li>
+                <li>
+                    Updated styling for sorters, and changed them to work a bit
+                    more intuitively (frequency and commonality are descending,
+                    length and alphabetical are ascending)
+                </li>
+                <li>
+                    Flagging a word is now available, for, particularly, when
+                    the meaning section is messed up or missing. Later more
+                    input will be allowed, and we can compile a verb Root
+                    Section dataset, which will unlock the potential for some
+                    further interesting metrics and pages
+                </li>
+            </ol>
+
             <Header level="4">10/28/2024</Header>
             <ol className="list-disc ps-5">
                 <li>

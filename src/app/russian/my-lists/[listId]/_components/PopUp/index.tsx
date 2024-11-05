@@ -3,6 +3,7 @@ import classNames from "classnames";
 import styles from "./index.module.css";
 import { type VocabularyListData } from "~/types/russian/list";
 import CloseButton from "~/components/Icons/CloseButton";
+import FlagWordTab from "./Tabs/FlagWord";
 
 export type PopUpState =
     | { tab: "Flag"; entry: VocabularyListData["entry_list"][0] }
@@ -66,7 +67,9 @@ const PopUp: FC<{
                             {
                                 (
                                     {
-                                        Flag: <></>,
+                                        Flag: (
+                                            <FlagWordTab entry={state.entry} />
+                                        ),
                                         "Add Info": <></>,
                                     } as Record<
                                         typeof state.tab, // NonNullable<PopUpState>["tab"]

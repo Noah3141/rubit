@@ -34,13 +34,13 @@ const AdjectiveForms: FC<{
                     <tr>
                         <td className="p-1 text-right">acc.</td>
                         <td>
-                            {entry.model.dictionary_info.acc_masc}/
+                            {entry.model.dictionary_info.acc_masc} / <br />
                             {entry.model.dictionary_info.nom_masc}
                         </td>
                         <td>{entry.model.dictionary_info.acc_neut}</td>
                         <td>{entry.model.dictionary_info.acc_fem}</td>
                         <td>
-                            {entry.model.dictionary_info.acc_plur}/
+                            {entry.model.dictionary_info.acc_plur} /<br />
                             {entry.model.dictionary_info.nom_plur}
                         </td>
                     </tr>
@@ -57,6 +57,13 @@ const AdjectiveForms: FC<{
                         <td>{entry.model.dictionary_info.pre_neut}</td>
                         <td>{entry.model.dictionary_info.pre_fem}</td>
                         <td>{entry.model.dictionary_info.pre_plur}</td>
+                    </tr>
+                    <tr>
+                        <td className="p-1 text-right">short</td>
+                        <td>{entry.model.dictionary_info.m_short ?? "-"}</td>
+                        <td>{entry.model.dictionary_info.n_short ?? "-"}</td>
+                        <td>{entry.model.dictionary_info.f_short ?? "-"}</td>
+                        <td>{entry.model.dictionary_info.p_short ?? "-"}</td>
                     </tr>
                 </tbody>
             </table>
