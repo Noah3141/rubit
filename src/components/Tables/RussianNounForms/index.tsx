@@ -31,6 +31,11 @@ const NounForms: FC<{
                         <td>{entry.model.dictionary_info.acc_plur ?? "-"}</td>
                     </tr>
                     <tr>
+                        <td className="p-1 text-right">dative</td>
+                        <td>{entry.model.dictionary_info.dat_sing ?? "-"}</td>
+                        <td>{entry.model.dictionary_info.dat_plur ?? "-"}</td>
+                    </tr>
+                    <tr>
                         <td className="p-1 text-right">instrumental</td>
                         <td>{entry.model.dictionary_info.ins_sing ?? "-"}</td>
                         <td>{entry.model.dictionary_info.ins_plur ?? "-"}</td>

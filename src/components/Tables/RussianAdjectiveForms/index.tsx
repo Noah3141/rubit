@@ -34,15 +34,22 @@ const AdjectiveForms: FC<{
                     <tr>
                         <td className="p-1 text-right">acc.</td>
                         <td>
-                            {entry.model.dictionary_info.acc_masc} / <br />
+                            {entry.model.dictionary_info.acc_masc}/<br />
                             {entry.model.dictionary_info.nom_masc}
                         </td>
                         <td>{entry.model.dictionary_info.acc_neut}</td>
                         <td>{entry.model.dictionary_info.acc_fem}</td>
                         <td>
-                            {entry.model.dictionary_info.acc_plur} /<br />
+                            {entry.model.dictionary_info.acc_plur}/<br />
                             {entry.model.dictionary_info.nom_plur}
                         </td>
+                    </tr>
+                    <tr>
+                        <td className="p-1 text-right">dat.</td>
+                        <td>{entry.model.dictionary_info.dat_masc}</td>
+                        <td>{entry.model.dictionary_info.dat_neut}</td>
+                        <td>{entry.model.dictionary_info.dat_fem}</td>
+                        <td>{entry.model.dictionary_info.dat_plur}</td>
                     </tr>
                     <tr>
                         <td className="p-1 text-right">ins.</td>
