@@ -5,7 +5,6 @@ type Segment = {
 
 export class TextCrawler {
     private text: string;
-    static regex = /\S+|\s+|[.,:;]/g;
 
     constructor(text: string) {
         this.text = text;
@@ -24,17 +23,22 @@ export class TextCrawler {
                 yield { type: "whitespace", value: segment };
             } else {
                 // Check if segment ends with punctuation
-                const wordMatch = segment.match(/^(\S+?)([.,:?!]+)?$/);
+                const wordMatch = segment.match(/("?)(\S+?)([.,:?!…"»]+)?$/);
                 if (wordMatch) {
-                    const [_, word, punctuation] = wordMatch;
+                    const [_, punctuationFore, word, punctuationAft] =
+                        wordMatch;
+
+                    if (punctuationFore) {
+                        yield { type: "punctuation", value: punctuationFore };
+                    }
 
                     // Yield word part
                     if (word) {
                         yield { type: "word", value: word };
                     }
                     // Yield punctuation part, if it exists
-                    if (punctuation) {
-                        yield { type: "punctuation", value: punctuation };
+                    if (punctuationAft) {
+                        yield { type: "punctuation", value: punctuationAft };
                     }
                 }
             }
