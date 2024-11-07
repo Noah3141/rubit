@@ -19,7 +19,7 @@ const SavedListRow: FC<{
                 <Button>View</Button>
             </Link>
             <Link
-                href={`/${savedList.language.toLowerCase()}/my-lists/study/${savedList.id}`}
+                href={`/${savedList.language.toLowerCase()}/my-lists/${savedList.id}/study`}
             >
                 <Button>Study</Button>
             </Link>
