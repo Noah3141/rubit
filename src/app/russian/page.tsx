@@ -27,6 +27,21 @@ const RussianPage = () => {
             </ol>
             <Header level="3">Changelog</Header>
 
+            <Header level="4">11/07/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>
+                    Fixed certain punctuation parsing in the Text page for lists
+                </li>
+                <li>
+                    Massive fix to data integrity: no longer missing verb
+                    infinitives, and {`ё's`} are now unnecessary in input text.
+                    (This will, I think, cause a small number of errors, having
+                    solved many more)
+                </li>
+                <li>Fixed missing dative case from the entire app lol</li>
+                <li>Fixed label problem for perfectivity vs gender</li>
+            </ol>
+
             <Header level="4">11/06/2024</Header>
             <ol className="list-disc ps-5">
                 <li>
