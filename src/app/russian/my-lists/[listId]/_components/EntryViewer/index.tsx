@@ -50,9 +50,11 @@ const EntryViewer: FC<{
                             <span>
                                 {entry.model.type}{" "}
                                 {entry.model.type == "Verb" &&
-                                entry.model.dictionary_info.is_perfective
-                                    ? "(perfective)"
-                                    : "(imperfective)"}
+                                    (entry.model.dictionary_info.is_perfective
+                                        ? "(perfective)"
+                                        : "(imperfective)")}
+                                {entry.model.type == "Noun" &&
+                                    `(${entry.model.dictionary_info.gender.toLowerCase()})`}
                             </span>
                             <div>
                                 {typeof entry.model.commonality == "number"
