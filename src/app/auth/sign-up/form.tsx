@@ -61,7 +61,29 @@ const SignUpForm: FC = () => {
         <>
             <Header level="1">Sign Up</Header>
 
-            <section>
+            <form
+                onSubmit={async (e) => {
+                    e.preventDefault();
+
+                    // validate
+                    const input = signUpForm.safeParse(form);
+
+                    if (input.success) {
+                        if (
+                            input.data.password === input.data.confirmPassword
+                        ) {
+                            signUp.mutate(input.data);
+                        } else {
+                            toast.error("Passwords must match!");
+                        }
+                    } else {
+                        toast.error(
+                            input.error.errors.at(0)?.message ??
+                                "Something went wrong",
+                        );
+                    }
+                }}
+            >
                 <TextInput
                     className="sm:w-96"
                     placeholder="Email"
@@ -91,34 +113,10 @@ const SignUpForm: FC = () => {
                         }))
                     }
                 />
-            </section>
-            <section>
-                <Button
-                    className="ml-auto sm:ml-0"
-                    onClick={() => {
-                        // validate
-                        const input = signUpForm.safeParse(form);
-
-                        if (input.success) {
-                            if (
-                                input.data.password ===
-                                input.data.confirmPassword
-                            ) {
-                                signUp.mutate(input.data);
-                            } else {
-                                toast.error("Passwords must match!");
-                            }
-                        } else {
-                            toast.error(
-                                input.error.errors.at(0)?.message ??
-                                    "Something went wrong",
-                            );
-                        }
-                    }}
-                >
+                <Button type="submit" className="ml-auto sm:ml-0">
                     Sign Up
                 </Button>
-            </section>
+            </form>
         </>
     );
 };

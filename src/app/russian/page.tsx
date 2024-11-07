@@ -14,7 +14,7 @@ const RussianPage = () => {
                     commonality scores that {`isn't...`} Completely arbitrary
                 </li>
                 <li>
-                    Currenltly saved lists save a previous data state, and need
+                    Currently saved lists save a previous data state, and need
                     some way of catching up to the back-end database when it
                     acquires further data. (This means old saved lists will
                     completely lack new features, too)
@@ -26,6 +26,29 @@ const RussianPage = () => {
                 </li>
             </ol>
             <Header level="3">Changelog</Header>
+
+            <Header level="4">11/06/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>
+                    Changed the placing of the input text, and began adding a
+                    syntax highlighting system...
+                </li>
+                <li>
+                    Fixed some obscure aspect of login flow. Pressing{" "}
+                    {`'enter'`} now works
+                </li>
+                <li>
+                    Fixed various subroutes of vocab list repeatedly refetching
+                    the same data
+                </li>
+                <li>
+                    Noticed a moderate sized hole in data coverage regarding
+                    verb infinitives which should only have broken: frequency
+                    counts in provided text, and syntax highlighting. Will be
+                    fixed soon.
+                </li>
+                <li>Mobile formatting</li>
+            </ol>
 
             <Header level="4">11/05/2024</Header>
             <ol className="list-disc ps-5">

@@ -1,0 +1,7 @@
+.layout {
+    @apply grid grid-cols-1 gap-3;
+
+    .content {
+        @apply grid grid-cols-1 gap-3 py-6;
+    }
+}

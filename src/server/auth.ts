@@ -25,11 +25,13 @@ declare module "next-auth" {
         user: DefaultSession["user"] & {
             id: string;
             role: Role;
+            email: string;
         };
     }
 
     interface User {
         id: string;
+        email: string;
         role: Role;
     }
 }

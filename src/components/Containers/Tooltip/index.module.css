@@ -1,0 +1,3 @@
+.tooltip {
+    @apply border border-purple-700 !bg-purple-900;
+}

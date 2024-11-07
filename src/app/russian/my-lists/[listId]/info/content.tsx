@@ -8,10 +8,12 @@ import TextInput from "~/components/Common/TextInput";
 import Button from "~/components/Common/Button";
 import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
+import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 
 const Content: FC<{
-    vocabularyList: RouterOutputs["list"]["russian"]["get"];
-}> = ({ vocabularyList }) => {
+    //
+}> = ({}) => {
+    const vocabularyList = useVocabularyList();
     const [title, setTitle] = useState<string>(vocabularyList.title);
 
     const utils = api.useUtils();
@@ -40,9 +42,6 @@ const Content: FC<{
 
     return (
         <>
-            <Header level="2">{vocabularyList.title}</Header>
-            <PageSelector vocabularyList={vocabularyList} />
-
             <div className="flex w-full flex-row gap-3">
                 <TextInput
                     value={title}

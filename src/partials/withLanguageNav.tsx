@@ -19,13 +19,15 @@ const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
                     <LanguageNav.Item link={`/${language}/trees`}>
                         Trees
                     </LanguageNav.Item>
-                    <LanguageNav.Item link={`/${language}/new-list`}>
-                        Make New List
-                    </LanguageNav.Item>
                     {!!session && (
-                        <LanguageNav.Item link={`/${language}/my-lists`}>
-                            My Lists
-                        </LanguageNav.Item>
+                        <>
+                            <LanguageNav.Item link={`/${language}/new-list`}>
+                                Make New List
+                            </LanguageNav.Item>
+                            <LanguageNav.Item link={`/${language}/my-lists`}>
+                                My Lists
+                            </LanguageNav.Item>
+                        </>
                     )}
                 </LanguageNav.Bar>
             );

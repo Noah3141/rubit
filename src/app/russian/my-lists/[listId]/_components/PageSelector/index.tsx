@@ -10,18 +10,23 @@ const PageSelector: FC<{
 }> = ({ vocabularyList }) => {
     return (
         <div className={classNames(styles.container)}>
-            <Button size="small">
+            <Button color="green" size="small">
                 <Link href={`/russian/my-lists/${vocabularyList.id}`}>
                     View
                 </Link>
             </Button>
-            <Button size="small">
-                <Link href={`/russian/my-lists/study/${vocabularyList.id}`}>
+            <Button color="green" size="small">
+                <Link href={`/russian/my-lists/${vocabularyList.id}/text`}>
+                    Text
+                </Link>
+            </Button>
+            <Button color="green" size="small">
+                <Link href={`/russian/my-lists/${vocabularyList.id}/study`}>
                     Study
                 </Link>
             </Button>
-            <Button size="small">
-                <Link href={`/russian/my-lists/info/${vocabularyList.id}`}>
+            <Button color="green" size="small">
+                <Link href={`/russian/my-lists/${vocabularyList.id}/info`}>
                     Info
                 </Link>
             </Button>

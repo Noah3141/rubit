@@ -12,6 +12,6 @@ export const flagEntry = protectedProcedure
     .input(FlagEntryScheme)
     .mutation(async ({ ctx, input }) => {
         console.error(
-            `==========\n${input.lemma} - ${input.id}\n${input.feedback}\n==========`,
+            `==========\n${input.lemma} - ${input.id} [${ctx.session.user.email}]\n${input.feedback}\n==========`,
         );
     });

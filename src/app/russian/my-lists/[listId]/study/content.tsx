@@ -18,10 +18,13 @@ import { type NounEntry } from "~/types/russian/list/noun";
 import { type VerbEntry } from "~/types/russian/list/verb";
 import Dropdown from "~/components/Containers/Dropdown";
 import MeaningDisplay from "../../[listId]/_components/EntryViewer/MeaningDisplay";
+import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 
 const Content: FC<{
-    vocabularyList: RouterOutputs["list"]["russian"]["get"];
-}> = ({ vocabularyList }) => {
+    //
+}> = ({}) => {
+    const vocabularyList = useVocabularyList();
+
     vocabularyList.entry_list.sort(() => Math.random() - 0.5);
 
     const [testIdx, setTestIdx] = useState(0);
@@ -33,9 +36,6 @@ const Content: FC<{
 
     return (
         <>
-            <Header level="2">{vocabularyList.title}</Header>
-            <PageSelector vocabularyList={vocabularyList} />
-
             <div className="flex flex-col gap-6">
                 <div className="text-4xl">{unaccentedLemma}</div>
                 <div>{commonalityLabel}</div>

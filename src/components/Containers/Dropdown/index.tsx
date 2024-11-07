@@ -8,16 +8,17 @@ import CloseButton from "~/components/Icons/CloseButton";
 const Dropdown: FC<
     PropsWithChildren<{
         header: React.ReactNode;
+        contentClassName?: string;
     }>
-> = ({ header, children }) => {
+> = ({ header, children, contentClassName = "" }) => {
     const [open, setOpen] = useState(false);
 
     return (
         <div
-            onClick={() => setOpen((p) => true)}
+            onClick={() => setOpen(() => true)}
             className={classNames(styles.dropdown)}
         >
-            <div className="flex flex-row items-center justify-between gap-3 text-xl">
+            <div className={classNames(styles.header)}>
                 {header}
                 <span
                     onClick={(e) => {
@@ -35,7 +36,11 @@ const Dropdown: FC<
                 })}
             >
                 <div className="overflow-hidden">
-                    <div className={classNames(styles.content)}>{children}</div>
+                    <div
+                        className={classNames(styles.content, contentClassName)}
+                    >
+                        {children}
+                    </div>
                 </div>
             </div>
         </div>

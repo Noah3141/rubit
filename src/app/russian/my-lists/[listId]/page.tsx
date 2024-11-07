@@ -4,14 +4,10 @@ import Content from "./content";
 import Header from "~/components/Base/Header";
 import Dropdown from "~/components/Containers/Dropdown";
 
-const MyListPage = async ({ params }: { params: { listId: string } }) => {
-    const russianVocabularyList = await api.list.russian.get({
-        listId: params.listId,
-    });
-
+const MyListPage = async ({}: { params: { listId: string } }) => {
     return (
         <>
-            <Content vocabularyList={russianVocabularyList} />
+            <Content />
         </>
     );
 };

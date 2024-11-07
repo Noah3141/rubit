@@ -13,6 +13,7 @@ import TextInput from "~/components/Common/TextInput";
 import Link from "~/components/Common/Link";
 import Button from "~/components/Common/Button";
 import PageSelector from "./_components/PageSelector";
+import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 
 //
 // State Prep
@@ -52,8 +53,10 @@ export type Sorter = "Frequency" | "Alphabetical" | "Commonality" | "Length";
 ///
 
 const Content: FC<{
-    vocabularyList: RouterOutputs["list"]["russian"]["get"];
-}> = ({ vocabularyList }) => {
+    //
+}> = ({}) => {
+    const vocabularyList = useVocabularyList();
+
     const [viewedEntry, setViewedEntry] =
         useState<VocabularyListData["entry_list"][0]>();
 
@@ -70,14 +73,11 @@ const Content: FC<{
 
     return (
         <>
-            <Header level="2">{vocabularyList.title}</Header>
-            <PageSelector vocabularyList={vocabularyList} />
-
-            <Dropdown header="Original Text">
+            {/* <Dropdown header="Original Text">
                 <div className="whitespace-pre-wrap">
                     {vocabularyList.inputText}
                 </div>
-            </Dropdown>
+            </Dropdown> */}
 
             <div className="flex flex-col lg:flex-row">
                 <EntryControls
