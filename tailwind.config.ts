@@ -8,6 +8,7 @@ export default {
         extend: {
             fontFamily: {
                 sans: [...fontFamily.sans],
+                serif: "times new roman",
             },
         },
         colors: {

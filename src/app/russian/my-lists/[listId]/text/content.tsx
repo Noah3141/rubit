@@ -1,12 +1,14 @@
 "use client";
 
-import React, { type FC } from "react";
+import React, { useState, type FC } from "react";
 import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 import { TextCrawler } from "~/utils/TextCrawler";
 import AccentedWord from "./_components/AccentedWord";
 import UnrecognizedWord from "./_components/UnrecognizedWord";
 import { russianStopWords } from "~/utils/stopWords/russian";
 import StopWord from "./_components/StopWord";
+import toast from "react-hot-toast";
+import Button from "~/components/Common/Button";
 
 const unaccent = (str: unknown): unknown => {
     if (typeof str == "string") {
@@ -22,6 +24,7 @@ const Content: FC<{
     //
 }> = ({}) => {
     const vocabularyList = useVocabularyList();
+    const [fontSerif, setFontSerif] = useState(false);
 
     const applyAccents = (list: typeof vocabularyList): React.ReactNode[] => {
         const accentedText: React.ReactNode[] = [];
@@ -29,7 +32,9 @@ const Content: FC<{
         new TextCrawler(list.inputText).forEach((segment) => {
             switch (segment.type) {
                 case "word":
-                    const segmentLowercase = segment.value.toLowerCase();
+                    const segmentLowercase = unaccent(
+                        segment.value.toLowerCase(),
+                    ) as string;
                     if (russianStopWords.includes(segmentLowercase)) {
                         accentedText.push(<StopWord word={segment.value} />);
                         break;
@@ -42,6 +47,7 @@ const Content: FC<{
                                 .includes(segmentLowercase);
                         },
                     );
+
                     const accentedLemma = matchingEntry?.model.lemma;
 
                     if (!accentedLemma) {
@@ -108,7 +114,14 @@ const Content: FC<{
 
     const accentedText = applyAccents(vocabularyList);
 
-    return <div className="md:text-lg">{accentedText}</div>;
+    return (
+        <div className={`md:text-lg ${fontSerif && "font-serif"}`}>
+            <Button color="orange" onMouseDown={() => setFontSerif((p) => !p)}>
+                {fontSerif ? "Serif" : "Sans-serif"}
+            </Button>
+            <div>{accentedText}</div>
+        </div>
+    );
 };
 
 export default Content;

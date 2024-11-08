@@ -16,7 +16,7 @@ export default async function VocabListSuite({
 
     return (
         <div className={classNames(styles.layout)}>
-            <Header level="2">{russianVocabularyList.title}</Header>
+            <Header level="1">{russianVocabularyList.title}</Header>
             <PageSelector vocabularyList={russianVocabularyList} />
 
             <VocabularyListContextProvider
