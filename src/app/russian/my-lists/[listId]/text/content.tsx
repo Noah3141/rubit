@@ -25,6 +25,7 @@ const Content: FC<{
                 case "word":
                     const segmentLowercase = unaccent({
                         str: segment.value.toLowerCase(),
+                        removeЁ: true,
                     });
                     if (russianStopWords.includes(segmentLowercase)) {
                         accentedText.push(<StopWord word={segment.value} />);
@@ -34,7 +35,7 @@ const Content: FC<{
                     const matchingEntry = vocabularyList.entry_list.find(
                         (entry) => {
                             return Object.values(entry.model.dictionary_info)
-                                .map((str) => unaccent({ str }))
+                                .map((str) => unaccent({ str, removeЁ: true }))
                                 .includes(segmentLowercase);
                         },
                     );
@@ -51,8 +52,11 @@ const Content: FC<{
                             matchingEntry.model.dictionary_info,
                         ).filter(
                             (form) =>
-                                unaccent({ str: form }) ==
-                                unaccent({ str: segmentLowercase }),
+                                unaccent({ str: form, removeЁ: true }) ==
+                                unaccent({
+                                    str: segmentLowercase,
+                                    removeЁ: true,
+                                }),
                         );
 
                         if (!accentedForms.length) {
