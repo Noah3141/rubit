@@ -10,10 +10,11 @@ const Textarea: FC<
         value: string;
         onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
     } & TextareaHTMLAttributes<HTMLTextAreaElement>
-> = ({ value, onChange, ...props }) => {
+> = ({ value, onChange, className = "", ...props }) => {
     return (
         <textarea
-            className={classNames(styles.textarea)}
+            className={classNames(styles.textarea, className)}
+            value={value}
             onChange={(e) => {
                 onChange(e);
             }}

@@ -9,8 +9,7 @@ export const AdvEntry = z.object({
         meanings: z.string().nullable(),
         commonality: z.number().nullable(),
         dictionary_info: z.object({
-            dictionary_form: z.string(),
-            accented: z.string(),
+            lemma: z.string(),
             ipa: z.string(),
             adjective: z.string().nullable(),
         }),

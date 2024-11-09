@@ -47,12 +47,22 @@ export async function getMeanings(token: string): Promise<string> {
         verbSectionOnward.search(/\n===[^=]/g),
     );
 
-    const sections = nounSection + verbSection + adjSection;
+    const advSectionOnward = russianSection.slice(
+        russianSection.search(/\n(===|====)Adverb(===|====)/g) ?? 0,
+    );
+    const advSection = advSectionOnward.slice(
+        0,
+        verbSectionOnward.search(/\n===[^=]/g),
+    );
+
+    const sections = nounSection + verbSection + adjSection + advSection;
 
     const meanings = sections
         .split("\n")
         .filter((line) => line.startsWith("#"))
         .join(" (autoparsed)\n");
+
+    console.log(meanings);
 
     return meanings;
 }

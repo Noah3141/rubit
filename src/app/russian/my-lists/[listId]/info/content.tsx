@@ -9,12 +9,14 @@ import Button from "~/components/Common/Button";
 import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import { useVocabularyList } from "~/layouts/VocabListSuite/context";
+import AnalysisTextArea from "~/app/russian/writing-workshop/_components/AnalysisTextArea";
 
 const Content: FC<{
     //
 }> = ({}) => {
     const vocabularyList = useVocabularyList();
     const [title, setTitle] = useState<string>(vocabularyList.title);
+    const [text, setText] = useState("");
 
     const utils = api.useUtils();
     const updateTitle = api.list.update.useMutation({
@@ -71,6 +73,12 @@ const Content: FC<{
                 commonalities. Levels probably correspond very roughly to
                 reading grade-level.
             </Tooltip>
+
+            <AnalysisTextArea
+                vocabularyList={vocabularyList}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+            />
         </>
     );
 };

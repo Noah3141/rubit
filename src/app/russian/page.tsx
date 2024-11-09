@@ -26,7 +26,12 @@ const RussianPage = () => {
                 </li>
             </ol>
             <Header level="3">Changelog</Header>
-
+            <Header level="4">11/08/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>Fixed auto-meanings in many broken cases!</li>
+                <li>Adverbs are in!</li>
+                <li>Work on case-syntax highlighter starting</li>
+            </ol>
             <Header level="4">11/07/2024</Header>
             <ol className="list-disc ps-5">
                 <li>

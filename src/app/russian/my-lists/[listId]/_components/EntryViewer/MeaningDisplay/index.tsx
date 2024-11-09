@@ -6,12 +6,14 @@ import styles from "./index.module.css";
 import LineParser from "./LineParser";
 import LoadingSpinner from "~/components/Common/LoadingSpinner";
 import { api } from "~/trpc/react";
-import { VocabularyListData } from "~/types/russian/list";
+import { type VocabularyListData } from "~/types/russian/list";
 
 const MeaningDisplay: FC<{
     entry: VocabularyListData["entry_list"][0];
 }> = ({ entry }) => {
-    const { status } = api.autoUpdate.entry.useQuery({ entry });
+    const { status, data: autoUpdateData } = api.autoUpdate.entry.useQuery({
+        entry,
+    });
 
     if (!entry.model.meanings && status == "pending") {
         return (
@@ -20,9 +22,12 @@ const MeaningDisplay: FC<{
             </div>
         );
     }
-    if (!entry.model.meanings) return <div>No definitions yet!</div>;
 
-    const items = entry.model.meanings.split("#").filter(
+    const meanings = entry.model.meanings ?? autoUpdateData ?? null;
+
+    // if (!meanings) return <div>No definitions yet!</div>;
+
+    const items = meanings!.split("#").filter(
         (item) =>
             //
             !!item && !item.startsWith("*") && !item.startsWith(":"),

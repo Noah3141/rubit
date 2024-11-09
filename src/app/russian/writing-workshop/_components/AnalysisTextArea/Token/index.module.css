@@ -1,0 +1,46 @@
+.word {
+    @apply cursor-pointer whitespace-pre-wrap text-lg;
+
+    & {
+        @apply relative after:absolute after:left-0 after:top-full after:h-1 after:w-full after:rounded after:opacity-50 after:transition-all;
+    }
+
+    &.Noun {
+        @apply after:bg-red-500;
+    }
+
+    &.Verb {
+        @apply after:bg-green-400;
+    }
+
+    &.Adjective {
+        @apply after:bg-purple-300;
+    }
+
+    &.Adverb {
+        @apply after:bg-yellow-400;
+    }
+
+    &:hover {
+        @apply after:opacity-100;
+    }
+
+    &.nom {
+        @apply text-neutral-400;
+    }
+    &.acc {
+        @apply text-red-400;
+    }
+    &.gen {
+        @apply text-green-400;
+    }
+    &.dat {
+        @apply text-yellow-500;
+    }
+    &.ins {
+        @apply text-blue-400;
+    }
+    &.pre {
+        @apply text-purple-500;
+    }
+}

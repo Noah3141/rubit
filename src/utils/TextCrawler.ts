@@ -23,7 +23,9 @@ export class TextCrawler {
                 yield { type: "whitespace", value: segment };
             } else {
                 // Check if segment ends with punctuation
-                const wordMatch = segment.match(/("?)(\S+?)([.,:?!…"»]+)?$/);
+                const wordMatch = segment.match(
+                    /(["']?)(\S+?)(['.,:?!…"»]+)?$/,
+                );
                 if (wordMatch) {
                     const [_, punctuationFore, word, punctuationAft] =
                         wordMatch;
@@ -45,11 +47,11 @@ export class TextCrawler {
         }
     }
 
-    public map(callback: (chunk: Segment) => string): string {
-        let result = "";
+    public map<T>(callback: (chunk: Segment) => T): T[] {
+        const result: T[] = [];
 
         for (const segment of this.iterator()) {
-            result += callback(segment);
+            result.push(callback(segment));
         }
 
         return result;

@@ -1,6 +1,13 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
-import { lime, stone, transparent, inherit } from "tailwindcss/colors";
+import {
+    lime,
+    stone,
+    transparent,
+    inherit,
+    sky,
+    yellow,
+} from "tailwindcss/colors";
 
 export default {
     content: ["./src/**/*.tsx"],
@@ -68,6 +75,8 @@ export default {
             },
             green: lime,
             neutral: stone,
+            blue: sky,
+            yellow,
         },
     },
     plugins: [],

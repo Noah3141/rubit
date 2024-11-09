@@ -27,6 +27,11 @@ const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
                             <LanguageNav.Item link={`/${language}/my-lists`}>
                                 My Lists
                             </LanguageNav.Item>
+                            <LanguageNav.Item
+                                link={`/${language}/writing-workshop`}
+                            >
+                                Writing Workshop
+                            </LanguageNav.Item>
                         </>
                     )}
                 </LanguageNav.Bar>

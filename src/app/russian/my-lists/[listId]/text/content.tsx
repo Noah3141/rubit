@@ -9,16 +9,7 @@ import { russianStopWords } from "~/utils/stopWords/russian";
 import StopWord from "./_components/StopWord";
 import toast from "react-hot-toast";
 import Button from "~/components/Common/Button";
-
-const unaccent = (str: unknown): unknown => {
-    if (typeof str == "string") {
-        if (str.includes("ё")) {
-            return str.replace("ё", "е").replace("\u0301", "");
-        }
-
-        return str.replace("\u0301", "");
-    } else return str;
-};
+import { unaccent } from "~/utils/strings";
 
 const Content: FC<{
     //
@@ -32,9 +23,9 @@ const Content: FC<{
         new TextCrawler(list.inputText).forEach((segment) => {
             switch (segment.type) {
                 case "word":
-                    const segmentLowercase = unaccent(
-                        segment.value.toLowerCase(),
-                    ) as string;
+                    const segmentLowercase = unaccent({
+                        str: segment.value.toLowerCase(),
+                    });
                     if (russianStopWords.includes(segmentLowercase)) {
                         accentedText.push(<StopWord word={segment.value} />);
                         break;
@@ -43,7 +34,7 @@ const Content: FC<{
                     const matchingEntry = vocabularyList.entry_list.find(
                         (entry) => {
                             return Object.values(entry.model.dictionary_info)
-                                .map(unaccent)
+                                .map((str) => unaccent({ str }))
                                 .includes(segmentLowercase);
                         },
                     );
@@ -60,7 +51,8 @@ const Content: FC<{
                             matchingEntry.model.dictionary_info,
                         ).filter(
                             (form) =>
-                                unaccent(form) == unaccent(segmentLowercase),
+                                unaccent({ str: form }) ==
+                                unaccent({ str: segmentLowercase }),
                         );
 
                         if (!accentedForms.length) {
