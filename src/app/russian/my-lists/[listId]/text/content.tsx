@@ -10,6 +10,7 @@ import StopWord from "./_components/StopWord";
 import toast from "react-hot-toast";
 import Button from "~/components/Common/Button";
 import { unaccent } from "~/utils/strings";
+import { russianPrepositions } from "~/utils/coreWords/russian";
 
 const Content: FC<{
     //
@@ -27,6 +28,10 @@ const Content: FC<{
                         str: segment.value.toLowerCase(),
                         removeЁ: true,
                     });
+                    if (russianPrepositions.includes(segmentLowercase)) {
+                        accentedText.push(<StopWord word={segment.value} />); //TODO MAKE AN ENTRY?
+                        break;
+                    }
                     if (russianStopWords.includes(segmentLowercase)) {
                         accentedText.push(<StopWord word={segment.value} />);
                         break;
