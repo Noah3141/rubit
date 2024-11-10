@@ -7,7 +7,7 @@ const TextLoadingPage = () => {
     const vocabularyList = useVocabularyList();
 
     return (
-        <div className="whitespace-pre-wrap md:text-lg">
+        <div className="mx-auto max-w-screen-lg whitespace-pre-wrap pt-12 md:text-lg">
             {vocabularyList.inputText}
         </div>
     );

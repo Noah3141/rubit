@@ -1,7 +1,7 @@
 .footer {
-    @apply bg-violet-950 border-violet-800 border-t;
+    @apply border-t border-violet-900 bg-violet-950 px-1 py-6 text-violet-300 md:px-3 lg:px-12 lg:py-12;
 
-    > div {
-        @apply text-violet-400;
+    .items {
+        @apply flex w-fit flex-col gap-3;
     }
 }

@@ -71,10 +71,13 @@ const EntryControls: FC<{
                             }}
                             options={
                                 [
-                                    "Frequency",
-                                    "Commonality",
+                                    "Frequent first",
                                     "Alphabetical",
-                                    "Length",
+                                    "Common first",
+                                    "Uncommon first",
+                                    "Infrequent first",
+                                    "Shortest first",
+                                    "Longest first",
                                 ] satisfies Sorter[]
                             }
                         />

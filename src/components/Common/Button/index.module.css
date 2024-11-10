@@ -1,5 +1,5 @@
 .button {
-    @apply rounded text-base font-normal;
+    @apply relative rounded text-base font-normal;
 
     &.small {
         @apply w-fit px-2 py-1;
@@ -33,7 +33,7 @@
         @apply bg-green-500 text-neutral-50 hover:bg-green-600 disabled:hover:bg-green-500;
     }
     &.neutral {
-        @apply bg-neutral-900 text-neutral-50 hover:bg-neutral-800 disabled:hover:bg-neutral-900;
+        @apply bg-neutral-800 text-neutral-50 hover:bg-neutral-700 disabled:hover:bg-neutral-800;
     }
 
     &.idle {
@@ -54,5 +54,9 @@
 
     &.success {
         @apply cursor-not-allowed;
+    }
+
+    .spinner {
+        @apply absolute left-1/2 -translate-x-1/2 border-neutral-100 border-b-transparent;
     }
 }

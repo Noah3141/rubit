@@ -1,14 +1,38 @@
-.spinner {
-    @apply z-0 box-border inline-block animate-spin rounded-full border-4 border-orange-500 border-b-transparent;
-
-    &.small {
-        @apply size-6;
-    }
-
-    &.medium {
-        @apply size-12;
-    }
-}
 .wrapper {
-    @apply grid h-full max-h-96 w-full place-items-center;
+    @apply grid w-full place-items-center;
+
+    &.fill {
+        @apply h-full max-h-96;
+    }
+
+    .spinner {
+        @apply z-0 box-border inline-block animate-spin rounded-full border-4 !border-b-transparent;
+
+        &.small {
+            @apply size-6;
+        }
+
+        &.medium {
+            @apply size-12;
+        }
+
+        &.purple {
+            @apply border-purple-500;
+        }
+        &.violet {
+            @apply border-violet-500;
+        }
+        &.red {
+            @apply border-red-500;
+        }
+        &.orange {
+            @apply border-orange-500;
+        }
+        &.green {
+            @apply border-green-500;
+        }
+        &.neutral {
+            @apply border-neutral-800;
+        }
+    }
 }

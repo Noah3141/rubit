@@ -26,6 +26,15 @@ const RussianPage = () => {
                 </li>
             </ol>
             <Header level="3">Changelog</Header>
+            <Header level="4">11/10/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>
+                    Upgraded the testing system to show meanings, and allow
+                    difficulty setting
+                </li>
+                <li>Deleting lists added</li>
+            </ol>
+
             <Header level="4">11/08/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Fixed auto-meanings in many broken cases!</li>

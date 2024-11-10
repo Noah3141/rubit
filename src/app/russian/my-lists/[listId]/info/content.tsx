@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
 import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 import AnalysisTextArea from "~/app/russian/writing-workshop/_components/AnalysisTextArea";
+import DeleteListButton from "./_components/DeleteListButton";
 
 const Content: FC<{
     //
@@ -79,6 +80,8 @@ const Content: FC<{
                 value={text}
                 onChange={(e) => setText(e.target.value)}
             />
+
+            <DeleteListButton />
         </>
     );
 };

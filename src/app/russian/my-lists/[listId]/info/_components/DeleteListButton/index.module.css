@@ -1,0 +1,14 @@
+.deleteButton {
+    @apply relative;
+}
+.deleteListButtonDialog {
+    @apply grid grid-cols-1 gap-3;
+
+    .prompt {
+        @apply text-lg font-medium;
+    }
+
+    .options {
+        @apply flex w-full flex-row justify-between gap-3;
+    }
+}

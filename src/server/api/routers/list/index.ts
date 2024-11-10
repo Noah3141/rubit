@@ -28,4 +28,22 @@ export const listRouter = createTRPCRouter({
             //     });
             // }
         }),
+
+    delete: protectedProcedure
+        .input(z.object({ listId: z.string() }))
+        .mutation(async ({ ctx, input }) => {
+            const deleted = await ctx.db.savedList.delete({
+                where: {
+                    id: input.listId,
+                    userId: ctx.session.user.id,
+                },
+                select: {
+                    id: true,
+                },
+            });
+
+            if (!deleted.id) {
+                throw new TRPCError({ code: "NOT_FOUND" });
+            }
+        }),
 });

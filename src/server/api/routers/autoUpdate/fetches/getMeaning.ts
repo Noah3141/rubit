@@ -1,6 +1,9 @@
 //
+
+import { env } from "~/env";
+
 //
-export async function getMeanings(token: string): Promise<string> {
+export async function getMeanings(token: string): Promise<string | undefined> {
     const res = await fetch(
         `https://en.wiktionary.org/w/api.php?action=parse&prop=text|title&format=json&prop=wikitext&page=${token}`,
     );
@@ -60,9 +63,15 @@ export async function getMeanings(token: string): Promise<string> {
     const meanings = sections
         .split("\n")
         .filter((line) => line.startsWith("#"))
-        .join(" (autoparsed)\n");
+        .join("\n");
 
-    console.log(meanings);
+    if (env.NODE_ENV == "development") {
+        console.log(`Meanings parsed: ${meanings}\n\nSections:\n ${sections}`);
+    }
+
+    if (meanings.length == 0) {
+        return;
+    }
 
     return meanings;
 }

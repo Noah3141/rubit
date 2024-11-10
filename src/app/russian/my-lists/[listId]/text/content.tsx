@@ -116,11 +116,13 @@ const Content: FC<{
     const accentedText = applyAccents(vocabularyList);
 
     return (
-        <div className={`md:text-lg ${fontSerif && "font-serif"}`}>
+        <div className={`md:text-lg ${fontSerif && "font-serif md:text-xl"}`}>
             <Button color="orange" onMouseDown={() => setFontSerif((p) => !p)}>
                 {fontSerif ? "Serif" : "Sans-serif"}
             </Button>
-            <div>{accentedText}</div>
+            <div className="mx-auto max-w-screen-lg leading-8">
+                {accentedText}
+            </div>
         </div>
     );
 };

@@ -11,13 +11,13 @@ const PageSelector: FC<{
     return (
         <div className={classNames(styles.container)}>
             <Button color="green" size="small">
-                <Link href={`/russian/my-lists/${vocabularyList.id}`}>
-                    View
+                <Link href={`/russian/my-lists/${vocabularyList.id}/text`}>
+                    Text
                 </Link>
             </Button>
             <Button color="green" size="small">
-                <Link href={`/russian/my-lists/${vocabularyList.id}/text`}>
-                    Text
+                <Link href={`/russian/my-lists/${vocabularyList.id}`}>
+                    View
                 </Link>
             </Button>
             <Button color="green" size="small">

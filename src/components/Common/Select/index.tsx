@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, type FC } from "react";
+import React, { useEffect, useRef, useState, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
+import useClickOutside from "~/hooks/useClickOutside";
 
 const Select: FC<{
     value: string;
@@ -11,8 +12,14 @@ const Select: FC<{
 }> = ({ value, options, onChange }) => {
     const [open, setOpen] = useState(false);
 
+    const selectRef = useRef<HTMLDivElement>(null);
+
+    useClickOutside(() => {
+        setOpen(false);
+    }, selectRef);
+
     return (
-        <div className={classNames(styles.select)}>
+        <div ref={selectRef} className={classNames(styles.select)}>
             <div
                 className={classNames(styles.selected)}
                 onMouseDown={() => {

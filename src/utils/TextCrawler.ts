@@ -24,7 +24,7 @@ export class TextCrawler {
             } else {
                 // Check if segment ends with punctuation
                 const wordMatch = segment.match(
-                    /(["']?)(\S+?)(['.,:?!…"»]+)?$/,
+                    /([\("']?)(\S+?)([)'.,:?!…"»]+)?$/,
                 );
                 if (wordMatch) {
                     const [_, punctuationFore, word, punctuationAft] =

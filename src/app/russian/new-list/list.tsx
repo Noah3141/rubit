@@ -27,7 +27,7 @@ const List: FC<{
         Adverb: false,
     });
     const [popUp, setPopUp] = useState<PopUpState>(null);
-    const [sorter, setSorter] = useState<Sorter>("Frequency");
+    const [sorter, setSorter] = useState<Sorter>("Frequent first");
 
     vocabularyList.entry_list.sort(SORTERS[sorter]);
 

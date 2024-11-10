@@ -25,9 +25,9 @@ const MeaningDisplay: FC<{
 
     const meanings = entry.model.meanings ?? autoUpdateData ?? null;
 
-    // if (!meanings) return <div>No definitions yet!</div>;
+    if (!meanings) return <div>No definitions yet!</div>;
 
-    const items = meanings!.split("#").filter(
+    const items = meanings.split("#").filter(
         (item) =>
             //
             !!item && !item.startsWith("*") && !item.startsWith(":"),
@@ -44,6 +44,7 @@ const MeaningDisplay: FC<{
                     );
                 })}
             </ol>
+            <span>{!entry.model.meanings && "(Meanings Autoparsed)"}</span>
         </div>
     );
 };

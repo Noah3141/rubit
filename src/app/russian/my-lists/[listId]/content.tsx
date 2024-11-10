@@ -32,21 +32,37 @@ export const SORTERS: Record<
         b: VocabularyListData["entry_list"][0],
     ) => number
 > = {
-    Frequency: (a, b) => {
+    "Frequent first": (a, b) => {
         return b.frequency - a.frequency;
+    },
+    "Infrequent first": (a, b) => {
+        return a.frequency - b.frequency;
     },
     Alphabetical: (a, b) => {
         return a.model.lemma.localeCompare(b.model.lemma);
     },
-    Length: (a, b) => {
+    "Shortest first": (a, b) => {
         return a.model.lemma.length - b.model.lemma.length;
     },
-    Commonality: (a, b) => {
+    "Longest first": (a, b) => {
+        return b.model.lemma.length - a.model.lemma.length;
+    },
+    "Common first": (a, b) => {
         return (b.model.commonality ?? 0.0) - (a.model.commonality ?? 0.0);
+    },
+    "Uncommon first": (a, b) => {
+        return (a.model.commonality ?? 0.0) - (b.model.commonality ?? 0.0);
     },
 };
 
-export type Sorter = "Frequency" | "Alphabetical" | "Commonality" | "Length";
+export type Sorter =
+    | "Frequent first"
+    | "Alphabetical"
+    | "Common first"
+    | "Uncommon first"
+    | "Infrequent first"
+    | "Shortest first"
+    | "Longest first";
 
 ///
 /// Component
@@ -67,18 +83,12 @@ const Content: FC<{
         Adverb: false,
     });
     const [popUp, setPopUp] = useState<PopUpState>(null);
-    const [sorter, setSorter] = useState<Sorter>("Frequency");
+    const [sorter, setSorter] = useState<Sorter>("Frequent first");
 
     vocabularyList.entry_list.sort(SORTERS[sorter]);
 
     return (
         <>
-            {/* <Dropdown header="Original Text">
-                <div className="whitespace-pre-wrap">
-                    {vocabularyList.inputText}
-                </div>
-            </Dropdown> */}
-
             <div className="flex flex-col lg:flex-row">
                 <EntryControls
                     filter={filter}
