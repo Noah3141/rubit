@@ -1,5 +1,6 @@
 export const russianPrepositions = [
     "в",
+    "во",
     "на",
     "за",
     "для",

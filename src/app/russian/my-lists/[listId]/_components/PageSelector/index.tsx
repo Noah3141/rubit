@@ -17,7 +17,7 @@ const PageSelector: FC<{
             </Button>
             <Button color="green" size="small">
                 <Link href={`/russian/my-lists/${vocabularyList.id}`}>
-                    View
+                    List
                 </Link>
             </Button>
             <Button color="green" size="small">

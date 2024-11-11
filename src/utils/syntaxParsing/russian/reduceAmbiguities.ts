@@ -1,5 +1,92 @@
-import { RussianToken } from ".";
+import toast from "react-hot-toast";
+import { intersection, type RussianToken } from ".";
 
-export function reduceAmbiguities(tokens: RussianToken[]) {
-    //todo
+export function reduceAmbiguities(tokens: RussianToken[]): RussianToken[] {
+    ///
+    /// Fix nouns
+    ///
+
+    // If there is a surefire Nominative in the sentence, then there are no others, it must be either genitive or accusative
+    const certainNominatives = tokens.filter((token) => token.syntax.length == 1 && token.syntax[0]!.case == "nom");
+
+    if (!!certainNominatives.length) {
+        tokens.forEach((token, i) => {
+            if (token.pos == "Noun" && !certainNominatives.some((nom) => token.position == nom.position)) {
+                tokens[i]!.syntax = token.syntax.filter((syntax) => syntax.case !== "nom");
+            }
+        });
+    }
+
+    ///
+    ///
+    // Nail down the cases of
+    const prepositions = tokens.filter((token) => token.pos == "Preposition");
+    prepositions.forEach((preposition, prepositionIdx) => {
+        const nextNounIdx = tokens.findIndex((token) => token.position > preposition.position && token.pos == "Noun");
+
+        if (nextNounIdx == -1) {
+            return;
+        }
+
+        const prepositionsCases = preposition.syntax.map((syn) => syn.case);
+        const possibleMatchingForms = tokens[nextNounIdx]!.syntax.filter((form) => prepositionsCases.includes(form.case));
+
+        if (possibleMatchingForms.length == 0) {
+            return;
+        }
+
+        tokens[nextNounIdx]!.syntax = possibleMatchingForms;
+
+        for (let i = prepositionIdx; i < nextNounIdx; i++) {
+            if (tokens[i]!.pos !== "Adjective" && tokens[i]!.pos !== "Preposition") {
+                return;
+            }
+            const possibleMatchingCases = possibleMatchingForms.map((item) => item.case);
+            tokens[i]!.syntax = tokens[prepositionIdx]!.syntax.filter((preposition) => possibleMatchingCases.includes(preposition.case));
+        }
+    });
+
+    ///
+    /// Adjectives
+    ///
+    const adjectives = tokens.filter((token) => token.pos == "Adjective");
+    adjectives.forEach((adjective) => {
+        // Look ahead for a noun that matches one of my cases
+        const adjectivesCases = adjective.syntax.map((syntax) => syntax.case);
+        const adjectivesGenders = adjective.syntax.map((syntax) => syntax.gender);
+        const plausibleNextNounIdx = tokens.findIndex((noun) => {
+            const nounsCases = noun.syntax.map((syntax) => syntax.case);
+            const nounsGenders = noun.syntax.map((syntax) => syntax.gender);
+
+            return (
+                noun.pos == "Noun" && // Is a noun
+                noun.position > adjective.position &&
+                !!intersection(nounsCases, adjectivesCases).length &&
+                !!intersection(nounsGenders, adjectivesGenders).length
+            );
+        });
+
+        const plausibleNextNoun = tokens[plausibleNextNounIdx];
+
+        if (plausibleNextNounIdx === -1 || !plausibleNextNoun) {
+            return;
+        }
+
+        const plausibleNextNounsCases = plausibleNextNoun.syntax.map((syntax) => syntax.case);
+        const plausibleNounGenders = plausibleNextNoun.syntax.map((syntax) => syntax.gender);
+        const plausibleNounNumbers = plausibleNextNoun.syntax.map((syntax) => syntax.number);
+
+        const plausibleAdjectiveSyntaxes = adjective.syntax
+            .filter((syntax) => plausibleNextNounsCases.includes(syntax.case))
+            .filter((syntax) => plausibleNounNumbers.includes(syntax.number))
+            .filter((syntax) => plausibleNounGenders.includes(syntax.gender));
+
+        if (plausibleAdjectiveSyntaxes.length == 0) {
+            return;
+        }
+
+        adjective.syntax = plausibleAdjectiveSyntaxes;
+    });
+
+    return tokens;
 }

@@ -5,6 +5,7 @@ import Textarea from "~/components/Common/Textarea";
 import parseSyntax from "~/utils/syntaxParsing/russian";
 import { RouterOutputs } from "~/trpc/react";
 import Token from "./Token";
+import Legend from "./Legend";
 
 const AnalysisTextArea: FC<
     {
@@ -26,10 +27,16 @@ const AnalysisTextArea: FC<
             <div>
                 {syntaxHighlighted.map((sentence) =>
                     sentence.map((token) => (
-                        <Token key={token.pos} item={token} />
+                        <Token key={token.position} item={token} />
                     )),
                 )}
             </div>
+            {JSON.stringify(
+                syntaxHighlighted.at(-1)?.at(-1)?.entry?.model.dictionary_info,
+                null,
+                "\n",
+            )}
+            <Legend />
         </>
     );
 };

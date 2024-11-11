@@ -10,7 +10,7 @@
     }
 
     &.Verb {
-        @apply after:bg-green-400;
+        @apply text-neutral-400 after:bg-green-400;
     }
 
     &.Adjective {

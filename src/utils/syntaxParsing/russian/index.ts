@@ -2,9 +2,11 @@ import { VocabularyListData } from "~/types/russian/list";
 import { reduceAmbiguities } from "./reduceAmbiguities";
 import { TextCrawler } from "~/utils/TextCrawler";
 import { unaccent } from "~/utils/strings";
+import { reportSyntaxesForPreposition } from "./reportSyntaxesForPreposition";
+import { russianPrepositions } from "~/utils/coreWords/russian";
 
 type RussianCase = "nom" | "acc" | "gen" | "dat" | "ins" | "pre" | "special";
-
+type RussianGender = "m" | "f" | "n";
 type RussianNumber = "singular" | "plural";
 
 export type RussianToken = {
@@ -12,6 +14,7 @@ export type RussianToken = {
         word: string;
         number: RussianNumber | null;
         case: RussianCase | null;
+        gender: RussianGender | null;
     }[];
     position: number;
     pos: "Preposition" | "Noun" | "Verb" | "Adjective" | "Adverb" | null;
@@ -35,14 +38,43 @@ export default function parseSyntax(
         const tokens = new TextCrawler(sentence).map(
             (segment): RussianToken => {
                 position += 1;
+                let withinNounPhrase = false;
 
                 switch (segment.type) {
                     case "word":
-                        const entry = entries.find((entry) => {
-                            return Object.values(entry.model.dictionary_info)
-                                .map((str) => unaccent({ str }))
-                                .includes(segment.value.toLowerCase());
-                        });
+                        if (russianPrepositions.includes(segment.value)) {
+                            withinNounPhrase = true;
+                            return {
+                                syntax: reportSyntaxesForPreposition(
+                                    segment.value,
+                                ),
+                                entry: null,
+                                position,
+                                pos: "Preposition",
+                            };
+                        }
+
+                        const entry = entries
+                            .filter((entry) => {
+                                if (withinNounPhrase) {
+                                    if (entry.model.type == "Verb") {
+                                        return false;
+                                    }
+                                }
+
+                                return true;
+                            })
+                            .find((entry) => {
+                                return Object.values(
+                                    entry.model.dictionary_info,
+                                )
+                                    .map((str) => unaccent({ str }))
+                                    .includes(segment.value.toLowerCase());
+                            });
+
+                        if (entry?.model.type == "Noun") {
+                            withinNounPhrase = false;
+                        }
 
                         if (!entry) {
                             return {
@@ -51,6 +83,7 @@ export default function parseSyntax(
                                         word: segment.value,
                                         case: null,
                                         number: null,
+                                        gender: null,
                                     },
                                 ],
                                 pos: null,
@@ -69,6 +102,7 @@ export default function parseSyntax(
                                         word: segment.value,
                                         case: null,
                                         number: null,
+                                        gender: null,
                                     },
                                 ],
                                 pos: null,
@@ -84,6 +118,7 @@ export default function parseSyntax(
                                     word: form.accented,
                                     case: form.case,
                                     number: form.number,
+                                    gender: form.gender,
                                 })),
                             pos: entry.model.type,
                             entry,
@@ -96,6 +131,7 @@ export default function parseSyntax(
                                     word: segment.value,
                                     case: null,
                                     number: null,
+                                    gender: null,
                                 },
                             ],
                             pos: null,
@@ -109,6 +145,7 @@ export default function parseSyntax(
                                     word: segment.value,
                                     case: null,
                                     number: null,
+                                    gender: null,
                                 },
                             ],
                             pos: null,
@@ -119,9 +156,9 @@ export default function parseSyntax(
             },
         );
 
-        // const siftedParts = reduceAmbiguities(tokens);
+        const siftedParts = reduceAmbiguities(tokens);
 
-        return tokens;
+        return siftedParts;
     });
 
     return parsedSentences;
@@ -131,12 +168,17 @@ export const determineCase = (
     word: string,
     entry: Entry,
 ): ({
+    accented: string;
     case: RussianCase | null;
     number: RussianNumber | null;
-    accented: string;
+    gender: RussianGender | null;
 } | null)[] => {
     switch (entry.model.type) {
         case "Noun":
+            const gender = entry.model.dictionary_info.gender
+                .charAt(0)
+                .toLowerCase() as RussianGender;
+
             return Object.entries(entry.model.dictionary_info)
                 .filter(
                     ([key, form]) =>
@@ -153,72 +195,84 @@ export const determineCase = (
                                 case: "nom",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "nom_plur":
                             return {
                                 case: "nom",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "acc_sing":
                             return {
                                 case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "acc_plur":
                             return {
                                 case: "acc",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "gen_sing":
                             return {
                                 case: "gen",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "gen_plur":
                             return {
                                 case: "gen",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "ins_sing":
                             return {
                                 case: "ins",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "ins_plur":
                             return {
                                 case: "ins",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "dat_sing":
                             return {
                                 case: "dat",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "dat_plur":
                             return {
                                 case: "dat",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "pre_sing":
                             return {
                                 case: "pre",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         case "pre_plur":
                             return {
                                 case: "pre",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
                         default:
                             return null;
@@ -241,169 +295,197 @@ export const determineCase = (
                                 case: "nom",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "m",
                             };
                         case "acc_masc":
                             return {
                                 case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "m",
                             };
                         case "gen_masc":
                             return {
                                 case: "gen",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "m",
                             };
                         case "dat_masc":
                             return {
                                 case: "dat",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "m",
                             };
                         case "ins_masc":
                             return {
                                 case: "ins",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "m",
                             };
                         case "pre_masc":
                             return {
                                 case: "pre",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "m",
                             };
                         case "nom_fem":
                             return {
                                 case: "nom",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "f",
                             };
                         case "acc_fem":
                             return {
                                 case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "f",
                             };
                         case "gen_fem":
                             return {
                                 case: "gen",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "f",
                             };
                         case "dat_fem":
                             return {
                                 case: "dat",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "f",
                             };
                         case "ins_fem":
                             return {
                                 case: "ins",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "f",
                             };
                         case "pre_fem":
                             return {
                                 case: "pre",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "f",
                             };
                         case "nom_neut":
                             return {
                                 case: "nom",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "n",
                             };
                         case "acc_neut":
                             return {
                                 case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "n",
                             };
                         case "gen_neut":
                             return {
                                 case: "gen",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "n",
                             };
                         case "dat_neut":
                             return {
                                 case: "dat",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "n",
                             };
                         case "ins_neut":
                             return {
                                 case: "ins",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "n",
                             };
                         case "pre_neut":
                             return {
                                 case: "pre",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "n",
                             };
                         case "nom_plur":
                             return {
                                 case: "nom",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender: null,
                             };
                         case "acc_plur":
                             return {
                                 case: "acc",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender: null,
                             };
                         case "gen_plur":
                             return {
                                 case: "gen",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender: null,
                             };
                         case "dat_plur":
                             return {
                                 case: "dat",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender: null,
                             };
                         case "ins_plur":
                             return {
                                 case: "ins",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender: null,
                             };
                         case "pre_plur":
                             return {
                                 case: "pre",
                                 number: "plural",
                                 accented: form ?? word,
+                                gender: null,
                             };
 
                         case "m_short":
                             return {
-                                case: null,
+                                case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "m",
                             };
                         case "f_short":
                             return {
-                                case: null,
+                                case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "f",
                             };
                         case "n_short":
                             return {
-                                case: null,
+                                case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender: "n",
                             };
                         case "p_short":
                             return {
-                                case: null,
+                                case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
+                                gender,
                             };
 
                         default:
@@ -424,10 +506,25 @@ export const determineCase = (
                     return {
                         number: null, // !
                         case: null,
+                        gender: key.includes("_past")
+                            ? (key.charAt(0) as RussianGender)
+                            : null,
                         accented: (form as string) ?? word,
                     };
                 });
         case "Adverb":
-            return [{ case: null, accented: entry.model.lemma, number: null }];
+            return [
+                {
+                    case: null,
+                    accented: entry.model.lemma,
+                    number: null,
+                    gender: null,
+                },
+            ];
     }
 };
+
+/** Returns those items present in both lists */
+export function intersection<T>(a: T[], b: T[]): T[] {
+    return a.filter((item) => b.includes(item));
+}
