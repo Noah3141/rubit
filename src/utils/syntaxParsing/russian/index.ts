@@ -4,6 +4,7 @@ import { TextCrawler } from "~/utils/TextCrawler";
 import { unaccent } from "~/utils/strings";
 import { reportSyntaxesForPreposition } from "./reportSyntaxesForPreposition";
 import { russianPrepositions } from "~/utils/coreWords/russian";
+import { reportSyntaxesForPronouns, russianPronouns } from "./reportSyntaxesForPronouns";
 
 type RussianCase = "nom" | "acc" | "gen" | "dat" | "ins" | "pre" | "special";
 type RussianGender = "m" | "f" | "n";
@@ -26,105 +27,82 @@ type Entry = VocabularyListData["entry_list"][0];
 type RussianSentence = RussianToken[];
 type RussianText = RussianSentence[];
 
-export default function parseSyntax(
-    text: string,
-    entries: Entry[],
-): RussianText {
+export default function parseSyntax(text: string, entries: Entry[]): RussianText {
     let position = 0;
 
-    const sentences = text.split(". ");
+    const sentences = text.split(".");
 
     const parsedSentences = sentences.map((sentence) => {
-        const tokens = new TextCrawler(sentence).map(
-            (segment): RussianToken => {
-                position += 1;
-                let withinNounPhrase = false;
+        const tokens = new TextCrawler(sentence).map((segment): RussianToken => {
+            position += 1;
+            let withinNounPhrase = false;
 
-                switch (segment.type) {
-                    case "word":
-                        if (russianPrepositions.includes(segment.value)) {
-                            withinNounPhrase = true;
-                            return {
-                                syntax: reportSyntaxesForPreposition(
-                                    segment.value,
-                                ),
-                                entry: null,
-                                position,
-                                pos: "Preposition",
-                            };
-                        }
+            switch (segment.type) {
+                case "word":
+                    const normalizedSegment = segment.value.toLowerCase().replace("ё", "е");
 
-                        const entry = entries
-                            .filter((entry) => {
-                                if (withinNounPhrase) {
-                                    if (entry.model.type == "Verb") {
-                                        return false;
-                                    }
-                                }
+                    if (russianPrepositions.includes(normalizedSegment)) {
+                        withinNounPhrase = true;
+                        return {
+                            syntax: reportSyntaxesForPreposition(normalizedSegment),
+                            entry: null,
+                            position,
+                            pos: "Preposition",
+                        };
+                    }
 
-                                return true;
-                            })
-                            .find((entry) => {
-                                return Object.values(
-                                    entry.model.dictionary_info,
-                                )
-                                    .map((str) => unaccent({ str }))
-                                    .includes(segment.value.toLowerCase());
-                            });
-
-                        if (entry?.model.type == "Noun") {
+                    if (russianPronouns.includes(normalizedSegment)) {
+                        if (["него", "них", "нее", "ним", "ней", "нему", "ними", "нем"].includes(normalizedSegment)) {
                             withinNounPhrase = false;
                         }
 
-                        if (!entry) {
-                            return {
-                                syntax: [
-                                    {
-                                        word: segment.value,
-                                        case: null,
-                                        number: null,
-                                        gender: null,
-                                    },
-                                ],
-                                pos: null,
-                                position,
-                                entry: null,
-                            };
-                        }
-
-                        const forms = determineCase(segment.value, entry);
-                        const firstForm = forms[0];
-
-                        if (!firstForm) {
-                            return {
-                                syntax: [
-                                    {
-                                        word: segment.value,
-                                        case: null,
-                                        number: null,
-                                        gender: null,
-                                    },
-                                ],
-                                pos: null,
-                                entry: null,
-                                position,
-                            };
-                        }
-
                         return {
-                            syntax: forms
-                                .filter((form) => !!form)
-                                .map((form) => ({
-                                    word: form.accented,
-                                    case: form.case,
-                                    number: form.number,
-                                    gender: form.gender,
-                                })),
-                            pos: entry.model.type,
-                            entry,
+                            ...reportSyntaxesForPronouns(normalizedSegment, withinNounPhrase),
+                            entry: null,
                             position,
                         };
-                    case "punctuation":
+                    }
+
+                    const entry = entries
+                        .filter((entry) => {
+                            if (withinNounPhrase) {
+                                if (entry.model.type == "Verb") {
+                                    return false;
+                                }
+                            }
+
+                            return true;
+                        })
+                        .find((entry) => {
+                            return Object.values(entry.model.dictionary_info)
+                                .map((str) => unaccent({ str }))
+                                .includes(normalizedSegment);
+                        });
+
+                    if (entry?.model.type == "Noun") {
+                        withinNounPhrase = false;
+                    }
+
+                    if (!entry) {
+                        return {
+                            syntax: [
+                                {
+                                    word: segment.value,
+                                    case: null,
+                                    number: null,
+                                    gender: null,
+                                },
+                            ],
+                            pos: null,
+                            position,
+                            entry: null,
+                        };
+                    }
+
+                    const forms = determineCase(normalizedSegment, entry);
+                    const firstForm = forms[0];
+
+                    if (!firstForm) {
                         return {
                             syntax: [
                                 {
@@ -138,29 +116,61 @@ export default function parseSyntax(
                             entry: null,
                             position,
                         };
-                    case "whitespace":
-                        return {
-                            syntax: [
-                                {
-                                    word: segment.value,
-                                    case: null,
-                                    number: null,
-                                    gender: null,
-                                },
-                            ],
-                            pos: null,
-                            entry: null,
-                            position,
-                        };
-                }
-            },
-        );
+                    }
+
+                    return {
+                        syntax: forms
+                            .filter((form) => !!form)
+                            .map((form) => ({
+                                word: form.accented,
+                                case: form.case,
+                                number: form.number,
+                                gender: form.gender,
+                            })),
+                        pos: entry.model.type,
+                        entry,
+                        position,
+                    };
+                case "punctuation":
+                    return {
+                        syntax: [
+                            {
+                                word: segment.value,
+                                case: null,
+                                number: null,
+                                gender: null,
+                            },
+                        ],
+                        pos: null,
+                        entry: null,
+                        position,
+                    };
+                case "whitespace":
+                    return {
+                        syntax: [
+                            {
+                                word: segment.value,
+                                case: null,
+                                number: null,
+                                gender: null,
+                            },
+                        ],
+                        pos: null,
+                        entry: null,
+                        position,
+                    };
+            }
+        });
 
         const siftedParts = reduceAmbiguities(tokens);
 
         return siftedParts;
     });
-
+    parsedSentences.forEach((sentence, sentenceIdx) => {
+        if (sentenceIdx < parsedSentences.length - 1) {
+            sentence.push({ entry: null, position: sentence.length + 1, syntax: [{ word: ".", case: null, gender: null, number: null }], pos: null });
+        }
+    });
     return parsedSentences;
 }
 
@@ -175,14 +185,15 @@ export const determineCase = (
 } | null)[] => {
     switch (entry.model.type) {
         case "Noun":
-            const gender = entry.model.dictionary_info.gender
-                .charAt(0)
-                .toLowerCase() as RussianGender;
-
+            const gender = entry.model.dictionary_info.gender.charAt(0).toLowerCase() as RussianGender;
             return Object.entries(entry.model.dictionary_info)
                 .filter(
                     ([key, form]) =>
-                        unaccent({ str: form, removeЁ: true }) ==
+                        unaccent({
+                            //
+                            str: form,
+                            removeЁ: true,
+                        }) ==
                             unaccent({
                                 str: word.toLowerCase(),
                                 removeЁ: true,
@@ -485,7 +496,7 @@ export const determineCase = (
                                 case: "acc",
                                 number: "singular",
                                 accented: form ?? word,
-                                gender,
+                                gender: null,
                             };
 
                         default:
@@ -506,9 +517,7 @@ export const determineCase = (
                     return {
                         number: null, // !
                         case: null,
-                        gender: key.includes("_past")
-                            ? (key.charAt(0) as RussianGender)
-                            : null,
+                        gender: key.includes("_past") ? (key.charAt(0) as RussianGender) : null,
                         accented: (form as string) ?? word,
                     };
                 });

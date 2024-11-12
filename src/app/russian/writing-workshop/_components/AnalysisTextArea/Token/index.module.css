@@ -10,7 +10,7 @@
     }
 
     &.Verb {
-        @apply text-neutral-400 after:bg-green-400;
+        @apply text-orange-500 after:bg-green-400;
     }
 
     &.Adjective {
@@ -26,7 +26,7 @@
     }
 
     &.nom {
-        @apply text-neutral-400;
+        @apply text-orange-500;
     }
     &.acc {
         @apply text-red-400;

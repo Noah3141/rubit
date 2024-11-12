@@ -7,36 +7,12 @@ const Legend: FC<{
 }> = ({}) => {
     return (
         <div className={classNames(styles.legend)}>
-            <span>
-                {`&.nom {
-                @apply text-neutral-400;
-                } `}
-            </span>
-            <span>
-                {`&.acc {
-        @apply text-red-400;
-        } `}
-            </span>
-            <span>
-                {`&.gen {
-        @apply text-green-400;
-        } `}
-            </span>
-            <span>
-                {`&.dat {
-        @apply text-yellow-500;
-        } `}
-            </span>
-            <span>
-                {`&.ins {
-        @apply text-blue-400;
-        } `}
-            </span>
-            <span>
-                {`&.pre {
-        @apply text-purple-500;
-        } `}
-            </span>
+            <span className="text-orange-500">Nominative</span>
+            <span className="text-red-400">Accusative </span>
+            <span className="text-green-400">Genitive</span>
+            <span className="text-yellow-500">Dative</span>
+            <span className="text-blue-400">Instrumental</span>
+            <span className="text-purple-500">Prepositional</span>
         </div>
     );
 };

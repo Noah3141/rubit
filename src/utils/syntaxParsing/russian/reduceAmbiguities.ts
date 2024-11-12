@@ -17,9 +17,18 @@ export function reduceAmbiguities(tokens: RussianToken[]): RussianToken[] {
         });
     }
 
+    // I am not a case that my adjectives are not
+
+    const nouns = tokens.filter((token) => token.pos == "Noun");
+    nouns.forEach((noun) => {
+        const precedingAdjective = tokens.find((token) => {
+            token.pos == "Adjective" && token.position < noun.position;
+        });
+    });
+
     ///
-    ///
-    // Nail down the cases of
+    /// Prepositions
+    //
     const prepositions = tokens.filter((token) => token.pos == "Preposition");
     prepositions.forEach((preposition, prepositionIdx) => {
         const nextNounIdx = tokens.findIndex((token) => token.position > preposition.position && token.pos == "Noun");
@@ -30,18 +39,19 @@ export function reduceAmbiguities(tokens: RussianToken[]): RussianToken[] {
 
         const prepositionsCases = preposition.syntax.map((syn) => syn.case);
         const possibleMatchingForms = tokens[nextNounIdx]!.syntax.filter((form) => prepositionsCases.includes(form.case));
+        const possibleMatchingCases = possibleMatchingForms.map((item) => item.case);
 
         if (possibleMatchingForms.length == 0) {
             return;
         }
 
         tokens[nextNounIdx]!.syntax = possibleMatchingForms;
+        preposition.syntax = preposition.syntax.filter((syntax) => possibleMatchingCases.includes(syntax.case));
 
         for (let i = prepositionIdx; i < nextNounIdx; i++) {
             if (tokens[i]!.pos !== "Adjective" && tokens[i]!.pos !== "Preposition") {
                 return;
             }
-            const possibleMatchingCases = possibleMatchingForms.map((item) => item.case);
             tokens[i]!.syntax = tokens[prepositionIdx]!.syntax.filter((preposition) => possibleMatchingCases.includes(preposition.case));
         }
     });
