@@ -39,7 +39,7 @@ const AccentedWord: FC<{
                 </div>
 
                 <hr className="my-3 border-purple-700" />
-                {heatScore(entry.model.commonality)}
+
                 <div className="flex flex-col gap-3">
                     <MeaningDisplay entry={entry} />
 
