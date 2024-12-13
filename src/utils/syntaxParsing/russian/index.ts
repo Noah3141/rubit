@@ -63,7 +63,7 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                         };
                     }
 
-                    const entry = entries
+                    const possibleEntries = entries
                         .filter((entry) => {
                             if (withinNounPhrase) {
                                 if (entry.model.type == "Verb") {
@@ -73,17 +73,21 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
 
                             return true;
                         })
-                        .find((entry) => {
+                        .filter((entry) => {
                             return Object.values(entry.model.dictionary_info)
                                 .map((str) => unaccent({ str }))
                                 .includes(normalizedSegment);
                         });
 
-                    if (entry?.model.type == "Noun") {
+                    const bestEntry = possibleEntries.sort((a, b) => {
+                        return (b.model.commonality ?? 0) - (a.model.commonality ?? 0);
+                    })[0]!;
+
+                    if (bestEntry?.model.type == "Noun") {
                         withinNounPhrase = false;
                     }
 
-                    if (!entry) {
+                    if (!bestEntry) {
                         return {
                             syntax: [
                                 {
@@ -99,7 +103,7 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                         };
                     }
 
-                    const forms = determineCase(normalizedSegment, entry);
+                    const forms = determineCase(normalizedSegment, bestEntry);
                     const firstForm = forms[0];
 
                     if (!firstForm) {
@@ -127,8 +131,8 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                                 number: form.number,
                                 gender: form.gender,
                             })),
-                        pos: entry.model.type,
-                        entry,
+                        pos: bestEntry.model.type,
+                        entry: bestEntry,
                         position,
                     };
                 case "punctuation":

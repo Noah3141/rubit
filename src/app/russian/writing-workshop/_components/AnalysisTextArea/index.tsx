@@ -1,9 +1,9 @@
-import React, { TextareaHTMLAttributes, type FC } from "react";
+import React, { type TextareaHTMLAttributes, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
 import Textarea from "~/components/Common/Textarea";
 import parseSyntax from "~/utils/syntaxParsing/russian";
-import { RouterOutputs } from "~/trpc/react";
+import { type RouterOutputs } from "~/trpc/react";
 import Token from "./Token";
 import Legend from "./Legend";
 import Tooltip from "~/components/Containers/Tooltip";
@@ -33,12 +33,9 @@ const AnalysisTextArea: FC<
                         //
                         (sentence, sentenceIdx, sentences) => (
                             <>
-                                {sentence.map(
-                                    //
-                                    (token) => (
-                                        <Token key={token.position} item={token} />
-                                    ),
-                                )}
+                                {sentence.map((token) => (
+                                    <Token key={token.position} item={token} />
+                                ))}
                             </>
                         ),
                     )
@@ -47,5 +44,7 @@ const AnalysisTextArea: FC<
         </div>
     );
 };
+
+// В числе прочего было потрясающее по художественной силе описание похищения пельменей, уложенных непосредственно в карман пиджака, в квартире № 31,  два обещания покончить  жизнь самоубийством и одно признание в тайной беременности
 
 export default AnalysisTextArea;

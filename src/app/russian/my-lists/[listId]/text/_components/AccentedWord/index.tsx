@@ -14,29 +14,23 @@ import NounForms from "~/components/Tables/RussianNounForms";
 import VerbForms from "~/components/Tables/RussianVerbForms";
 import GPTSentencer from "~/components/Common/GPTSentencer";
 import Tooltip from "~/components/Containers/Tooltip";
+import CoreLabel from "../../../_components/EntryViewer/MeaningDisplay/CoreLabel";
+import { heatScore } from "~/utils/heatScore";
 
 const AccentedWord: FC<{
     word: string;
     entry: VocabularyListData["entry_list"][0];
 }> = ({ word, entry }) => {
-    const heatScore = 1 / (entry.model.commonality ?? 1);
     const unaccentedLemma = entry.model.lemma.replace("\u0301", "");
-    const commonalityLabel = entry.model.commonality
-        ? `${Math.floor(1 / entry.model.commonality)}  pages to see`
-        : "commonality n/a";
+    const commonalityLabel = entry.model.commonality ? `${Math.floor(1 / entry.model.commonality)}  pages to see` : "commonality n/a";
 
     return (
         <>
-            <Tooltip
-                clickable
-                openOnClick
-                style={{ zIndex: 999 }}
-                anchorSelect={`#${word}`}
-            >
+            <Tooltip clickable openOnClick style={{ zIndex: 999 }} anchorSelect={`#${word}`}>
                 <div>
                     <span>
                         <Header level="3">{entry.model.lemma} </Header>
-                        {entry.model.type}
+                        <CoreLabel entry={entry} />
                         <div>{commonalityLabel}</div>
                         <div className="flex flex-row items-center gap-3">
                             <IPA>{entry.model.dictionary_info.ipa}</IPA>
@@ -45,20 +39,16 @@ const AccentedWord: FC<{
                 </div>
 
                 <hr className="my-3 border-purple-700" />
+                {heatScore(entry.model.commonality)}
                 <div className="flex flex-col gap-3">
                     <MeaningDisplay entry={entry} />
 
-                    <GPTSentencer
-                        token={entry.model.lemma}
-                        language="Russian"
-                    />
+                    <GPTSentencer token={entry.model.lemma} language="Russian" />
 
                     {
                         (
                             {
-                                Adjective: (
-                                    <AdjectiveForms entry={entry as AdjEntry} />
-                                ),
+                                Adjective: <AdjectiveForms entry={entry as AdjEntry} />,
                                 Noun: <NounForms entry={entry as NounEntry} />,
                                 Verb: <VerbForms entry={entry as VerbEntry} />,
                                 Adverb: <></>,
@@ -67,16 +57,10 @@ const AccentedWord: FC<{
                     }
 
                     <div className="flex flex-col gap-1">
-                        <Link
-                            target="_blank"
-                            href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}
-                        >
+                        <Link target="_blank" href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}>
                             Wiktionary
                         </Link>
-                        <Link
-                            target="_blank"
-                            href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}
-                        >
+                        <Link target="_blank" href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}>
                             Викисловарь
                         </Link>
                     </div>
@@ -87,7 +71,7 @@ const AccentedWord: FC<{
                 <div
                     className={classNames(styles.backdrop)}
                     style={{
-                        backgroundColor: `rgb(${heatScore}, 255, 0)`,
+                        backgroundColor: heatScore(entry.model.commonality),
                     }}
                 ></div>
             </span>

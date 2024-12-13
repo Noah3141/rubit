@@ -10,7 +10,8 @@ import { type VocabularyListData } from "~/types/russian/list";
 
 const MeaningDisplay: FC<{
     entry: VocabularyListData["entry_list"][0];
-}> = ({ entry }) => {
+    noPassiveNotes?: boolean;
+}> = ({ entry, noPassiveNotes = false }) => {
     const { status, data: autoUpdateData } = api.autoUpdate.entry.useQuery({
         entry,
     });
@@ -27,11 +28,14 @@ const MeaningDisplay: FC<{
 
     if (!meanings) return <div>No definitions yet!</div>;
 
-    const items = meanings.split("#").filter(
-        (item) =>
-            //
-            !!item && !item.startsWith("*") && !item.startsWith(":"),
-    );
+    const items = meanings.split("#").filter((item) => {
+        if (noPassiveNotes) {
+            if (item.includes("Passive of")) {
+                return false;
+            }
+        }
+        return !!item && !item.startsWith("*") && !item.startsWith(":");
+    });
 
     return (
         <div className={classNames(styles.container)}>

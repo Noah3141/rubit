@@ -1,8 +1,6 @@
 import { type RussianToken } from ".";
 
-export const reportSyntaxesForPreposition = (
-    preposition: string,
-): RussianToken["syntax"] => {
+export const reportSyntaxesForPreposition = (preposition: string): RussianToken["syntax"] => {
     switch (preposition) {
         case "на":
         case "в":
@@ -14,9 +12,7 @@ export const reportSyntaxesForPreposition = (
 
         case "у":
         case "из":
-            return [
-                { word: preposition, case: "gen", number: null, gender: null },
-            ];
+            return [{ word: preposition, case: "gen", number: null, gender: null }];
 
         case "с":
             return [
@@ -24,9 +20,7 @@ export const reportSyntaxesForPreposition = (
                 { word: preposition, case: "gen", number: null, gender: null },
             ];
         case "до":
-            return [
-                { word: preposition, case: "gen", number: null, gender: null },
-            ];
+            return [{ word: preposition, case: "gen", number: null, gender: null }];
 
         case "под":
         case "за":
@@ -42,13 +36,17 @@ export const reportSyntaxesForPreposition = (
             ];
 
         case "к":
-            return [
-                { word: preposition, case: "dat", number: null, gender: null },
-            ];
+            return [{ word: preposition, case: "dat", number: null, gender: null }];
 
         case "через":
+            return [{ word: preposition, case: "acc", number: null, gender: null }];
+
+        case "о":
+        case "об":
+        case "обо":
             return [
-                { word: preposition, case: "acc", number: null, gender: null },
+                { word: preposition, case: "pre", number: null, gender: null },
+                // { word: preposition, case: "acc", number: null, gender: null }, // This exists but it uncommon as hell
             ];
 
         default:

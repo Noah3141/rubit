@@ -1,6 +1,8 @@
 import React, { type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
+import Link from "~/components/Common/Link";
+import { unaccent } from "~/utils/strings";
 
 const INFLECTION_TYPES: Record<string, string> = {
     pass: "Passive voice of",
@@ -19,16 +21,12 @@ const WikiMacro: FC<{
         case "participle of":
             const participleLemma = macroText.split("|").at(2);
 
-            return (
-                <span className={classNames()}>
-                    participle of &apos;{participleLemma}&apos;
-                </span>
-            );
+            return <span className={classNames()}>participle of &apos;{participleLemma}&apos;</span>;
 
         case "infl of":
-            const parts = macroText.split("|");
-            const headLemma = parts.at(2);
-            const inflectionType = INFLECTION_TYPES[parts.at(4)!];
+            const inflParts = macroText.split("|");
+            const headLemma = inflParts.at(2);
+            const inflectionType = INFLECTION_TYPES[inflParts.at(4)!];
 
             return (
                 <span className={classNames()}>
@@ -36,14 +34,28 @@ const WikiMacro: FC<{
                 </span>
             );
 
-        default:
-            const finalToken = macroText.substring(
-                macroText.lastIndexOf("|") + 1,
-                macroText.length,
-            );
+        case "alternative form of":
+            const altWord = macroText.split("|").at(-1);
+
             return (
-                <span className={classNames(styles.label)}>({finalToken})</span>
+                <span>
+                    alternative form of &apos;<Link href={`https://en.wiktionary.org/wiki/${unaccent({ str: altWord })}#Russian`}>{altWord}</Link>&apos;
+                </span>
             );
+
+        case "lb":
+            const labelParts = macroText.split("|");
+            const label = labelParts.at(2);
+            const using = labelParts.at(3);
+            return (
+                <span>
+                    ({label}, {using})
+                </span>
+            );
+
+        default:
+            const finalToken = macroText.substring(macroText.lastIndexOf("|") + 1, macroText.length);
+            return <span className={classNames(styles.label)}>({finalToken})</span>;
     }
 };
 

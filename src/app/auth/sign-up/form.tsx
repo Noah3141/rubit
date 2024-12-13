@@ -26,9 +26,7 @@ const SignUpForm: FC = () => {
         onError: (e) => {
             toast.error(e.message, {
                 id: "signUp",
-                icon: (
-                    <RiErrorWarningFill className="!size-6 !fill-violet-700" />
-                ),
+                icon: <RiErrorWarningFill className="!size-6 !fill-violet-700" />,
                 duration: 5_000,
             });
         },
@@ -43,16 +41,13 @@ const SignUpForm: FC = () => {
             if (res?.ok) {
                 toast.success("Welcome!", { id: "signUp" });
                 router.push("/");
+                router.refresh();
             } else if (res?.error) {
-                toast.error(
-                    "Your account has been created, but we had trouble signing you in!",
-                    {
-                        id: "signUp",
-                        icon: (
-                            <RiErrorWarningFill className="!size-6 !fill-violet-700" />
-                        ),
-                    },
-                );
+                toast.error("Your account has been created, but we had trouble signing you in!", {
+                    id: "signUp",
+                    icon: <RiErrorWarningFill className="!size-6 !fill-violet-700" />,
+                });
+                router.refresh();
             }
         },
     });
@@ -69,37 +64,23 @@ const SignUpForm: FC = () => {
                     const input = signUpForm.safeParse(form);
 
                     if (input.success) {
-                        if (
-                            input.data.password === input.data.confirmPassword
-                        ) {
+                        if (input.data.password === input.data.confirmPassword) {
                             signUp.mutate(input.data);
                         } else {
                             toast.error("Passwords must match!");
                         }
                     } else {
-                        toast.error(
-                            input.error.errors.at(0)?.message ??
-                                "Something went wrong",
-                        );
+                        toast.error(input.error.errors.at(0)?.message ?? "Something went wrong");
                     }
                 }}
             >
-                <TextInput
-                    className="sm:w-96"
-                    placeholder="Email"
-                    value={form.email}
-                    onChange={(e) =>
-                        setForm((p) => ({ ...p, email: e.target.value }))
-                    }
-                />
+                <TextInput className="sm:w-96" placeholder="Email" value={form.email} onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} />
                 <TextInput
                     className="sm:w-96"
                     placeholder="Password"
                     type="password"
                     value={form.password}
-                    onChange={(e) =>
-                        setForm((p) => ({ ...p, password: e.target.value }))
-                    }
+                    onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
                 />
                 <TextInput
                     className="sm:w-96"

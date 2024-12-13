@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import Button from "~/components/Common/Button";
 import { unaccent } from "~/utils/strings";
 import { russianPrepositions } from "~/utils/coreWords/russian";
+import AmbiguousWord from "./_components/AmbiguousWord";
 
 const Content: FC<{
     //
@@ -37,25 +38,24 @@ const Content: FC<{
                         break;
                     }
 
-                    const matchingEntry = vocabularyList.entry_list.find(
-                        (entry) => {
-                            return Object.values(entry.model.dictionary_info)
-                                .map((str) => unaccent({ str, removeЁ: true }))
-                                .includes(segmentLowercase);
-                        },
-                    );
+                    const matchingEntries = vocabularyList.entry_list.filter((entry) => {
+                        return Object.values(entry.model.dictionary_info)
+                            .map((str) => unaccent({ str, removeЁ: true }))
+                            .includes(segmentLowercase);
+                    });
 
-                    const accentedLemma = matchingEntry?.model.lemma;
+                    if (matchingEntries.length > 1) {
+                        accentedText.push(<AmbiguousWord entries={matchingEntries} word={segment.value} />);
+                        break;
+                    }
 
-                    if (!accentedLemma) {
-                        accentedText.push(
-                            <UnrecognizedWord word={segment.value} />,
-                        );
+                    const matchingEntry = matchingEntries.at(0);
+
+                    if (!matchingEntry) {
+                        accentedText.push(<UnrecognizedWord word={segment.value} />);
                         break;
                     } else {
-                        const accentedForms = Object.values(
-                            matchingEntry.model.dictionary_info,
-                        ).filter(
+                        const accentedForms = Object.values(matchingEntry.model.dictionary_info).filter(
                             (form) =>
                                 unaccent({ str: form, removeЁ: true }) ==
                                 unaccent({
@@ -70,39 +70,21 @@ const Content: FC<{
 
                         let matchingForm = accentedForms[0] as string;
 
-                        if (
-                            accentedForms.length > 1 &&
-                            accentedForms.some((form) => form !== matchingForm)
-                        ) {
+                        if (accentedForms.length > 1 && accentedForms.some((form) => form !== matchingForm)) {
                             matchingForm = segmentLowercase;
                         }
 
-                        if (
-                            !segment.value.startsWith(
-                                segmentLowercase.charAt(0),
-                            )
-                        ) {
-                            matchingForm =
-                                matchingForm.charAt(0).toUpperCase() +
-                                matchingForm.slice(1);
+                        if (!segment.value.startsWith(segmentLowercase.charAt(0))) {
+                            matchingForm = matchingForm.charAt(0).toUpperCase() + matchingForm.slice(1);
                         }
 
-                        accentedText.push(
-                            <AccentedWord
-                                entry={matchingEntry}
-                                word={matchingForm}
-                            />,
-                        );
+                        accentedText.push(<AccentedWord entry={matchingEntry} word={matchingForm} />);
                         break;
                     }
                     break;
 
                 case "whitespace":
-                    accentedText.push(
-                        <span className="whitespace-pre-wrap">
-                            {segment.value}
-                        </span>,
-                    );
+                    accentedText.push(<span className="whitespace-pre-wrap">{segment.value}</span>);
                     break;
                 case "punctuation":
                     accentedText.push(<span>{segment.value}</span>);
@@ -120,9 +102,7 @@ const Content: FC<{
             <Button color="orange" onMouseDown={() => setFontSerif((p) => !p)}>
                 {fontSerif ? "Serif" : "Sans-serif"}
             </Button>
-            <div className="mx-auto max-w-screen-lg leading-8">
-                {accentedText}
-            </div>
+            <div className="mx-auto max-w-screen-lg leading-8">{accentedText}</div>
         </div>
     );
 };

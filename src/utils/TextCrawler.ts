@@ -23,12 +23,9 @@ export class TextCrawler {
                 yield { type: "whitespace", value: segment };
             } else {
                 // Check if segment ends with punctuation
-                const wordMatch = segment.match(
-                    /([\("']?)(\S+?)([)'.,:?!…"»]+)?$/,
-                );
+                const wordMatch = segment.match(/([\("'«]?)(\S+?)([)'.,:?!…"»]+)?$/);
                 if (wordMatch) {
-                    const [_, punctuationFore, word, punctuationAft] =
-                        wordMatch;
+                    const [_, punctuationFore, word, punctuationAft] = wordMatch;
 
                     if (punctuationFore) {
                         yield { type: "punctuation", value: punctuationFore };

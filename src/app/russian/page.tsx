@@ -16,7 +16,22 @@ const RussianPage = () => {
                 </li>
                 <li>Writing exercise with input analysis, potentially syntax highlighting and word rarity scores to guide usage of wider vocabulary</li>
             </ol>
+
             <Header level="3">Changelog</Header>
+
+            <Header level="4">12/13/2024</Header>
+            <ol className="list-disc ps-5">
+                <li className="font-bold">
+                    Fixed ambiguous words in text analyzer gaslighting you with a guessed stress/meaning. These words now analyze if multiple interpretations exist, and only
+                    label stress if one answer is possible. They then show you all found dictionary entries, such as &apos;начало&apos; showing both Noun and Verb meanings.
+                </li>
+                <li>Improved heat score labels to better shade from green to yellow to red. (perhaps the scale could shift according to user reported vocabulary size)</li>
+                <li>Added a bit smarter logic to text analyzer (still wildly in progress, for future use in writing workshop)</li>
+                <li>Fixed sign in flow page reactivity</li>
+                <li>Labels for gender and perfectivity</li>
+                <li>Some meanings will have been fixed, now showing specialized notes for some terms, like {`"regional"`}</li>
+            </ol>
+
             <Header level="4">11/10/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Upgraded the testing system to show meanings, and allow difficulty setting</li>

@@ -45,28 +45,20 @@ const SignInPage: FC = () => {
                         if (res.ok) {
                             toast.success("Welcome back!");
                             router.push("/");
+                            router.refresh();
                         } else {
                             toast.error(res.error ?? "Something went wrong!");
                         }
                     }
                 }}
             >
-                <TextInput
-                    className="sm:w-96"
-                    value={form.email}
-                    placeholder="Email"
-                    onChange={(e) =>
-                        setForm((p) => ({ ...p, email: e.target.value }))
-                    }
-                />
+                <TextInput className="sm:w-96" value={form.email} placeholder="Email" onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))} />
                 <TextInput
                     type="password"
                     className="sm:w-96"
                     value={form.password}
                     placeholder="Password"
-                    onChange={(e) =>
-                        setForm((p) => ({ ...p, password: e.target.value }))
-                    }
+                    onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
                 />
                 <Button type="submit" className={`ml-auto sm:ml-0`}>
                     Sign In

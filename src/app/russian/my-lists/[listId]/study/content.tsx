@@ -26,29 +26,19 @@ const Content: FC<{
 }> = ({}) => {
     const vocabularyList = useVocabularyList();
     vocabularyList.entry_list.sort(() => Math.random() - 0.5);
-    const [commonalityThreshold, setCommonalityThreshold] = useState<
-        [number | undefined, number | undefined]
-    >([1, undefined]);
+    const [commonalityThreshold, setCommonalityThreshold] = useState<[number | undefined, number | undefined]>([1, undefined]);
 
-    const [testingEntries, setTestingEntries] = useState(
-        vocabularyList.entry_list,
-    );
+    const [testingEntries, setTestingEntries] = useState(vocabularyList.entry_list);
 
     useEffect(() => {
         setTestingEntries(
             vocabularyList.entry_list.filter((entry) => {
                 if (entry.model.commonality) {
-                    if (
-                        !!commonalityThreshold[0] &&
-                        1 / entry.model.commonality < commonalityThreshold[0]
-                    ) {
+                    if (!!commonalityThreshold[0] && 1 / entry.model.commonality < commonalityThreshold[0]) {
                         return false;
                     }
 
-                    if (
-                        !!commonalityThreshold[1] &&
-                        1 / entry.model.commonality > commonalityThreshold[1]
-                    ) {
+                    if (!!commonalityThreshold[1] && 1 / entry.model.commonality > commonalityThreshold[1]) {
                         return false;
                     }
 
@@ -65,9 +55,7 @@ const Content: FC<{
 
     const testEntry = testingEntries[testIdx]!;
     const unaccentedLemma = testEntry.model.lemma.replace("\u0301", "");
-    const commonalityLabel = testEntry.model.commonality
-        ? `${Math.floor(1 / testEntry.model.commonality)}  pages to see`
-        : "commonality n/a";
+    const commonalityLabel = testEntry.model.commonality ? `${Math.floor(1 / testEntry.model.commonality)}  pages to see` : "commonality n/a";
 
     return (
         <>
@@ -140,11 +128,7 @@ const Content: FC<{
                     </div>
                 </div>
                 <div suppressHydrationWarning className="text-4xl">
-                    {flipped ? (
-                        <MeaningDisplay entry={testEntry} />
-                    ) : (
-                        unaccentedLemma
-                    )}
+                    {flipped ? <MeaningDisplay entry={testEntry} /> : unaccentedLemma}
                 </div>
                 <div>{commonalityLabel}</div>
 
@@ -153,32 +137,18 @@ const Content: FC<{
                         <div>
                             <span>
                                 <Header level="3">
-                                    {testEntry.model.lemma}{" "}
-                                    <FrequencyLabel>
-                                        {testEntry.frequency}
-                                    </FrequencyLabel>
+                                    {testEntry.model.lemma} <FrequencyLabel>{testEntry.frequency}</FrequencyLabel>
                                 </Header>
                                 <span>
                                     {testEntry.model.type}{" "}
-                                    {testEntry.model.type == "Verb" &&
-                                        (testEntry.model.dictionary_info
-                                            .is_perfective
-                                            ? "(perfective)"
-                                            : "(imperfective)")}
-                                    {testEntry.model.type == "Noun" &&
-                                        `(${testEntry.model.dictionary_info.gender.toLowerCase()})`}
+                                    {testEntry.model.type == "Verb" && (testEntry.model.dictionary_info.is_perfective ? "(perfective)" : "(imperfective)")}
+                                    {testEntry.model.type == "Noun" && `(${testEntry.model.dictionary_info.gender.toLowerCase()})`}
                                 </span>
                                 <div>{commonalityLabel}</div>
                                 <div className="flex flex-row items-center gap-3">
-                                    <IPA>
-                                        {testEntry.model.dictionary_info.ipa}
-                                    </IPA>
-                                    <span className="font-serif">
-                                        {unaccentedLemma}
-                                    </span>
-                                    <i className="font-serif">
-                                        {unaccentedLemma}
-                                    </i>
+                                    <IPA>{testEntry.model.dictionary_info.ipa}</IPA>
+                                    <span className="font-serif">{unaccentedLemma}</span>
+                                    <i className="font-serif">{unaccentedLemma}</i>
                                 </div>
                             </span>
                         </div>
@@ -187,45 +157,24 @@ const Content: FC<{
                         <div className="flex flex-col gap-3">
                             <MeaningDisplay entry={testEntry} />
 
-                            <GPTSentencer
-                                token={testEntry.model.lemma}
-                                language="Russian"
-                            />
+                            <GPTSentencer token={testEntry.model.lemma} language="Russian" />
 
                             {
                                 (
                                     {
-                                        Adjective: (
-                                            <AdjectiveForms
-                                                entry={testEntry as AdjEntry}
-                                            />
-                                        ),
-                                        Noun: (
-                                            <NounForms
-                                                entry={testEntry as NounEntry}
-                                            />
-                                        ),
-                                        Verb: (
-                                            <VerbForms
-                                                entry={testEntry as VerbEntry}
-                                            />
-                                        ),
+                                        Adjective: <AdjectiveForms entry={testEntry as AdjEntry} />,
+                                        Noun: <NounForms entry={testEntry as NounEntry} />,
+                                        Verb: <VerbForms entry={testEntry as VerbEntry} />,
                                         Adverb: <></>,
                                     } satisfies Record<Type, React.ReactElement>
                                 )[testEntry.model.type]
                             }
 
                             <div className="flex flex-col gap-1">
-                                <Link
-                                    target="_blank"
-                                    href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}
-                                >
+                                <Link target="_blank" href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}>
                                     Wiktionary
                                 </Link>
-                                <Link
-                                    target="_blank"
-                                    href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}
-                                >
+                                <Link target="_blank" href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}>
                                     Викисловарь
                                 </Link>
                             </div>

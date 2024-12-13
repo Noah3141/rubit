@@ -17,7 +17,7 @@ const Token: FC<{
         return (
             <>
                 <span
-                    id={`${item.pos}`}
+                    id={`${item.pos}_${item.entry?.model.lemma}`}
                     className={classNames(
                         styles.word,
                         !!item.pos && styles[item.pos],
@@ -25,11 +25,13 @@ const Token: FC<{
                         !!item.syntax[0]!.case && styles[item.syntax[0]!.case],
                     )}
                 >
-                    {item.syntax[0]!.word}
+                    {item.syntax[0]?.word ?? "ERROR"}
                 </span>
-                <Tooltip anchorSelect={`#${item.pos}`}>
-                    <span className={classNames(styles.label)}>{commonalityLabel}</span>
-
+                <Tooltip anchorSelect={`#${item.pos}_${item.entry?.model.lemma}`}>
+                    <div>
+                        {item.entry?.model.lemma} ({item.pos})
+                    </div>
+                    <span className={classNames(styles.label)}>{commonalityLabel} pages to see</span>
                     <div className="flex flex-col">
                         {item.syntax.map((syntax) => (
                             <span key={syntax.case}>
@@ -44,7 +46,7 @@ const Token: FC<{
         return (
             <>
                 <span
-                    id={`${item.pos}`}
+                    id={`${item.pos}_${item.entry?.model.lemma}`}
                     className={classNames(
                         styles.word,
                         !!item.pos && styles[item.pos],
@@ -52,11 +54,13 @@ const Token: FC<{
                         !!item.syntax[0]?.case && styles[item.syntax[0].case],
                     )}
                 >
-                    {item.syntax[0]!.word}*
+                    {item.syntax[0]?.word ?? "ERROR"}*
                 </span>
-                <Tooltip anchorSelect={`#${item.pos}`}>
-                    <span className={classNames(styles.label)}>{commonalityLabel}</span>
-
+                <Tooltip anchorSelect={`#${item.pos}_${item.entry?.model.lemma}`}>
+                    <div>
+                        {item.entry?.model.lemma} ({item.pos})
+                    </div>
+                    <span className={classNames(styles.label)}>{commonalityLabel} pages to see</span>
                     <div className="flex flex-col">
                         {item.syntax.map((syntax) => (
                             <span key={syntax.case}>

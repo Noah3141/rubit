@@ -1,0 +1,13 @@
+.word {
+    @apply relative z-0 cursor-pointer rounded;
+
+    .backdrop {
+        @apply pointer-events-none absolute left-0 top-full -z-10 size-full h-1 rounded opacity-10 transition-all;
+    }
+
+    &:hover {
+        .backdrop {
+            @apply opacity-50;
+        }
+    }
+}
