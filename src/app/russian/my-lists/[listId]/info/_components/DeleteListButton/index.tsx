@@ -25,6 +25,7 @@ const DeleteListButton: FC<{
                 id: "deleteListDialog",
                 duration: 3000,
             });
+            router.refresh();
         },
         onError: (e) => {
             console.error(e.message);
@@ -55,10 +56,7 @@ const DeleteListButton: FC<{
                     (t) => {
                         return (
                             <div className={styles.deleteListButtonDialog}>
-                                <div className={styles.prompt}>
-                                    Are you sure? These things {`don't`} grow on
-                                    trees...
-                                </div>
+                                <div className={styles.prompt}>Are you sure? These things {`don't`} grow on trees...</div>
                                 <div>{vocabularyList.title}</div>
                                 <div className={styles.options}>
                                     <Button

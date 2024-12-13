@@ -31,7 +31,6 @@ const SignUpForm: FC = () => {
             });
         },
         onSuccess: async () => {
-            router.refresh();
             router.push("/");
             const res = await signIn("credentials", {
                 email: form.email,

@@ -24,16 +24,12 @@ const SaveListForm: FC<{
         onSuccess: (newList) => {
             router.push(`/russian/my-lists/${newList.id}`);
             toast.success("Saved!", { id: "saveList" });
+            router.refresh();
         },
     });
     return (
         <>
-            <TextInput
-                value={form.title}
-                onChange={(e) =>
-                    setForm((p) => ({ ...p, title: e.target.value }))
-                }
-            />
+            <TextInput value={form.title} onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))} />
             <Button
                 onClick={() => {
                     if (form.title == "") {
