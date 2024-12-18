@@ -18,6 +18,13 @@ const RussianPage = () => {
             </ol>
 
             <Header level="3">Changelog</Header>
+            <Header level="4">12/18/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>
+                    Upgraded Text Input Analyzer, and moved main form to Writing Workshop. This will как-то be combined with particular {`texts'`} pages and targeted writing
+                    questions.
+                </li>
+            </ol>
 
             <Header level="4">12/13/2024</Header>
             <ol className="list-disc ps-5">
