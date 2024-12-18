@@ -61,6 +61,21 @@ export function reduceAmbiguities(tokens: RussianToken[]): RussianToken[] {
     ///
     const adjectives = tokens.filter((token) => token.pos == "Adjective");
     adjectives.forEach((adjective) => {
+        /// RECONSIDER SHORT ADJECTIVES AS VERBS
+        if (adjective.syntax.length == 1) {
+            const syntax = adjective.syntax.at(0)!;
+
+            // If is a short adjective
+            if (syntax.case == null && !!syntax.number) {
+                tokens[adjective.position - 1] = {
+                    ...adjective,
+                    pos: "Verb",
+                };
+                return;
+            }
+        }
+
+        /// LINK WITH FOLLOWING NOUN
         // Look ahead for a noun that matches one of my cases
         const adjectivesCases = adjective.syntax.map((syntax) => syntax.case);
         const adjectivesGenders = adjective.syntax.map((syntax) => syntax.gender);
@@ -98,5 +113,26 @@ export function reduceAmbiguities(tokens: RussianToken[]): RussianToken[] {
         adjective.syntax = plausibleAdjectiveSyntaxes;
     });
 
+    /// Verbs
+    const subjectDetermined = tokens.find((token) => token.syntax.length == 1 && token.syntax.at(0)!.case == "nom");
+
+    if (!subjectDetermined) {
+        const verbs = tokens.filter((token) => token.pos == "Verb");
+        verbs.forEach((verb) => {
+            if (verb.syntax.length == 1) {
+                const verbGender = verb.syntax.at(0)!.gender;
+                if (!!verbGender) {
+                    tokens.forEach((token, tokenI) => {
+                        if (token.pos == "Noun") {
+                            const matchingSubjectPossibility = token.syntax.find((syn) => syn.gender == verbGender && syn.case == "nom");
+                            if (!!matchingSubjectPossibility) {
+                                tokens[tokenI] = { ...token, syntax: [matchingSubjectPossibility] };
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
     return tokens;
 }

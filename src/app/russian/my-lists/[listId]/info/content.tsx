@@ -62,7 +62,7 @@ const Content: FC<{
                 Derived from an average of the {`text's`} vocabulary commonalities. Levels probably correspond very roughly to reading grade-level.
             </Tooltip>
 
-            <AnalysisTextArea vocabularyList={vocabularyList} value={text} onChange={(e) => setText(e.target.value)} />
+            <AnalysisTextArea />
 
             <DeleteListButton />
         </>

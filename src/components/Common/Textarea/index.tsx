@@ -9,7 +9,7 @@ const Textarea: FC<
     {
         value: string;
         onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
-    } & TextareaHTMLAttributes<HTMLTextAreaElement>
+    } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "value">
 > = ({ value, onChange, className = "", ...props }) => {
     return (
         <textarea

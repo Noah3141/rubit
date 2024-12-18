@@ -5,35 +5,35 @@ import { RussianToken } from "~/utils/syntaxParsing/russian";
 import Tooltip from "~/components/Containers/Tooltip";
 
 const Token: FC<{
-    item: RussianToken;
-}> = ({ item }) => {
-    const commonalityLabel = item.entry?.model.commonality ? Math.floor(1 / item.entry.model.commonality) : "";
+    token: RussianToken;
+}> = ({ token }) => {
+    const commonalityLabel = token.model?.commonality ? Math.floor(1 / token.model?.commonality) : "";
 
-    if (item.syntax[0]?.word == " ") {
+    if (token.syntax[0]?.word == " ") {
         return " ";
     }
 
-    if (item.syntax.length == 1) {
+    if (token.syntax.length == 1) {
         return (
             <>
                 <span
-                    id={`${item.pos}_${item.entry?.model.lemma}`}
+                    id={`${token.pos}_${token.model?.lemma}`}
                     className={classNames(
                         styles.word,
-                        !!item.pos && styles[item.pos],
-                        !!item.syntax[0]!.number && styles[item.syntax[0]!.number],
-                        !!item.syntax[0]!.case && styles[item.syntax[0]!.case],
+                        !!token.pos && styles[token.pos],
+                        !!token.syntax[0]!.number && styles[token.syntax[0]!.number],
+                        !!token.syntax[0]!.case && styles[token.syntax[0]!.case],
                     )}
                 >
-                    {item.syntax[0]?.word ?? "ERROR"}
+                    {token.syntax[0]?.word ?? "ERROR"}
                 </span>
-                <Tooltip anchorSelect={`#${item.pos}_${item.entry?.model.lemma}`}>
+                <Tooltip anchorSelect={`#${token.pos}_${token.model?.lemma}`}>
                     <div>
-                        {item.entry?.model.lemma} ({item.pos})
+                        {token.model?.lemma} ({token.pos})
                     </div>
                     <span className={classNames(styles.label)}>{commonalityLabel} pages to see</span>
                     <div className="flex flex-col">
-                        {item.syntax.map((syntax) => (
+                        {token.syntax.map((syntax) => (
                             <span key={syntax.case}>
                                 {syntax.case}, {syntax.gender}, {syntax.number}
                             </span>
@@ -46,23 +46,23 @@ const Token: FC<{
         return (
             <>
                 <span
-                    id={`${item.pos}_${item.entry?.model.lemma}`}
+                    id={`${token.pos}_${token.model?.lemma}`}
                     className={classNames(
                         styles.word,
-                        !!item.pos && styles[item.pos],
-                        !!item.syntax[0]?.number && styles[item.syntax[0].number],
-                        !!item.syntax[0]?.case && styles[item.syntax[0].case],
+                        !!token.pos && styles[token.pos],
+                        !!token.syntax[0]?.number && styles[token.syntax[0].number],
+                        !!token.syntax[0]?.case && styles[token.syntax[0].case],
                     )}
                 >
-                    {item.syntax[0]?.word ?? "ERROR"}*
+                    {token.syntax[0]?.word ?? "ERROR"}*
                 </span>
-                <Tooltip anchorSelect={`#${item.pos}_${item.entry?.model.lemma}`}>
+                <Tooltip anchorSelect={`#${token.pos}_${token.model?.lemma}`}>
                     <div>
-                        {item.entry?.model.lemma} ({item.pos})
+                        {token.model?.lemma} ({token.pos})
                     </div>
                     <span className={classNames(styles.label)}>{commonalityLabel} pages to see</span>
                     <div className="flex flex-col">
-                        {item.syntax.map((syntax) => (
+                        {token.syntax.map((syntax) => (
                             <span key={syntax.case}>
                                 {syntax.case}, {syntax.gender}, {syntax.number}
                             </span>

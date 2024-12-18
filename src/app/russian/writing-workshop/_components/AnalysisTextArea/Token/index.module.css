@@ -5,22 +5,6 @@
         @apply relative after:absolute after:left-0 after:top-full after:h-1 after:w-full after:rounded after:opacity-50 after:transition-all;
     }
 
-    &.Noun {
-        @apply after:bg-red-500;
-    }
-
-    &.Verb {
-        @apply text-orange-500 after:bg-green-400;
-    }
-
-    &.Adjective {
-        @apply after:bg-purple-300;
-    }
-
-    &.Adverb {
-        @apply after:bg-yellow-400;
-    }
-
     &:hover {
         @apply after:opacity-100;
     }
@@ -43,4 +27,23 @@
     &.pre {
         @apply text-purple-500;
     }
+
+    &.Noun {
+        @apply text-xl font-bold;
+    }
+
+    &.Verb {
+        @apply text-xl font-bold !text-orange-500;
+    }
+
+    &.Adjective {
+        @apply after:bg-purple-300;
+    }
+
+    &.Adverb {
+        @apply after:bg-yellow-400;
+    }
+
+    /* Пьеса написана в 1822–1824 годы. Отрывки I и III актов комедии с большими цензурными сокращениями были напечатаны в 1825 году, но разрешение на её постановку получить не удалось.
+     Первая полная постановка пьесы состоялась 26 января 1831 года в Александринском театре в Санкт-Петербурге. Полностью текст комедии был опубликован лишь в 1862 году. */
 }

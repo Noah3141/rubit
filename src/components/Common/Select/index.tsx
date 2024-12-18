@@ -28,9 +28,7 @@ const Select: FC<{
             >
                 {value}
             </div>
-            <div
-                className={classNames(styles.options, { [styles.open!]: open })}
-            >
+            <div className={classNames(styles.options, { [styles.open!]: open })}>
                 {options.map((option) => (
                     <div
                         className={classNames(styles.option)}

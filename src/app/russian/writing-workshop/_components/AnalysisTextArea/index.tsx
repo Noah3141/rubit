@@ -1,31 +1,67 @@
-import React, { type TextareaHTMLAttributes, type FC } from "react";
+"use client";
+
+import React, { type TextareaHTMLAttributes, type FC, useState } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
 import Textarea from "~/components/Common/Textarea";
 import parseSyntax from "~/utils/syntaxParsing/russian";
-import { type RouterOutputs } from "~/trpc/react";
+import { api, type RouterOutputs } from "~/trpc/react";
 import Token from "./Token";
 import Legend from "./Legend";
 import Tooltip from "~/components/Containers/Tooltip";
+import { defaultScore, score, Score } from "./score";
 
 const AnalysisTextArea: FC<
     {
-        value: string;
-        onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
-        vocabularyList: RouterOutputs["list"]["russian"]["get"];
+        //
     } & TextareaHTMLAttributes<HTMLTextAreaElement>
-> = ({ vocabularyList, value, onChange, ...props }) => {
-    const syntaxHighlighted = parseSyntax(value, vocabularyList.entry_list);
-
+> = ({}) => {
+    const [text, setText] = useState<string>("");
+    const [entries, setEntries] = useState<RouterOutputs["entry"]["getForWord"]>([]);
+    const getEntry = api.entry.getForWord.useMutation({
+        onMutate: () => {
+            return;
+        },
+        onSuccess: (newEntries) => {
+            newEntries.sort((a, b) => a.commonality! - b.commonality!);
+            setEntries((updatedEntries) => {
+                newEntries.forEach((newEntry) => {
+                    if (!updatedEntries.find((e) => e.id == newEntry.id)) {
+                        updatedEntries.push(newEntry);
+                    }
+                });
+                return updatedEntries;
+            });
+            return;
+        },
+        onError: () => {
+            return;
+        },
+    });
+    const syntaxHighlighted = parseSyntax(text, entries);
+    const currentScore = score(syntaxHighlighted);
     return (
         <div className={classNames(styles.container)}>
             <span className="w-fit font-bold" id="legend">
                 Legend
             </span>
+            <div className="flex flex-row gap-3">
+                <span>middleHits: {currentScore.middleHits}</span>
+                <span>rareHits: {currentScore.rareHits}</span>
+                <span>average: {currentScore.average}</span>
+            </div>
             <Tooltip anchorSelect="#legend">
                 <Legend />
             </Tooltip>
-            <Textarea className={classNames(styles.analysisTextArea)} value={value} onChange={onChange} {...props} />
+            <Textarea
+                className={classNames(styles.analysisTextArea)}
+                value={text}
+                onChange={(e) => {
+                    setText(e.target.value);
+                    const lastWord = e.target.value.split(" ").at(-1) ?? "";
+                    getEntry.mutate({ word: lastWord });
+                }}
+            />
             <div className="">
                 {
                     //
@@ -34,7 +70,7 @@ const AnalysisTextArea: FC<
                         (sentence, sentenceIdx, sentences) => (
                             <>
                                 {sentence.map((token) => (
-                                    <Token key={token.position} item={token} />
+                                    <Token key={token.position} token={token} />
                                 ))}
                             </>
                         ),

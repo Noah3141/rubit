@@ -20,6 +20,7 @@ export const reportSyntaxesForPreposition = (preposition: string): RussianToken[
                 { word: preposition, case: "gen", number: null, gender: null },
             ];
         case "до":
+        case "от":
             return [{ word: preposition, case: "gen", number: null, gender: null }];
 
         case "под":
@@ -48,6 +49,9 @@ export const reportSyntaxesForPreposition = (preposition: string): RussianToken[
                 { word: preposition, case: "pre", number: null, gender: null },
                 // { word: preposition, case: "acc", number: null, gender: null }, // This exists but it uncommon as hell
             ];
+
+        case "про":
+            return [{ word: preposition, case: "acc", number: null, gender: null }];
 
         default:
             return [

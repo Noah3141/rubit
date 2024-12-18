@@ -18,16 +18,17 @@ export type RussianToken = {
         gender: RussianGender | null;
     }[];
     position: number;
+    predicate: boolean;
     pos: "Preposition" | "Noun" | "Verb" | "Adjective" | "Adverb" | null;
-    entry: Entry | null;
+    model: Entry["model"] | null;
 };
 
 type Entry = VocabularyListData["entry_list"][0];
 
 type RussianSentence = RussianToken[];
-type RussianText = RussianSentence[];
+export type RussianText = RussianSentence[];
 
-export default function parseSyntax(text: string, entries: Entry[]): RussianText {
+export default function parseSyntax(text: string, models: Entry["model"][]): RussianText {
     let position = 0;
 
     const sentences = text.split(".");
@@ -45,7 +46,8 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                         withinNounPhrase = true;
                         return {
                             syntax: reportSyntaxesForPreposition(normalizedSegment),
-                            entry: null,
+                            model: null,
+                            predicate: false,
                             position,
                             pos: "Preposition",
                         };
@@ -58,36 +60,37 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
 
                         return {
                             ...reportSyntaxesForPronouns(normalizedSegment, withinNounPhrase),
-                            entry: null,
+                            model: null,
+                            predicate: false,
                             position,
                         };
                     }
 
-                    const possibleEntries = entries
-                        .filter((entry) => {
+                    const possibleModels = models
+                        .filter((model) => {
                             if (withinNounPhrase) {
-                                if (entry.model.type == "Verb") {
+                                if (model.type == "Verb") {
                                     return false;
                                 }
                             }
 
                             return true;
                         })
-                        .filter((entry) => {
-                            return Object.values(entry.model.dictionary_info)
+                        .filter((model) => {
+                            return Object.values(model.dictionary_info)
                                 .map((str) => unaccent({ str }))
                                 .includes(normalizedSegment);
                         });
 
-                    const bestEntry = possibleEntries.sort((a, b) => {
-                        return (b.model.commonality ?? 0) - (a.model.commonality ?? 0);
+                    const bestModel = possibleModels.sort((a, b) => {
+                        return (b.commonality ?? 0) - (a.commonality ?? 0);
                     })[0]!;
 
-                    if (bestEntry?.model.type == "Noun") {
+                    if (bestModel?.type == "Noun") {
                         withinNounPhrase = false;
                     }
 
-                    if (!bestEntry) {
+                    if (!bestModel) {
                         return {
                             syntax: [
                                 {
@@ -99,11 +102,12 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                             ],
                             pos: null,
                             position,
-                            entry: null,
+                            model: null,
+                            predicate: false,
                         };
                     }
 
-                    const forms = determineCase(normalizedSegment, bestEntry);
+                    const forms = determineCase(normalizedSegment, bestModel);
                     const firstForm = forms[0];
 
                     if (!firstForm) {
@@ -117,7 +121,8 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                                 },
                             ],
                             pos: null,
-                            entry: null,
+                            model: null,
+                            predicate: false,
                             position,
                         };
                     }
@@ -131,8 +136,9 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                                 number: form.number,
                                 gender: form.gender,
                             })),
-                        pos: bestEntry.model.type,
-                        entry: bestEntry,
+                        predicate: false, // TODO
+                        pos: bestModel.type,
+                        model: bestModel,
                         position,
                     };
                 case "punctuation":
@@ -146,7 +152,8 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                             },
                         ],
                         pos: null,
-                        entry: null,
+                        model: null,
+                        predicate: false,
                         position,
                     };
                 case "whitespace":
@@ -160,7 +167,8 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
                             },
                         ],
                         pos: null,
-                        entry: null,
+                        model: null,
+                        predicate: false,
                         position,
                     };
             }
@@ -172,7 +180,7 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
     });
     parsedSentences.forEach((sentence, sentenceIdx) => {
         if (sentenceIdx < parsedSentences.length - 1) {
-            sentence.push({ entry: null, position: sentence.length + 1, syntax: [{ word: ".", case: null, gender: null, number: null }], pos: null });
+            sentence.push({ model: null, predicate: false, position: sentence.length + 1, syntax: [{ word: ".", case: null, gender: null, number: null }], pos: null });
         }
     });
     return parsedSentences;
@@ -180,28 +188,30 @@ export default function parseSyntax(text: string, entries: Entry[]): RussianText
 
 export const determineCase = (
     word: string,
-    entry: Entry,
+    model: Entry["model"],
 ): ({
     accented: string;
     case: RussianCase | null;
     number: RussianNumber | null;
     gender: RussianGender | null;
 } | null)[] => {
-    switch (entry.model.type) {
+    const lowerCaseWord = word.toLowerCase();
+    const normalizedWord = unaccent({
+        str: lowerCaseWord,
+        removeЁ: true,
+    });
+
+    switch (model.type) {
         case "Noun":
-            const gender = entry.model.dictionary_info.gender.charAt(0).toLowerCase() as RussianGender;
-            return Object.entries(entry.model.dictionary_info)
+            const gender = model.dictionary_info.gender.charAt(0).toLowerCase() as RussianGender;
+            return Object.entries(model.dictionary_info)
                 .filter(
                     ([key, form]) =>
                         unaccent({
                             //
                             str: form,
                             removeЁ: true,
-                        }) ==
-                            unaccent({
-                                str: word.toLowerCase(),
-                                removeЁ: true,
-                            }) && key !== "lemma",
+                        }) == normalizedWord && key !== "lemma",
                 )
                 .map(([key, form]) => {
                     switch (key) {
@@ -294,15 +304,8 @@ export const determineCase = (
                     }
                 });
         case "Adjective":
-            return Object.entries(entry.model.dictionary_info)
-                .filter(
-                    ([key, form]) =>
-                        unaccent({ str: form, removeЁ: true }) ==
-                            unaccent({
-                                str: word.toLowerCase(),
-                                removeЁ: true,
-                            }) && key !== "lemma",
-                )
+            return Object.entries(model.dictionary_info)
+                .filter(([key, form]) => unaccent({ str: form, removeЁ: true }) == normalizedWord && key !== "lemma")
                 .map(([key, form]) => {
                     switch (key) {
                         case "nom_masc":
@@ -476,29 +479,29 @@ export const determineCase = (
 
                         case "m_short":
                             return {
-                                case: "acc",
+                                case: null,
                                 number: "singular",
                                 accented: form ?? word,
                                 gender: "m",
                             };
                         case "f_short":
                             return {
-                                case: "acc",
+                                case: null,
                                 number: "singular",
                                 accented: form ?? word,
                                 gender: "f",
                             };
                         case "n_short":
                             return {
-                                case: "acc",
+                                case: null,
                                 number: "singular",
                                 accented: form ?? word,
                                 gender: "n",
                             };
                         case "p_short":
                             return {
-                                case: "acc",
-                                number: "singular",
+                                case: null,
+                                number: "plural",
                                 accented: form ?? word,
                                 gender: null,
                             };
@@ -508,15 +511,8 @@ export const determineCase = (
                     }
                 });
         case "Verb":
-            return Object.entries(entry.model.dictionary_info)
-                .filter(
-                    ([key, form]) =>
-                        unaccent({ str: form, removeЁ: true }) ==
-                            unaccent({
-                                str: word.toLowerCase(),
-                                removeЁ: true,
-                            }) && key !== "lemma",
-                )
+            return Object.entries(model.dictionary_info)
+                .filter(([key, form]) => unaccent({ str: form, removeЁ: true }) == normalizedWord) //  && key !== "lemma"
                 .map(([key, form]) => {
                     return {
                         number: null, // !
@@ -529,7 +525,7 @@ export const determineCase = (
             return [
                 {
                     case: null,
-                    accented: entry.model.lemma,
+                    accented: model.lemma,
                     number: null,
                     gender: null,
                 },
