@@ -1,5 +1,5 @@
 .container {
-    @apply shrink-0 overflow-hidden rounded border-purple-700 bg-purple-900;
+    @apply shrink-0 overflow-hidden rounded border-neutral-700 bg-neutral-900;
 
     .list {
         @apply w-full table-auto lg:w-fit lg:min-w-[360px];

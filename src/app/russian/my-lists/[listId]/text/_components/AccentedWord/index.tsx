@@ -1,4 +1,4 @@
-import React, { type FC } from "react";
+import React, { useState, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
 import MeaningDisplay from "../../../_components/EntryViewer/MeaningDisplay";
@@ -16,6 +16,7 @@ import GPTSentencer from "~/components/Common/GPTSentencer";
 import Tooltip from "~/components/Containers/Tooltip";
 import CoreLabel from "../../../_components/EntryViewer/MeaningDisplay/CoreLabel";
 import { heatScore } from "~/utils/heatScore";
+import { CgClose } from "react-icons/cg";
 
 const AccentedWord: FC<{
     word: string;
@@ -24,21 +25,26 @@ const AccentedWord: FC<{
     const unaccentedLemma = entry.model.lemma.replace("\u0301", "");
     const commonalityLabel = entry.model.commonality ? `${Math.floor(1 / entry.model.commonality)}  pages to see` : "commonality n/a";
 
+    const [open, setOpen] = useState(false);
+
     return (
         <>
-            <Tooltip clickable openOnClick style={{ zIndex: 999 }} anchorSelect={`#${word}`}>
+            <Tooltip clickable openOnClick setIsOpen={setOpen} isOpen={open} style={{ zIndex: 999 }} anchorSelect={`#${word}`}>
                 <div>
-                    <span>
-                        <Header level="3">{entry.model.lemma} </Header>
-                        <CoreLabel entry={entry} />
-                        <div>{commonalityLabel}</div>
-                        <div className="flex flex-row items-center gap-3">
-                            <IPA>{entry.model.dictionary_info.ipa}</IPA>
+                    <div className="flex w-full flex-row items-start justify-between">
+                        <span className="text-2xl">{entry.model.lemma} </span>
+                        <div onClick={() => setOpen(false)} className="grid size-6 cursor-pointer place-items-center hover:bg-neutral-800">
+                            <CgClose />
                         </div>
-                    </span>
+                    </div>
+                    <CoreLabel entry={entry} />
+                    <div>{commonalityLabel}</div>
+                    <div className="flex flex-row items-center gap-3">
+                        <IPA>{entry.model.dictionary_info.ipa}</IPA>
+                    </div>
                 </div>
 
-                <hr className="my-3 border-purple-700" />
+                <hr className="my-3 border-neutral-700" />
 
                 <div className="flex flex-col gap-3">
                     <MeaningDisplay entry={entry} />

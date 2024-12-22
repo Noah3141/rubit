@@ -5,9 +5,9 @@ const RussianPage = () => {
     return (
         <>
             <Header level="1">Русский</Header>
-            <Header level="2">Добро пожаловать!</Header>
+            <p>Добро пожаловать!</p>
 
-            <Header level="3">To Do</Header>
+            <Header level="2">To Do</Header>
             <ol className="list-disc ps-5">
                 <li>Verify some kind of way to allow users to help fill out commonality scores that {`isn't...`} Completely arbitrary</li>
                 <li>
@@ -17,8 +17,17 @@ const RussianPage = () => {
                 <li>Writing exercise with input analysis, potentially syntax highlighting and word rarity scores to guide usage of wider vocabulary</li>
             </ol>
 
-            <Header level="3">Changelog</Header>
-            <Header level="4">12/18/2024</Header>
+            <Header level="2">Changelog</Header>
+            <Header level="3">12/22/2024</Header>
+            <ol className="list-disc ps-5">
+                <li>Developed the vaguest sense of taste and reduce UI horror</li>
+                <li>
+                    Neat improvements to Study tab allow use of Tab, Left Arrow, Right Arrow, and Enter to attempt to guess correct answer. This you can have it actually
+                    strain your memory once it tells you that {`you've`} not thought of the word it wants.
+                </li>
+            </ol>
+
+            <Header level="3">12/18/2024</Header>
             <ol className="list-disc ps-5">
                 <li>
                     Upgraded Text Input Analyzer, and moved main form to Writing Workshop. This will как-то be combined with particular {`texts'`} pages and targeted writing
@@ -26,7 +35,7 @@ const RussianPage = () => {
                 </li>
             </ol>
 
-            <Header level="4">12/13/2024</Header>
+            <Header level="3">12/13/2024</Header>
             <ol className="list-disc ps-5">
                 <li className="font-bold">
                     Fixed ambiguous words in text analyzer gaslighting you with a guessed stress/meaning. These words now analyze if multiple interpretations exist, and only
@@ -39,26 +48,26 @@ const RussianPage = () => {
                 <li>Some meanings will have been fixed, now showing specialized notes for some terms, like {`"regional"`}</li>
             </ol>
 
-            <Header level="4">11/10/2024</Header>
+            <Header level="3">11/10/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Upgraded the testing system to show meanings, and allow difficulty setting</li>
                 <li>Deleting lists added</li>
             </ol>
 
-            <Header level="4">11/08/2024</Header>
+            <Header level="3">11/08/2024</Header>
             <ol className="list-disc ps-5">
                 <li>
                     Improvements on syntax highlighter. It will be nearly impossible to make better than 80% accurate but some good educational use will definitely come out of
                     it.
                 </li>
             </ol>
-            <Header level="4">11/08/2024</Header>
+            <Header level="3">11/08/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Fixed auto-meanings in many broken cases!</li>
                 <li>Adverbs are in!</li>
                 <li>Work on case-syntax highlighter starting</li>
             </ol>
-            <Header level="4">11/07/2024</Header>
+            <Header level="3">11/07/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Fixed certain punctuation parsing in the Text page for lists</li>
                 <li>
@@ -69,7 +78,7 @@ const RussianPage = () => {
                 <li>Fixed label problem for perfectivity vs gender</li>
             </ol>
 
-            <Header level="4">11/06/2024</Header>
+            <Header level="3">11/06/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Changed the placing of the input text, and began adding a syntax highlighting system...</li>
                 <li>Fixed some obscure aspect of login flow. Pressing {`'enter'`} now works</li>
@@ -81,7 +90,7 @@ const RussianPage = () => {
                 <li>Mobile formatting</li>
             </ol>
 
-            <Header level="4">11/05/2024</Header>
+            <Header level="3">11/05/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Some styling changes that will all be thrown out later</li>
                 <li>Better testing page now cycles items at random, while providing answer beneath</li>
@@ -97,7 +106,7 @@ const RussianPage = () => {
                 </li>
             </ol>
 
-            <Header level="4">10/28/2024</Header>
+            <Header level="3">10/28/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Added original text input to {`list's`}, along with their title (editability to come)</li>
                 <li>
@@ -115,7 +124,7 @@ const RussianPage = () => {
                 </li>
             </ol>
 
-            <Header level="4">10/26/2024</Header>
+            <Header level="3">10/26/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Added English meanings for approx 40,000 terms. This is quite substantial. High school vocabulary is allegedly around 20,000.</li>
                 <li>
@@ -124,7 +133,7 @@ const RussianPage = () => {
                 </li>
             </ol>
 
-            <Header level="4">10/22/2024</Header>
+            <Header level="3">10/22/2024</Header>
             <ol className="list-disc ps-5">
                 <li>
                     Added commonality rating to most vocabulary, statistically representing the chance of encountering the term in 1 page of a book, <i>on average</i>. This is
@@ -133,7 +142,7 @@ const RussianPage = () => {
                 <li>Added sorting by commonality</li>
                 <li>(Planned: commonality thresholds/borders)</li>
             </ol>
-            <Header level="4">10/17/2024</Header>
+            <Header level="3">10/17/2024</Header>
             <ol className="list-disc ps-5">
                 <li>Changed List UI to hold one visible vocab word to the side</li>
                 <li>Added list sorting</li>

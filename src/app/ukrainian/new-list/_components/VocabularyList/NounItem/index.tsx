@@ -12,23 +12,12 @@ const NounItem: FC<{
     entry: NounEntry;
 }> = ({ entry }) => {
     return (
-        <Dropdown
-            header={
-                <>
-                    <FrequencyLabel>{entry.frequency}</FrequencyLabel>
-                    {entry.model.lemma}{" "}
-                    <IPA>{entry.model.dictionary_info.ipa}</IPA>{" "}
-                    <span className="text-lg">
-                        (
-                        {entry.model.dictionary_info.gender
-                            .at(0)
-                            ?.toLowerCase()}
-                        )
-                    </span>
-                </>
-            }
-        >
-            <div className="w-full overflow-hidden rounded border border-violet-600">
+        <div>
+            <>
+                <FrequencyLabel>{entry.frequency}</FrequencyLabel>
+                {entry.model.lemma} <IPA>{entry.model.dictionary_info.ipa}</IPA> <span className="text-lg">({entry.model.dictionary_info.gender.at(0)?.toLowerCase()})</span>
+            </>
+            <div className="w-full overflow-hidden rounded border border-neutral-600">
                 <table className={classNames(styles.nounTable)}>
                     <thead>
                         <th className="w-36 px-3 py-1"></th>
@@ -38,48 +27,28 @@ const NounItem: FC<{
                     <tbody>
                         <tr>
                             <td className="p-1 text-right">nominative</td>
-                            <td>
-                                {entry.model.dictionary_info.nom_sing ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.nom_plur ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.nom_sing ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.nom_plur ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">genitive</td>
-                            <td>
-                                {entry.model.dictionary_info.gen_sing ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.gen_plur ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.gen_sing ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.gen_plur ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">accusative</td>
-                            <td>
-                                {entry.model.dictionary_info.acc_sing ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.acc_plur ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.acc_sing ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.acc_plur ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">instrumental</td>
-                            <td>
-                                {entry.model.dictionary_info.ins_sing ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.ins_plur ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.ins_sing ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.ins_plur ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">locative</td>
-                            <td>
-                                {entry.model.dictionary_info.loc_sing ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.loc_plur ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.loc_sing ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.loc_plur ?? "-"}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -87,7 +56,7 @@ const NounItem: FC<{
             <div>
                 <GPTSentencer language="Ukrainian" token={entry.model.lemma} />
             </div>
-        </Dropdown>
+        </div>
     );
 };
 

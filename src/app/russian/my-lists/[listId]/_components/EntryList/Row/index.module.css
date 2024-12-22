@@ -1,5 +1,5 @@
 .row {
-    @apply cursor-pointer text-left transition-all even:bg-purple-800/40 hover:!bg-purple-800 lg:w-12;
+    @apply cursor-pointer text-left transition-all even:bg-neutral-800/40 hover:!bg-neutral-800 lg:w-12;
 
     > td {
         @apply px-3 py-1;
@@ -10,7 +10,7 @@
     }
 
     &.selected {
-        @apply cursor-default bg-purple-800;
+        @apply cursor-default bg-neutral-800;
 
         .lemma {
             @apply font-medium;

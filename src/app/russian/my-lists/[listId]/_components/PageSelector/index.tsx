@@ -10,26 +10,21 @@ const PageSelector: FC<{
 }> = ({ vocabularyList }) => {
     return (
         <div className={classNames(styles.container)}>
-            <Button color="green" size="small">
-                <Link href={`/russian/my-lists/${vocabularyList.id}/text`}>
-                    Text
-                </Link>
-            </Button>
-            <Button color="green" size="small">
-                <Link href={`/russian/my-lists/${vocabularyList.id}`}>
-                    List
-                </Link>
-            </Button>
-            <Button color="green" size="small">
-                <Link href={`/russian/my-lists/${vocabularyList.id}/study`}>
-                    Study
-                </Link>
-            </Button>
-            <Button color="green" size="small">
-                <Link href={`/russian/my-lists/${vocabularyList.id}/info`}>
-                    Info
-                </Link>
-            </Button>
+            <button className={styles.button}>
+                <Link href={`/russian/my-lists/${vocabularyList.id}/text`}>Text</Link>
+            </button>
+            <hr className={styles.divider} />
+            <button className={styles.button}>
+                <Link href={`/russian/my-lists/${vocabularyList.id}`}>List</Link>
+            </button>
+            <hr className={styles.divider} />
+            <button className={styles.button}>
+                <Link href={`/russian/my-lists/${vocabularyList.id}/study`}>Study</Link>
+            </button>
+            <hr className={styles.divider} />
+            <button className={styles.button}>
+                <Link href={`/russian/my-lists/${vocabularyList.id}/info`}>Info</Link>
+            </button>
         </div>
     );
 };

@@ -6,9 +6,7 @@ import SaveListForm from "./_components/SaveListForm";
 
 const List: FC<{
     vocabularyList: VocabularyListData;
-    setVocabularyList: React.Dispatch<
-        React.SetStateAction<VocabularyListData | undefined>
-    >;
+    setVocabularyList: React.Dispatch<React.SetStateAction<VocabularyListData | undefined>>;
 }> = ({ vocabularyList, setVocabularyList }) => {
     return (
         <>
@@ -22,11 +20,11 @@ const List: FC<{
                 </button>
             </div>
             <section className="flex flex-row">
-                <Header level="4">Order By</Header>
+                <Header level="3">Order By</Header>
                 first appearance | # occurrence
-                <Header level="4">Group By</Header>
+                <Header level="3">Group By</Header>
                 part of speech | paragraph | all
-                <Header level="4">Filter By</Header># occurence | commonality
+                <Header level="3">Filter By</Header># occurence | commonality
             </section>
             <section>
                 <SaveListForm vocabularyList={vocabularyList} />

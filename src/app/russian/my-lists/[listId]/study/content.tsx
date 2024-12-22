@@ -20,15 +20,20 @@ import Dropdown from "~/components/Containers/Dropdown";
 import MeaningDisplay from "../../[listId]/_components/EntryViewer/MeaningDisplay";
 import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 import NumberInput from "~/components/Common/NumberInput";
+import TextInput from "~/components/Common/TextInput";
+import AnswerInput from "./_components/AnswerInput";
+import toast from "react-hot-toast";
 
 const Content: FC<{
     //
 }> = ({}) => {
     const vocabularyList = useVocabularyList();
     vocabularyList.entry_list.sort(() => Math.random() - 0.5);
-    const [commonalityThreshold, setCommonalityThreshold] = useState<[number | undefined, number | undefined]>([1, undefined]);
 
+    const [definitionOpen, setDefinitionOpen] = useState(false);
+    const [commonalityThreshold, setCommonalityThreshold] = useState<[number | undefined, number | undefined]>([1, undefined]);
     const [testingEntries, setTestingEntries] = useState(vocabularyList.entry_list);
+    const [userAnswer, setUserAnswer] = useState("");
 
     useEffect(() => {
         setTestingEntries(
@@ -51,7 +56,7 @@ const Content: FC<{
     }, [commonalityThreshold[0], commonalityThreshold[1]]);
 
     const [testIdx, setTestIdx] = useState(0);
-    const [flipped, setFlipped] = useState(false);
+    const [flipped, setFlipped] = useState(true);
 
     const testEntry = testingEntries[testIdx]!;
     const unaccentedLemma = testEntry.model.lemma.replace("\u0301", "");
@@ -59,9 +64,54 @@ const Content: FC<{
 
     return (
         <>
-            <div className="flex flex-col gap-6">
+            <div
+                onKeyDown={(e) => {
+                    switch (e.key) {
+                        case "Enter":
+                            if (userAnswer == unaccentedLemma) {
+                                toast("Nice!", { id: "positive-reinforcement" });
+                                setTestIdx((p) => {
+                                    if (!!testingEntries[p + 1]) {
+                                        return p + 1;
+                                    } else {
+                                        return 0;
+                                    }
+                                });
+                                setUserAnswer("");
+                            }
+                            break;
+                        case "Tab":
+                            e.preventDefault();
+                            setDefinitionOpen((p) => !p);
+                            break;
+                        case "ArrowLeft":
+                            setTestIdx((p) => {
+                                if (!!testingEntries[p - 1]) {
+                                    return p - 1;
+                                } else {
+                                    return 0;
+                                }
+                            });
+                            setUserAnswer("");
+                            break;
+                        case "ArrowRight":
+                            setTestIdx((p) => {
+                                if (!!testingEntries[p + 1]) {
+                                    return p + 1;
+                                } else {
+                                    return 0;
+                                }
+                            });
+                            setUserAnswer("");
+                            break;
+                    }
+                }}
+                className="flex flex-col gap-6"
+            >
                 <div className="flex flex-row gap-3">
                     <Button
+                        color="neutral"
+                        size="small"
                         onClick={() => {
                             setTestIdx((p) => {
                                 if (!!testingEntries[p - 1]) {
@@ -74,8 +124,12 @@ const Content: FC<{
                     >
                         Previous
                     </Button>
-                    <Button onClick={() => setFlipped((p) => !p)}>Flip</Button>
+                    <Button color="neutral" size="small" onClick={() => setFlipped((p) => !p)}>
+                        Flip
+                    </Button>
                     <Button
+                        color="neutral"
+                        size="small"
                         onClick={() => {
                             setTestIdx((p) => {
                                 if (!!testingEntries[p + 1]) {
@@ -88,7 +142,7 @@ const Content: FC<{
                     >
                         Next
                     </Button>
-                    <div className="h-full w-1 border-r border-r-purple-600"></div>
+                    <div className="h-full w-1 border-r border-r-neutral-600"></div>
                     <div className="flex flex-row items-center gap-1">
                         From:
                         <NumberInput
@@ -127,12 +181,24 @@ const Content: FC<{
                         />
                     </div>
                 </div>
-                <div suppressHydrationWarning className="text-4xl">
-                    {flipped ? <MeaningDisplay entry={testEntry} /> : unaccentedLemma}
+                <div suppressHydrationWarning className="text-xl">
+                    {flipped ? (
+                        <div className="flex flex-col gap-6">
+                            <div>
+                                {testEntry.model.type} {testEntry.model.type == "Verb" && (testEntry.model.dictionary_info.is_perfective ? "(perfective)" : "(imperfective)")}
+                                {testEntry.model.type == "Noun" && `(${testEntry.model.dictionary_info.gender.toLowerCase()})`} - {commonalityLabel}
+                                <MeaningDisplay entry={testEntry} />
+                            </div>
+                            <div>
+                                <AnswerInput testEntry={testEntry} value={userAnswer} setValue={setUserAnswer} />
+                            </div>
+                        </div>
+                    ) : (
+                        unaccentedLemma
+                    )}
                 </div>
-                <div>{commonalityLabel}</div>
 
-                <Dropdown header="Dictionary">
+                <Dropdown open={definitionOpen} setOpen={setDefinitionOpen} header="Dictionary">
                     <div>
                         <div>
                             <span>
@@ -153,7 +219,7 @@ const Content: FC<{
                             </span>
                         </div>
 
-                        <hr className="my-3 border-purple-700" />
+                        <hr className="my-3 border-neutral-700" />
                         <div className="flex flex-col gap-3">
                             <MeaningDisplay entry={testEntry} />
 

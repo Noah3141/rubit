@@ -99,10 +99,10 @@ const Content: FC<{
 
     return (
         <div className={`md:text-lg ${fontSerif && "font-serif md:text-xl"}`}>
-            <Button color="orange" onMouseDown={() => setFontSerif((p) => !p)}>
+            <Button color="neutral" size="small" onMouseDown={() => setFontSerif((p) => !p)}>
                 {fontSerif ? "Serif" : "Sans-serif"}
             </Button>
-            <div className="mx-auto max-w-screen-lg leading-8">{accentedText}</div>
+            <div className="mx-auto max-w-screen-lg py-12 leading-8">{accentedText}</div>
         </div>
     );
 };

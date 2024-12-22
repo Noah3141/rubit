@@ -13,12 +13,9 @@ import EntryViewer from "../my-lists/[listId]/_components/EntryViewer";
 
 const List: FC<{
     vocabularyList: VocabularyListData & { title?: string };
-    setVocabularyList: React.Dispatch<
-        React.SetStateAction<VocabularyListData | undefined>
-    >;
+    setVocabularyList: React.Dispatch<React.SetStateAction<VocabularyListData | undefined>>;
 }> = ({ vocabularyList, setVocabularyList }) => {
-    const [viewedEntry, setViewedEntry] =
-        useState<VocabularyListData["entry_list"][0]>();
+    const [viewedEntry, setViewedEntry] = useState<VocabularyListData["entry_list"][0]>();
 
     const [filter, setFilter] = useState<Filter>({
         Verb: true,
@@ -28,6 +25,7 @@ const List: FC<{
     });
     const [popUp, setPopUp] = useState<PopUpState>(null);
     const [sorter, setSorter] = useState<Sorter>("Frequent first");
+    const [open, setOpen] = useState(false);
 
     vocabularyList.entry_list.sort(SORTERS[sorter]);
 
@@ -46,18 +44,11 @@ const List: FC<{
                 <SaveListForm vocabularyList={vocabularyList} />
             </section>
             <section>
-                <Dropdown header="Original Text">
-                    <div className="whitespace-pre-wrap">
-                        {vocabularyList.inputText}
-                    </div>
+                <Dropdown open={open} setOpen={setOpen} header="Original Text">
+                    <div className="whitespace-pre-wrap">{vocabularyList.inputText}</div>
                 </Dropdown>
                 <div className="flex flex-col lg:flex-row">
-                    <EntryControls
-                        filter={filter}
-                        setFilter={setFilter}
-                        sorter={sorter}
-                        setSorter={setSorter}
-                    />
+                    <EntryControls filter={filter} setFilter={setFilter} sorter={sorter} setSorter={setSorter} />
                     <EntryList>
                         {vocabularyList.entry_list.map((entry) => {
                             if (!filter[entry.model.type]) {
@@ -66,9 +57,7 @@ const List: FC<{
                             return (
                                 <Row
                                     key={entry.model.id}
-                                    selected={
-                                        viewedEntry?.model.id == entry.model.id
-                                    }
+                                    selected={viewedEntry?.model.id == entry.model.id}
                                     lemma={entry.model.lemma}
                                     label={
                                         // entry.model.type == "Noun"
@@ -86,24 +75,14 @@ const List: FC<{
                                         entry.frequency
                                     }
                                     onClick={() => {
-                                        setViewedEntry(
-                                            vocabularyList.entry_list.find(
-                                                (found) =>
-                                                    found.model.id ==
-                                                    entry.model.id,
-                                            ),
-                                        );
+                                        setViewedEntry(vocabularyList.entry_list.find((found) => found.model.id == entry.model.id));
                                     }}
                                 />
                             );
                         })}
                     </EntryList>
 
-                    <EntryViewer
-                        entry={viewedEntry}
-                        setEntry={setViewedEntry}
-                        setPopUp={setPopUp}
-                    />
+                    <EntryViewer entry={viewedEntry} setEntry={setViewedEntry} setPopUp={setPopUp} />
 
                     <PopUp state={popUp} setState={setPopUp} />
                 </div>

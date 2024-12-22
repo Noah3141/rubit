@@ -6,8 +6,7 @@ import WithNavbar from "~/partials/withNavbar";
 import WithFooter from "~/partials/withFooter";
 import WithLanguageNav from "~/partials/withLanguageNav";
 import { getServerAuthSession } from "~/server/auth";
-import AbsoluteTop from "~/components/Containers/FixedTop";
-import { globalIcons } from "~/app/_globals";
+import { globalIcons } from "~/app/globals";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary",
@@ -15,17 +14,13 @@ export const metadata: Metadata = {
     icons: globalIcons,
 };
 
-export default async function LanguageLayout({
-    children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default async function LanguageLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     const session = await getServerAuthSession();
 
     return (
         <>
-            <AbsoluteTop>
-                <WithNavbar session={session} />
-                <WithLanguageNav session={session} />
-            </AbsoluteTop>
+            <WithNavbar session={session} />
+            <WithLanguageNav session={session} />
             <div className={classnames(styles.page)}>
                 <div className={classnames(styles.layout)}>{children}</div>
             </div>

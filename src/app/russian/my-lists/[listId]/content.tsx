@@ -25,13 +25,7 @@ export type Filter = {
     Adjective: boolean;
     Adverb: boolean;
 };
-export const SORTERS: Record<
-    Sorter,
-    (
-        a: VocabularyListData["entry_list"][0],
-        b: VocabularyListData["entry_list"][0],
-    ) => number
-> = {
+export const SORTERS: Record<Sorter, (a: VocabularyListData["entry_list"][0], b: VocabularyListData["entry_list"][0]) => number> = {
     "Frequent first": (a, b) => {
         return b.frequency - a.frequency;
     },
@@ -55,14 +49,7 @@ export const SORTERS: Record<
     },
 };
 
-export type Sorter =
-    | "Frequent first"
-    | "Alphabetical"
-    | "Common first"
-    | "Uncommon first"
-    | "Infrequent first"
-    | "Shortest first"
-    | "Longest first";
+export type Sorter = "Frequent first" | "Alphabetical" | "Common first" | "Uncommon first" | "Infrequent first" | "Shortest first" | "Longest first";
 
 ///
 /// Component
@@ -73,8 +60,7 @@ const Content: FC<{
 }> = ({}) => {
     const vocabularyList = useVocabularyList();
 
-    const [viewedEntry, setViewedEntry] =
-        useState<VocabularyListData["entry_list"][0]>();
+    const [viewedEntry, setViewedEntry] = useState<VocabularyListData["entry_list"][0]>();
 
     const [filter, setFilter] = useState<Filter>({
         Verb: true,
@@ -90,12 +76,7 @@ const Content: FC<{
     return (
         <>
             <div className="flex flex-col lg:flex-row">
-                <EntryControls
-                    filter={filter}
-                    setFilter={setFilter}
-                    sorter={sorter}
-                    setSorter={setSorter}
-                />
+                <EntryControls filter={filter} setFilter={setFilter} sorter={sorter} setSorter={setSorter} />
                 <EntryList>
                     {vocabularyList.entry_list.map((entry) => {
                         if (!filter[entry.model.type]) {
@@ -104,30 +85,18 @@ const Content: FC<{
                         return (
                             <Row
                                 key={entry.model.id}
-                                selected={
-                                    viewedEntry?.model.id == entry.model.id
-                                }
+                                selected={viewedEntry?.model.id == entry.model.id}
                                 lemma={entry.model.lemma}
                                 label={entry.frequency}
                                 onClick={() => {
-                                    setViewedEntry(
-                                        vocabularyList.entry_list.find(
-                                            (found) =>
-                                                found.model.id ==
-                                                entry.model.id,
-                                        ),
-                                    );
+                                    setViewedEntry(vocabularyList.entry_list.find((found) => found.model.id == entry.model.id));
                                 }}
                             />
                         );
                     })}
                 </EntryList>
 
-                <EntryViewer
-                    entry={viewedEntry}
-                    setEntry={setViewedEntry}
-                    setPopUp={setPopUp}
-                />
+                <EntryViewer entry={viewedEntry} setEntry={setViewedEntry} setPopUp={setPopUp} />
 
                 <PopUp state={popUp} setState={setPopUp} />
             </div>

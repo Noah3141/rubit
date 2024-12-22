@@ -17,9 +17,11 @@ const SavedListsPage = async () => {
     return (
         <>
             <Header level="2">My Lists</Header>
-            {myLists.map((list) => {
-                return <SavedListRow key={list.id} savedList={list} />;
-            })}
+            <div>
+                {myLists.map((list) => {
+                    return <SavedListRow key={list.id} savedList={list} />;
+                })}
+            </div>
         </>
     );
 };

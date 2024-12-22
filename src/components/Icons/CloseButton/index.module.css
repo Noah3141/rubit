@@ -1,5 +1,5 @@
 .button {
-    @apply relative grid cursor-pointer place-items-center after:absolute after:left-1/2 after:top-1/2 after:-z-0 after:size-8 after:-translate-x-1/2 after:-translate-y-1/2 after:scale-0 after:rounded-full after:bg-purple-500/50 after:transition-all hover:after:scale-100;
+    @apply relative grid cursor-pointer place-items-center after:absolute after:left-1/2 after:top-1/2 after:-z-0 after:size-8 after:-translate-x-1/2 after:-translate-y-1/2 after:scale-0 after:rounded-full after:bg-neutral-500/50 after:transition-all hover:after:scale-100;
 
     .icon {
         @apply z-10;

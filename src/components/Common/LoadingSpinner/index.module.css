@@ -17,10 +17,10 @@
         }
 
         &.purple {
-            @apply border-purple-500;
+            @apply border-neutral-500;
         }
         &.violet {
-            @apply border-violet-500;
+            @apply border-neutral-500;
         }
         &.red {
             @apply border-red-500;

@@ -2,12 +2,7 @@
 
 import classNames from "classnames";
 import styles from "./index.module.css";
-import React, {
-    type FC,
-    type PropsWithChildren,
-    useEffect,
-    useState,
-} from "react";
+import React, { type FC, type PropsWithChildren, useEffect, useState } from "react";
 import { toTitleCase } from "~/utils/strings";
 import { FaChevronDown } from "react-icons/fa";
 import type { Language } from "~/types/language";
@@ -35,22 +30,15 @@ const Bar: FC<
                     <h1 className={classNames(styles.title)}>
                         <Link href={`/${language}`}> {languageTitle}</Link>
                     </h1>
-                    <div className={classNames(styles.contents)}>
-                        {children}
-                    </div>
+                    <div className={classNames(styles.contents)}>{children}</div>
                 </div>
             </div>
 
             {/* Mobile */}
             <div className="w-full lg:hidden">
                 <div className={classNames(styles.headerMobile)}>
-                    <h1 className={classNames(styles.title)}>
-                        {languageTitle}
-                    </h1>
-                    <button
-                        onMouseDown={() => setNavOpen((p) => !p)}
-                        className={classNames(styles.button)}
-                    >
+                    <h1 className={classNames(styles.title)}>{languageTitle}</h1>
+                    <button onMouseDown={() => setNavOpen((p) => !p)} className={classNames(styles.button)}>
                         <FaChevronDown
                             className={classNames(styles.icon, {
                                 [styles.flip!]: navOpen,
@@ -64,9 +52,7 @@ const Bar: FC<
                     })}
                 >
                     <div className="overflow-hidden">
-                        <div className={classNames(styles.content)}>
-                            {children}
-                        </div>
+                        <div className={classNames(styles.content)}>{children}</div>
                     </div>
                 </div>
             </div>

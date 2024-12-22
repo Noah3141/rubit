@@ -2,22 +2,14 @@
     @apply text-inherit;
 
     &.h_1 {
-        @apply text-5xl font-extrabold text-orange-500;
+        @apply text-3xl font-semibold text-neutral-50;
     }
 
     &.h_2 {
-        @apply text-3xl font-bold text-orange-500;
+        @apply text-xl font-semibold text-neutral-50 underline;
     }
 
     &.h_3 {
-        @apply text-2xl font-semibold text-orange-500;
-    }
-
-    &.h_4 {
-        @apply text-xl font-bold text-violet-500;
-    }
-
-    &.h_5 {
-        @apply text-lg font-medium text-neutral-50;
+        @apply text-lg font-medium text-neutral-100;
     }
 }

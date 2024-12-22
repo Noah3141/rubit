@@ -25,7 +25,7 @@
         @apply text-blue-400;
     }
     &.pre {
-        @apply text-purple-500;
+        @apply text-neutral-500;
     }
 
     &.Noun {
@@ -37,7 +37,7 @@
     }
 
     &.Adjective {
-        @apply after:bg-purple-300;
+        @apply after:bg-neutral-300;
     }
 
     &.Adverb {

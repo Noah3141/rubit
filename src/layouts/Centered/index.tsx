@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { type Metadata } from "next";
 import React from "react";
 import classnames from "classnames";
 import styles from "./index.module.css";
@@ -13,16 +13,12 @@ export const metadata: Metadata = {
     icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default async function CenteredLayout({
-    children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default async function CenteredLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     const session = await getServerAuthSession();
 
     return (
         <>
-            <FixedTop>
-                <WithNavbar session={session} />
-            </FixedTop>
+            <WithNavbar session={session} />
             <div className={classnames(styles.page)}>
                 <div className={classnames(styles.layout)}>{children}</div>
             </div>

@@ -6,7 +6,7 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import BaseLayout from "~/layouts/Base";
 import { Toaster } from "react-hot-toast";
-import { globalIcons } from "./_globals";
+import { globalIcons } from "./globals";
 
 export const metadata: Metadata = {
     title: "Russian Vocabulary List Maker",
@@ -14,9 +14,7 @@ export const metadata: Metadata = {
     icons: globalIcons,
 };
 
-export default async function RootLayout({
-    children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en" className={`${GeistSans.variable}`}>
             <body>
@@ -24,7 +22,7 @@ export default async function RootLayout({
                     <Toaster
                         position="top-right"
                         toastOptions={{
-                            className: "!bg-violet-950 !text-violet-200",
+                            className: "!bg-neutral-950 !border !shadow !shadow-black  !text-neutral-200",
                         }}
                     />
                     <BaseLayout>{children}</BaseLayout>

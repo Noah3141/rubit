@@ -1,11 +1,7 @@
-import React, { PropsWithChildren, type FC } from "react";
+import React, { type PropsWithChildren, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import {
-    Tooltip as ReactTooltip,
-    type TooltipRefProps,
-    type ITooltip,
-} from "react-tooltip";
+import { Tooltip as ReactTooltip, type TooltipRefProps, type ITooltip } from "react-tooltip";
 
 const Tooltip: FC<
     PropsWithChildren<
@@ -16,11 +12,7 @@ const Tooltip: FC<
     >
 > = ({ children, className = "", ...props }) => {
     return (
-        <ReactTooltip
-            opacity={1}
-            className={classNames(styles.tooltip, className)}
-            {...props}
-        >
+        <ReactTooltip opacity={1} className={classNames(styles.tooltip, className)} {...props}>
             {children}
         </ReactTooltip>
     );

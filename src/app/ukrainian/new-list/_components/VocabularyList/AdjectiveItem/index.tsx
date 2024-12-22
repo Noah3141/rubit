@@ -11,17 +11,12 @@ const AdjectiveItem: FC<{
     entry: AdjEntry;
 }> = ({ entry }) => {
     return (
-        <Dropdown
-            header={
-                <>
-                    {" "}
-                    <FrequencyLabel>{entry.frequency}</FrequencyLabel>{" "}
-                    {entry.model.lemma}{" "}
-                    <IPA>{entry.model.dictionary_info.ipa}</IPA>
-                </>
-            }
-        >
-            <div className="mx-auto w-full overflow-hidden rounded border border-violet-600">
+        <div>
+            <>
+                {" "}
+                <FrequencyLabel>{entry.frequency}</FrequencyLabel> {entry.model.lemma} <IPA>{entry.model.dictionary_info.ipa}</IPA>
+            </>
+            <div className="mx-auto w-full overflow-hidden rounded border border-neutral-600">
                 <table className={classNames(styles.adjTable)}>
                     <thead>
                         <th className="w-36 px-3 py-1"></th>
@@ -48,14 +43,12 @@ const AdjectiveItem: FC<{
                         <tr>
                             <td className="p-1 text-right">accusative</td>
                             <td>
-                                {entry.model.dictionary_info.acc_masc}/
-                                {entry.model.dictionary_info.nom_masc}
+                                {entry.model.dictionary_info.acc_masc}/{entry.model.dictionary_info.nom_masc}
                             </td>
                             <td>{entry.model.dictionary_info.acc_neut}</td>
                             <td>{entry.model.dictionary_info.acc_fem}</td>
                             <td>
-                                {entry.model.dictionary_info.acc_plur}/
-                                {entry.model.dictionary_info.nom_plur}
+                                {entry.model.dictionary_info.acc_plur}/{entry.model.dictionary_info.nom_plur}
                             </td>
                         </tr>
                         <tr>
@@ -78,7 +71,7 @@ const AdjectiveItem: FC<{
             <div>
                 <GPTSentencer language="Ukrainian" token={entry.model.lemma} />
             </div>
-        </Dropdown>
+        </div>
     );
 };
 

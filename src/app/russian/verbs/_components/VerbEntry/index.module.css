@@ -1,5 +1,5 @@
 .row {
-    @apply text-left transition-all hover:bg-purple-800;
+    @apply text-left transition-all hover:bg-neutral-800;
 
     > td {
         @apply px-2 py-1;

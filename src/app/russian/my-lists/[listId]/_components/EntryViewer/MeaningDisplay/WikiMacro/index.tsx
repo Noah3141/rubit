@@ -46,12 +46,20 @@ const WikiMacro: FC<{
         case "lb":
             const labelParts = macroText.split("|");
             const label = labelParts.at(2);
-            const using = labelParts.at(3);
+            const using = labelParts
+                .slice(3)
+                .map((t) => t.replace("_", " "))
+                .join("");
             return (
-                <span>
-                    ({label}, {using})
+                <span className="italic">
+                    ({label}
+                    {!!using && `, ${using}`})
                 </span>
             );
+        case "l":
+            const linkParts = macroText.split("|");
+            const linkLabel = linkParts.at(2);
+            return <span>{linkLabel}</span>;
 
         default:
             const finalToken = macroText.substring(macroText.lastIndexOf("|") + 1, macroText.length);

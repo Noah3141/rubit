@@ -48,7 +48,7 @@ const MeaningDisplay: FC<{
                     );
                 })}
             </ol>
-            <span>{!entry.model.meanings && "(Meanings Autoparsed)"}</span>
+            <span>{!entry.model.meanings && "(meanings autoparsed)"}</span>
         </div>
     );
 };

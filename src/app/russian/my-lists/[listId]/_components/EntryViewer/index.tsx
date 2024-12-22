@@ -24,9 +24,7 @@ import { api } from "~/trpc/react";
 
 const EntryViewer: FC<{
     entry: VocabularyListData["entry_list"][0] | undefined;
-    setEntry: React.Dispatch<
-        React.SetStateAction<VocabularyListData["entry_list"][0] | undefined>
-    >;
+    setEntry: React.Dispatch<React.SetStateAction<VocabularyListData["entry_list"][0] | undefined>>;
     setPopUp: React.Dispatch<React.SetStateAction<PopUpState>>;
 }> = ({ entry, setEntry, setPopUp }) => {
     const unaccentedLemma = entry?.model.lemma.replace("\u0301", "");
@@ -42,80 +40,44 @@ const EntryViewer: FC<{
                     <div className={classNames(styles.header)}>
                         <span>
                             <Header level="3">
-                                {entry.model.lemma}{" "}
-                                <FrequencyLabel>
-                                    {entry.frequency}
-                                </FrequencyLabel>
+                                {entry.model.lemma} <FrequencyLabel>{entry.frequency}</FrequencyLabel>
                             </Header>
                             <span>
-                                {entry.model.type}{" "}
-                                {entry.model.type == "Verb" &&
-                                    (entry.model.dictionary_info.is_perfective
-                                        ? "(perfective)"
-                                        : "(imperfective)")}
-                                {entry.model.type == "Noun" &&
-                                    `(${entry.model.dictionary_info.gender.toLowerCase()})`}
+                                {entry.model.type} {entry.model.type == "Verb" && (entry.model.dictionary_info.is_perfective ? "(perfective)" : "(imperfective)")}
+                                {entry.model.type == "Noun" && `(${entry.model.dictionary_info.gender.toLowerCase()})`}
                             </span>
-                            <div>
-                                {typeof entry.model.commonality == "number"
-                                    ? Math.floor(1 / entry.model.commonality)
-                                    : "na"}{" "}
-                                pages to see
-                            </div>
-                            <div
-                                className={classNames(
-                                    styles.altRepresentations,
-                                )}
-                            >
+                            <div>{typeof entry.model.commonality == "number" ? Math.floor(1 / entry.model.commonality) : "na"} pages to see</div>
+                            <div className={classNames(styles.altRepresentations)}>
                                 <IPA>{entry.model.dictionary_info.ipa}</IPA>
-                                <span className="font-serif">
-                                    {unaccentedLemma}
-                                </span>
+                                <span className="font-serif">{unaccentedLemma}</span>
                                 <i className="font-serif">{unaccentedLemma}</i>
                             </div>
                         </span>
                         <CloseButton onMouseDown={() => setEntry(undefined)} />
                     </div>
 
-                    <hr className="my-3 border-purple-700" />
+                    <hr className="my-3 border-neutral-700" />
                     <div className="flex flex-col gap-3">
                         <MeaningDisplay entry={entry} />
 
-                        <GPTSentencer
-                            token={entry.model.lemma}
-                            language="Russian"
-                        />
+                        <GPTSentencer token={entry.model.lemma} language="Russian" />
 
                         {
                             (
                                 {
-                                    Adjective: (
-                                        <AdjectiveForms
-                                            entry={entry as AdjEntry}
-                                        />
-                                    ),
-                                    Noun: (
-                                        <NounForms entry={entry as NounEntry} />
-                                    ),
-                                    Verb: (
-                                        <VerbForms entry={entry as VerbEntry} />
-                                    ),
+                                    Adjective: <AdjectiveForms entry={entry as AdjEntry} />,
+                                    Noun: <NounForms entry={entry as NounEntry} />,
+                                    Verb: <VerbForms entry={entry as VerbEntry} />,
                                     Adverb: <></>,
                                 } satisfies Record<Type, React.ReactElement>
                             )[entry.model.type]
                         }
 
                         <div className="flex flex-col gap-1">
-                            <Link
-                                target="_blank"
-                                href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}
-                            >
+                            <Link target="_blank" href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}>
                                 Wiktionary
                             </Link>
-                            <Link
-                                target="_blank"
-                                href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}
-                            >
+                            <Link target="_blank" href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}>
                                 Викисловарь
                             </Link>
                         </div>

@@ -12,7 +12,7 @@ const Legend: FC<{
             <span className="text-green-400">Genitive</span>
             <span className="text-yellow-500">Dative</span>
             <span className="text-blue-400">Instrumental</span>
-            <span className="text-purple-500">Prepositional</span>
+            <span className="text-neutral-500">Prepositional</span>
         </div>
     );
 };

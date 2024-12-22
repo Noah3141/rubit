@@ -9,15 +9,12 @@ const Dropdown: FC<
     PropsWithChildren<{
         header: React.ReactNode;
         contentClassName?: string;
+        open: boolean;
+        setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     }>
-> = ({ header, children, contentClassName = "" }) => {
-    const [open, setOpen] = useState(false);
-
+> = ({ header, children, contentClassName = "", open, setOpen }) => {
     return (
-        <div
-            onClick={() => setOpen(() => true)}
-            className={classNames(styles.dropdown)}
-        >
+        <div onClick={() => setOpen(() => true)} className={classNames(styles.dropdown)}>
             <div className={classNames(styles.header)}>
                 {header}
                 <span
@@ -36,11 +33,7 @@ const Dropdown: FC<
                 })}
             >
                 <div className="overflow-hidden">
-                    <div
-                        className={classNames(styles.content, contentClassName)}
-                    >
-                        {children}
-                    </div>
+                    <div className={classNames(styles.content, contentClassName)}>{children}</div>
                 </div>
             </div>
         </div>

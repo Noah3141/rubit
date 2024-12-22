@@ -12,24 +12,14 @@ const VerbItem: FC<{
     entry: VerbEntry;
 }> = ({ entry }) => {
     return (
-        <Dropdown
-            header={
-                <>
-                    {" "}
-                    <FrequencyLabel>{entry.frequency}</FrequencyLabel>{" "}
-                    {entry.model.lemma}
-                    <IPA>{entry.model.dictionary_info.ipa}</IPA>
-                    <span className="text-lg">
-                        (
-                        {entry.model.dictionary_info.is_perfective
-                            ? "pf."
-                            : "imp."}
-                        )
-                    </span>
-                </>
-            }
-        >
-            <div className="w-full overflow-hidden rounded border border-violet-600">
+        <div>
+            <>
+                {" "}
+                <FrequencyLabel>{entry.frequency}</FrequencyLabel> {entry.model.lemma}
+                <IPA>{entry.model.dictionary_info.ipa}</IPA>
+                <span className="text-lg">({entry.model.dictionary_info.is_perfective ? "pf." : "imp."})</span>
+            </>
+            <div className="w-full overflow-hidden rounded border border-neutral-600">
                 <table className={classNames(styles.verbTable)}>
                     <thead>
                         <th className="w-36 px-3 py-1"></th>
@@ -40,59 +30,33 @@ const VerbItem: FC<{
                         <tr>
                             <td className="p-1 text-right">1st</td>
                             <td>{entry.model.dictionary_info.я_form ?? "-"}</td>
-                            <td>
-                                {entry.model.dictionary_info.мы_form ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.мы_form ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">2nd</td>
-                            <td>
-                                {entry.model.dictionary_info.ты_form ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.вы_form ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.ты_form ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.вы_form ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">3rd</td>
-                            <td>
-                                {entry.model.dictionary_info.ён_form ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.яны_form ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.ён_form ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.яны_form ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">Imperative</td>
-                            <td>
-                                {entry.model.dictionary_info
-                                    .singular_imperative ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.plural_imperative}
-                            </td>
+                            <td>{entry.model.dictionary_info.singular_imperative ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.plural_imperative}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">past tense</td>
                             <td>
                                 <div className="flex flex-col gap-1">
-                                    <span>
-                                        {entry.model.dictionary_info
-                                            .masc_past ?? "-"}
-                                    </span>
-                                    <span>
-                                        {entry.model.dictionary_info.fem_past ??
-                                            "-"}
-                                    </span>
-                                    <span>
-                                        {entry.model.dictionary_info
-                                            .neut_past ?? "-"}
-                                    </span>
+                                    <span>{entry.model.dictionary_info.masc_past ?? "-"}</span>
+                                    <span>{entry.model.dictionary_info.fem_past ?? "-"}</span>
+                                    <span>{entry.model.dictionary_info.neut_past ?? "-"}</span>
                                 </div>
                             </td>
-                            <td>
-                                {entry.model.dictionary_info.plur_past ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.plur_past ?? "-"}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -105,35 +69,18 @@ const VerbItem: FC<{
                     <tbody>
                         <tr>
                             <td className="p-1 text-right">passive</td>
-                            <td>
-                                {entry.model.dictionary_info.past_passive ??
-                                    "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.present_passive ??
-                                    "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.past_passive ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.present_passive ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">active</td>
-                            <td>
-                                {entry.model.dictionary_info.past_active ?? "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info.present_active ??
-                                    "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.past_active ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.present_active ?? "-"}</td>
                         </tr>
                         <tr>
                             <td className="p-1 text-right">adverbial</td>
-                            <td>
-                                {entry.model.dictionary_info.past_adverbial ??
-                                    "-"}
-                            </td>
-                            <td>
-                                {entry.model.dictionary_info
-                                    .present_adverbial ?? "-"}
-                            </td>
+                            <td>{entry.model.dictionary_info.past_adverbial ?? "-"}</td>
+                            <td>{entry.model.dictionary_info.present_adverbial ?? "-"}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -142,7 +89,7 @@ const VerbItem: FC<{
                 <GPTSentencer language="Belarusian" token={entry.model.lemma} />
             </div>
             <div>Tree:</div>
-        </Dropdown>
+        </div>
     );
 };
 

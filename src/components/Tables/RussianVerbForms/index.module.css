@@ -1,18 +1,18 @@
 .container {
-    @apply w-full max-w-screen-sm overflow-hidden rounded border border-violet-600;
+    @apply w-full max-w-screen-sm overflow-hidden rounded border border-neutral-600;
 
     .verbTable {
         @apply table w-full table-auto text-center text-sm;
 
         > thead {
-            @apply divide-x divide-violet-900 border-b border-violet-700 bg-violet-800/30;
+            @apply divide-x divide-neutral-900 border-b border-neutral-700 bg-neutral-800/30;
         }
 
         > tbody {
-            @apply divide-y divide-violet-800;
+            @apply divide-y divide-neutral-800;
 
             > tr {
-                @apply divide-x divide-violet-900;
+                @apply divide-x divide-neutral-900;
             }
         }
     }

@@ -1,4 +1,4 @@
-import React, { type FC } from "react";
+import React, { useState, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
 import { type Type, type VocabularyListData } from "~/types/russian/list";
@@ -15,6 +15,7 @@ import IPA from "~/components/Common/IPA";
 import Link from "~/components/Common/Link";
 import CoreLabel from "../../../_components/EntryViewer/MeaningDisplay/CoreLabel";
 import { unaccent } from "~/utils/strings";
+import { CgClose } from "react-icons/cg";
 
 const AmbiguousWord: FC<{
     word: string;
@@ -35,27 +36,33 @@ const AmbiguousWord: FC<{
         accentedWord = accentedWord.charAt(0).toUpperCase() + accentedWord.slice(1);
     }
 
+    const [open, setOpen] = useState(false);
+
     return (
         <>
-            <Tooltip clickable openOnClick style={{ zIndex: 999 }} anchorSelect={`#${word}`}>
-                {JSON.stringify(accentedForms)}
-                <div className="max-h-[500px] divide-y divide-purple-600 overflow-y-scroll">
+            <Tooltip clickable openOnClick setIsOpen={setOpen} isOpen={open} style={{ zIndex: 999 }} anchorSelect={`#${word}`} className="max-h-[700px] overflow-y-scroll">
+                <div className="flex w-full flex-row items-start justify-between">
+                    <span className="italic">{accentedForms.join(" | ")}</span>
+                    <div onClick={() => setOpen(false)} className="grid size-6 cursor-pointer place-items-center hover:bg-neutral-800">
+                        <CgClose />
+                    </div>
+                </div>
+                <div className="flex flex-col gap-6 divide-neutral-600 overflow-y-scroll p-3">
                     {sorted.map((entry) => {
                         const unaccentedLemma = entry.model.lemma.replace("\u0301", "");
                         const commonalityLabel = entry.model.commonality ? `${Math.floor(1 / entry.model.commonality)}  pages to see` : "commonality n/a";
                         return (
                             <div key={entry.model.id}>
                                 <div>
-                                    <span>
-                                        <Header level="3">{entry.model.lemma} </Header>
-                                        <CoreLabel entry={entry} />
-                                        <div>{commonalityLabel}</div>
-                                        <div className="flex flex-row items-center gap-3">
-                                            <IPA>{entry.model.dictionary_info.ipa}</IPA>
-                                        </div>
-                                    </span>
+                                    <span className="text-2xl">{entry.model.lemma} </span>
+
+                                    <CoreLabel entry={entry} />
+                                    <div>{commonalityLabel}</div>
+                                    <div className="flex flex-row items-center gap-3">
+                                        <IPA>{entry.model.dictionary_info.ipa}</IPA>
+                                    </div>
                                 </div>
-                                <hr className="my-3 border-purple-700" />
+                                <hr className="my-3" />
                                 <div className="flex flex-col gap-3">
                                     <MeaningDisplay entry={entry} />
 

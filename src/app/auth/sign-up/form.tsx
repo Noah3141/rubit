@@ -26,7 +26,7 @@ const SignUpForm: FC = () => {
         onError: (e) => {
             toast.error(e.message, {
                 id: "signUp",
-                icon: <RiErrorWarningFill className="!size-6 !fill-violet-700" />,
+                icon: <RiErrorWarningFill className="!size-6 !fill-neutral-700" />,
                 duration: 5_000,
             });
         },
@@ -44,7 +44,7 @@ const SignUpForm: FC = () => {
             } else if (res?.error) {
                 toast.error("Your account has been created, but we had trouble signing you in!", {
                     id: "signUp",
-                    icon: <RiErrorWarningFill className="!size-6 !fill-violet-700" />,
+                    icon: <RiErrorWarningFill className="!size-6 !fill-neutral-700" />,
                 });
                 router.refresh();
             }

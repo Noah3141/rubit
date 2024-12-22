@@ -2,17 +2,17 @@
     @apply pointer-events-none fixed left-0 top-24 h-screen w-full translate-y-full px-1 transition-all duration-300 lg:pointer-events-auto lg:static lg:top-0 lg:h-auto lg:w-fit lg:translate-y-0 lg:p-6;
 
     &.open {
-        @apply pointer-events-auto translate-y-0 bg-purple-950/75 pt-3;
+        @apply pointer-events-auto translate-y-0 bg-neutral-950/75 pt-3;
     }
 
     .viewer {
-        @apply sticky top-24 flex max-h-svh w-full flex-col gap-1 overflow-y-auto overscroll-contain rounded border border-purple-500 bg-purple-900 p-3 pb-24 shadow-lg lg:top-32 lg:max-h-[calc(100vh-136px)] lg:min-w-96 lg:border-none lg:p-3 lg:shadow-none;
+        @apply sticky top-24 flex max-h-svh w-full flex-col gap-1 overflow-y-auto overscroll-contain rounded border border-neutral-500 bg-neutral-900 p-3 pb-24 shadow-lg lg:top-32 lg:max-h-[calc(100vh-136px)] lg:min-w-96 lg:border-none lg:p-3 lg:shadow-none;
 
         .header {
             @apply flex flex-row items-start justify-between font-light;
 
             .closeButton {
-                @apply relative grid cursor-pointer place-items-center after:absolute after:left-1/2 after:top-1/2 after:-z-10 after:size-8 after:-translate-x-1/2 after:-translate-y-1/2 after:scale-0 after:rounded-full after:bg-purple-500/25 after:transition-all hover:after:scale-100;
+                @apply relative grid cursor-pointer place-items-center after:absolute after:left-1/2 after:top-1/2 after:-z-10 after:size-8 after:-translate-x-1/2 after:-translate-y-1/2 after:scale-0 after:rounded-full after:bg-neutral-500/25 after:transition-all hover:after:scale-100;
             }
         }
 

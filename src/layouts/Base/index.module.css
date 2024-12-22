@@ -1,3 +1,3 @@
 .layout {
-    @apply relative size-full min-h-full;
+    @apply relative size-full h-fit min-h-full bg-neutral-950;
 }

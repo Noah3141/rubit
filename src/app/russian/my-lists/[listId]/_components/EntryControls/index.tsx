@@ -17,7 +17,7 @@ const EntryControls: FC<{
             <div className={classNames(styles.placement)}>
                 <div className={classNames(styles.controls)}>
                     <div className={classNames(styles.filters)}>
-                        <Header level="4">Filter</Header>
+                        <Header level="3">Filter</Header>
                         <div className={classNames(styles.option)}>
                             <Checkbox
                                 onClick={() => {
@@ -62,7 +62,7 @@ const EntryControls: FC<{
                         </div>
                     </div>
                     <div className={classNames(styles.sorters)}>
-                        <Header level="4">Sort</Header>
+                        <Header level="3">Sort</Header>
 
                         <Select
                             value={sorter satisfies Sorter}
@@ -70,15 +70,7 @@ const EntryControls: FC<{
                                 setSorter(newVal as Sorter);
                             }}
                             options={
-                                [
-                                    "Frequent first",
-                                    "Alphabetical",
-                                    "Common first",
-                                    "Uncommon first",
-                                    "Infrequent first",
-                                    "Shortest first",
-                                    "Longest first",
-                                ] satisfies Sorter[]
+                                ["Frequent first", "Alphabetical", "Common first", "Uncommon first", "Infrequent first", "Shortest first", "Longest first"] satisfies Sorter[]
                             }
                         />
                     </div>
