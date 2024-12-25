@@ -1,15 +1,12 @@
 import React, { useState, type FC } from "react";
 import type { VocabularyListData } from "~/types/russian/list";
 import SaveListForm from "./_components/SaveListForm";
-import Content, { Filter, Sorter, SORTERS } from "../my-lists/[listId]/content";
-import { type RouterOutputs } from "~/trpc/react";
-import PopUp, { PopUpState } from "../my-lists/[listId]/_components/PopUp";
-import Header from "~/components/Base/Header";
-import Button from "~/components/Common/Button";
 import Dropdown from "~/components/Containers/Dropdown";
-import EntryControls from "../my-lists/[listId]/_components/EntryControls";
-import EntryList, { Row } from "../my-lists/[listId]/_components/EntryList";
-import EntryViewer from "../my-lists/[listId]/_components/EntryViewer";
+import EntryControls from "../my-lists/[listId]/list/_components/EntryControls";
+import EntryList, { Row } from "../my-lists/[listId]/list/_components/EntryList";
+import EntryViewer from "../my-lists/[listId]/list/_components/EntryViewer";
+import PopUp, { type PopUpState } from "../my-lists/[listId]/list/_components/PopUp";
+import { type Filter, type Sorter, SORTERS } from "../my-lists/[listId]/list/content";
 
 const List: FC<{
     vocabularyList: VocabularyListData & { title?: string };

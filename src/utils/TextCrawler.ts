@@ -7,7 +7,8 @@ export class TextCrawler {
     private text: string;
 
     constructor(text: string) {
-        this.text = text;
+        this.text = text //
+            .replaceAll("[", " [");
     }
 
     /** Yields either a word or a block of whitespace */
@@ -23,7 +24,8 @@ export class TextCrawler {
                 yield { type: "whitespace", value: segment };
             } else {
                 // Check if segment ends with punctuation
-                const wordMatch = segment.match(/([\("'«]?)(\S+?)([)'.,:?!…"»]+)?$/);
+                const wordMatch = segment.match(/([\("'«]*)(\S+?)([)'.,%:?!…"»]+)?$/);
+                // const wordMatch = segment.match(/([\("'«]*)(\S+?)([\[)'.,%:?!…"»]+)?$/);
                 if (wordMatch) {
                     const [_, punctuationFore, word, punctuationAft] = wordMatch;
 

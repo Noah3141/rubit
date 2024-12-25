@@ -7,11 +7,12 @@ import AccentedWord from "./_components/AccentedWord";
 import UnrecognizedWord from "./_components/UnrecognizedWord";
 import { russianStopWords } from "~/utils/stopWords/russian";
 import StopWord from "./_components/StopWord";
-import toast from "react-hot-toast";
 import Button from "~/components/Common/Button";
 import { unaccent } from "~/utils/strings";
 import { russianPrepositions } from "~/utils/coreWords/russian";
 import AmbiguousWord from "./_components/AmbiguousWord";
+import DialogProvider from "./context";
+import Dialogs from "./_components/Dialogs";
 
 const Content: FC<{
     //
@@ -98,12 +99,16 @@ const Content: FC<{
     const accentedText = applyAccents(vocabularyList);
 
     return (
-        <div className={`md:text-lg ${fontSerif && "font-serif md:text-xl"}`}>
-            <Button color="neutral" size="small" onMouseDown={() => setFontSerif((p) => !p)}>
-                {fontSerif ? "Serif" : "Sans-serif"}
-            </Button>
-            <div className="mx-auto max-w-screen-lg py-12 leading-8">{accentedText}</div>
-        </div>
+        <DialogProvider>
+            <div className={`md:text-lg ${fontSerif && "font-serif md:text-xl"}`}>
+                <Button color="neutral" size="small" onMouseDown={() => setFontSerif((p) => !p)}>
+                    {fontSerif ? "Serif" : "Sans-serif"}
+                </Button>
+
+                <div className="mx-auto max-w-screen-lg py-12 leading-8">{accentedText}</div>
+            </div>
+            <Dialogs />
+        </DialogProvider>
     );
 };
 

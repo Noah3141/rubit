@@ -4,7 +4,6 @@ import styles from "./index.module.css";
 import { type Type, type VocabularyListData } from "~/types/russian/list";
 import Tooltip from "~/components/Containers/Tooltip";
 import Header from "~/components/Base/Header";
-import MeaningDisplay from "../../../_components/EntryViewer/MeaningDisplay";
 import AdjectiveForms from "~/components/Tables/RussianAdjectiveForms";
 import NounForms from "~/components/Tables/RussianNounForms";
 import VerbForms from "~/components/Tables/RussianVerbForms";
@@ -13,9 +12,10 @@ import { type NounEntry } from "~/types/russian/list/noun";
 import { type AdjEntry } from "~/types/russian/list/adjective";
 import IPA from "~/components/Common/IPA";
 import Link from "~/components/Common/Link";
-import CoreLabel from "../../../_components/EntryViewer/MeaningDisplay/CoreLabel";
 import { unaccent } from "~/utils/strings";
 import { CgClose } from "react-icons/cg";
+import CoreLabel from "../../../list/_components/EntryViewer/MeaningDisplay/CoreLabel";
+import MeaningDisplay from "../../../list/_components/EntryViewer/MeaningDisplay";
 
 const AmbiguousWord: FC<{
     word: string;

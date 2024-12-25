@@ -3,7 +3,6 @@
 import classNames from "classnames";
 import styles from "./index.module.css";
 import React, { type FC } from "react";
-import IPA from "~/components/Common/IPA";
 
 const Row: FC<
     {

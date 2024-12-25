@@ -114,6 +114,9 @@ export function reduceAmbiguities(tokens: RussianToken[]): RussianToken[] {
     });
 
     /// Verbs
+    /// FIRST: Determine who is the subject, especially based on Gender and Number matching
+    /// THEN: Determine who could be the Acc object (based on animacy)
+    /// THEN: Shove everyone else into the genitive
     const subjectDetermined = tokens.find((token) => token.syntax.length == 1 && token.syntax.at(0)!.case == "nom");
 
     if (!subjectDetermined) {

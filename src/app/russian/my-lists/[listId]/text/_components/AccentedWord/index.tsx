@@ -1,7 +1,6 @@
 import React, { useState, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import MeaningDisplay from "../../../_components/EntryViewer/MeaningDisplay";
 import { Type, VocabularyListData } from "~/types/russian/list";
 import Header from "~/components/Base/Header";
 import IPA from "~/components/Common/IPA";
@@ -14,9 +13,10 @@ import NounForms from "~/components/Tables/RussianNounForms";
 import VerbForms from "~/components/Tables/RussianVerbForms";
 import GPTSentencer from "~/components/Common/GPTSentencer";
 import Tooltip from "~/components/Containers/Tooltip";
-import CoreLabel from "../../../_components/EntryViewer/MeaningDisplay/CoreLabel";
 import { heatScore } from "~/utils/heatScore";
 import { CgClose } from "react-icons/cg";
+import CoreLabel from "../../../list/_components/EntryViewer/MeaningDisplay/CoreLabel";
+import MeaningDisplay from "../../../list/_components/EntryViewer/MeaningDisplay";
 
 const AccentedWord: FC<{
     word: string;

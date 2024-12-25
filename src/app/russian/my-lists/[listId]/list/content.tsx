@@ -6,13 +6,6 @@ import EntryList, { Row } from "./_components/EntryList";
 import EntryViewer from "./_components/EntryViewer";
 import EntryControls from "./_components/EntryControls";
 import PopUp, { PopUpState } from "./_components/PopUp";
-import Header from "~/components/Base/Header";
-import { RouterOutputs } from "~/trpc/react";
-import Dropdown from "~/components/Containers/Dropdown";
-import TextInput from "~/components/Common/TextInput";
-import Link from "~/components/Common/Link";
-import Button from "~/components/Common/Button";
-import PageSelector from "./_components/PageSelector";
 import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 
 //

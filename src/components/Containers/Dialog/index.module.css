@@ -1,0 +1,26 @@
+.dialog {
+    @apply pointer-events-none fixed left-0 top-0 z-50 grid h-screen w-screen place-items-center transition-transform;
+
+    &.open {
+        @apply bg-neutral-950/40;
+    }
+
+    .content {
+        @apply pointer-events-auto h-full w-full max-w-3xl scale-0 bg-neutral-800 p-6 text-neutral-200 shadow shadow-neutral-950 drop-shadow-xl transition-all md:h-fit;
+
+        &.open {
+            @apply scale-100;
+        }
+        .header {
+            @apply flex flex-row justify-between border-b border-neutral-700;
+
+            .title {
+                @apply text-3xl font-medium;
+            }
+        }
+
+        .children {
+            @apply p-6;
+        }
+    }
+}

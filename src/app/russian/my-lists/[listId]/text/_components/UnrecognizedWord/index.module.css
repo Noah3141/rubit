@@ -1,3 +1,3 @@
 .word {
-    @apply text-neutral-500;
+    @apply inline-block cursor-pointer rounded text-neutral-500 transition-all hover:bg-neutral-900 hover:text-neutral-100;
 }

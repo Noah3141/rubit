@@ -12,15 +12,10 @@ const SavedListRow: FC<{
         <div className={classNames(styles.row)}>
             <h2>{savedList.title}</h2>
             <span>({savedList.content.entry_list.length})</span>
-            <Link
-                className="ml-auto"
-                href={`/${savedList.language.toLowerCase()}/my-lists/${savedList.id}`}
-            >
+            <Link className="ml-auto" href={`/${savedList.language.toLowerCase()}/my-lists/${savedList.id}/text`}>
                 <Button>View</Button>
             </Link>
-            <Link
-                href={`/${savedList.language.toLowerCase()}/my-lists/study/${savedList.id}`}
-            >
+            <Link href={`/${savedList.language.toLowerCase()}/my-lists/study/${savedList.id}`}>
                 <Button>Study</Button>
             </Link>
         </div>

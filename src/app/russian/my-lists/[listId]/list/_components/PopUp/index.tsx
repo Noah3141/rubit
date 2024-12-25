@@ -5,10 +5,7 @@ import { type VocabularyListData } from "~/types/russian/list";
 import CloseButton from "~/components/Icons/CloseButton";
 import FlagWordTab from "./Tabs/FlagWord";
 
-export type PopUpState =
-    | { tab: "Flag"; entry: VocabularyListData["entry_list"][0] }
-    | { tab: "Add Info"; entry: VocabularyListData["entry_list"][0] }
-    | null;
+export type PopUpState = { tab: "Flag"; entry: VocabularyListData["entry_list"][0] } | { tab: "Add Info"; entry: VocabularyListData["entry_list"][0] } | null;
 
 const PopUp: FC<{
     state: PopUpState;
@@ -23,9 +20,7 @@ const PopUp: FC<{
                 <div className={classNames(styles.contents)}>
                     <div className={classNames(styles.header)}>
                         <div>
-                            <h2 className={classNames(styles.title)}>
-                                {state.entry.model.lemma}
-                            </h2>{" "}
+                            <h2 className={classNames(styles.title)}>{state.entry.model.lemma}</h2>{" "}
                         </div>
                         <CloseButton onMouseDown={() => setState(null)} />
                     </div>
@@ -67,9 +62,7 @@ const PopUp: FC<{
                             {
                                 (
                                     {
-                                        Flag: (
-                                            <FlagWordTab entry={state.entry} />
-                                        ),
+                                        Flag: <FlagWordTab entry={state.entry} />,
                                         "Add Info": <></>,
                                     } as Record<
                                         typeof state.tab, // NonNullable<PopUpState>["tab"]

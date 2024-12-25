@@ -17,12 +17,12 @@ import { type AdjEntry } from "~/types/russian/list/adjective";
 import { type NounEntry } from "~/types/russian/list/noun";
 import { type VerbEntry } from "~/types/russian/list/verb";
 import Dropdown from "~/components/Containers/Dropdown";
-import MeaningDisplay from "../../[listId]/_components/EntryViewer/MeaningDisplay";
 import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 import NumberInput from "~/components/Common/NumberInput";
 import TextInput from "~/components/Common/TextInput";
 import AnswerInput from "./_components/AnswerInput";
 import toast from "react-hot-toast";
+import MeaningDisplay from "../list/_components/EntryViewer/MeaningDisplay";
 
 const Content: FC<{
     //

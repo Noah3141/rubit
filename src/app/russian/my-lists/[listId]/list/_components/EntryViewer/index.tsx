@@ -16,11 +16,11 @@ import AdjectiveForms from "~/components/Tables/RussianAdjectiveForms";
 import type { VerbEntry } from "~/types/russian/list/verb";
 import type { NounEntry } from "~/types/russian/list/noun";
 import type { AdjEntry } from "~/types/russian/list/adjective";
-import MeaningDisplay from "~/app/russian/my-lists/[listId]/_components/EntryViewer/MeaningDisplay";
 import Link from "~/components/Common/Link";
 import type { PopUpState } from "../PopUp";
 import CloseButton from "~/components/Icons/CloseButton";
 import { api } from "~/trpc/react";
+import MeaningDisplay from "./MeaningDisplay";
 
 const EntryViewer: FC<{
     entry: VocabularyListData["entry_list"][0] | undefined;

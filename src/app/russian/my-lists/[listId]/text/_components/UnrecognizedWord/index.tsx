@@ -1,11 +1,17 @@
-import React, { type FC } from "react";
+import React, { useContext, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
+import { DialogContext } from "../../context";
 
 const UnrecognizedWord: FC<{
     word: string;
 }> = ({ word }) => {
-    return <span className={classNames(styles.word)}>{word}</span>;
+    const [state, setState] = useContext(DialogContext);
+    return (
+        <div id={word} className={classNames(styles.word)} onClick={() => setState({ dialog: "AddNewWord", word })}>
+            {word}
+        </div>
+    );
 };
 
 export default UnrecognizedWord;

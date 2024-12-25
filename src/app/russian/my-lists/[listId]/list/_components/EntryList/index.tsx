@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, type FC } from "react";
+import React, { type PropsWithChildren, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
 import Row from "./Row";

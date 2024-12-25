@@ -1,7 +1,6 @@
 import React, { type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import Button from "~/components/Common/Button";
 import Link from "next/link";
 import { type RouterOutputs } from "~/trpc/react";
 
@@ -15,7 +14,7 @@ const PageSelector: FC<{
             </button>
             <hr className={styles.divider} />
             <button className={styles.button}>
-                <Link href={`/russian/my-lists/${vocabularyList.id}`}>List</Link>
+                <Link href={`/russian/my-lists/${vocabularyList.id}/list`}>List</Link>
             </button>
             <hr className={styles.divider} />
             <button className={styles.button}>
