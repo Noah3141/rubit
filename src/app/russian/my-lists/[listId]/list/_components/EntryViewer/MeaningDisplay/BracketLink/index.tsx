@@ -18,7 +18,7 @@ const BracketLink: FC<{
         <Link
             className={classNames(styles.link)}
             target="_blank"
-            href={`https://en.wiktionary.org/wiki/${link}`}
+            href={`https://en.wiktionary.org/wiki/${link}#Russian`}
         >
             {display}
         </Link>

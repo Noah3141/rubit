@@ -74,10 +74,10 @@ const EntryViewer: FC<{
                         }
 
                         <div className="flex flex-col gap-1">
-                            <Link target="_blank" href={`https://en.wiktionary.org/wiki/${unaccentedLemma}`}>
+                            <Link target="_blank" href={`https://en.wiktionary.org/wiki/${unaccentedLemma}#Russian`}>
                                 Wiktionary
                             </Link>
-                            <Link target="_blank" href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}`}>
+                            <Link target="_blank" href={`https://ru.wiktionary.org/wiki/${unaccentedLemma}#Russian`}>
                                 Викисловарь
                             </Link>
                         </div>
