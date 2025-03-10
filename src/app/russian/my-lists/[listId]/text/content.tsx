@@ -85,10 +85,28 @@ const Content: FC<{
                     break;
 
                 case "whitespace":
-                    accentedText.push(<span className="whitespace-pre-wrap">{segment.value}</span>);
+                    if (segment.value == "  ") {
+                        accentedText.push(<> </>);
+                    } else if (/[\n\t]+/.test(segment.value)) {
+                        const dedupped = segment.value.replace(/\n{2,}/, "\n");
+                        const htmlized = dedupped.split("").map((char) => {
+                            switch (char) {
+                                case "\n":
+                                    return <br />;
+                                case "\t":
+                                    return "    ";
+                                default:
+                                    return char;
+                            }
+                        });
+                        //.replaceAll("\n", "\n").replaceAll("\t", "    ");
+                        accentedText.push(htmlized);
+                    } else {
+                        accentedText.push(<>{segment.value}</>);
+                    }
                     break;
                 case "punctuation":
-                    accentedText.push(<span>{segment.value}</span>);
+                    accentedText.push(<>{segment.value}</>);
                     break;
             }
         });
@@ -105,7 +123,7 @@ const Content: FC<{
                     {fontSerif ? "Serif" : "Sans-serif"}
                 </Button>
 
-                <div className="mx-auto max-w-screen-lg py-12 leading-8">{accentedText}</div>
+                <div className="mx-auto max-w-screen-lg whitespace-pre-wrap py-12 leading-8">{accentedText}</div>
             </div>
             <Dialogs />
         </DialogProvider>

@@ -8,9 +8,9 @@ const UnrecognizedWord: FC<{
 }> = ({ word }) => {
     const [state, setState] = useContext(DialogContext);
     return (
-        <div id={word} className={classNames(styles.word)} onClick={() => setState({ dialog: "AddNewWord", word })}>
+        <span id={word} className={classNames(styles.word)} onClick={() => setState({ dialog: "AddNewWord", word })}>
             {word}
-        </div>
+        </span>
     );
 };
 

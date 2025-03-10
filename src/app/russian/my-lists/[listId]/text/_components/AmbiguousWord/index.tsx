@@ -93,12 +93,12 @@ const AmbiguousWord: FC<{
             </Tooltip>
             <span id={word} className={classNames(styles.word)}>
                 {accentedWord}
-                <div
+                <span
                     className={classNames(styles.backdrop)}
                     style={{
                         backgroundColor: "rgb(200, 200, 200)",
                     }}
-                ></div>
+                ></span>
             </span>
         </>
     );

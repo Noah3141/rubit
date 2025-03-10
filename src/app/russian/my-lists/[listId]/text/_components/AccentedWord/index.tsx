@@ -74,12 +74,12 @@ const AccentedWord: FC<{
             </Tooltip>
             <span id={word} className={classNames(styles.word)}>
                 {word}
-                <div
+                <span
                     className={classNames(styles.backdrop)}
                     style={{
                         backgroundColor: heatScore(entry.model.commonality),
                     }}
-                ></div>
+                ></span>
             </span>
         </>
     );
