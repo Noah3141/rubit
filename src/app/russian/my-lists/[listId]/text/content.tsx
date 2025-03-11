@@ -30,12 +30,18 @@ const Content: FC<{
                         str: segment.value.toLowerCase(),
                         removeЁ: true,
                     });
+
                     if (russianPrepositions.includes(segmentLowercase)) {
                         accentedText.push(<StopWord word={segment.value} />); //TODO MAKE AN ENTRY?
                         break;
                     }
+
                     if (russianStopWords.includes(segmentLowercase)) {
-                        accentedText.push(<StopWord word={accentStopWord(segment.value)} />);
+                        let accented = accentStopWord(segment.value);
+                        if (segment.value.charAt(0).toUpperCase() == segment.value.charAt(0)) {
+                            accented = accented.charAt(0).toUpperCase() + accented.slice(1);
+                        }
+                        accentedText.push(<StopWord word={accented} />);
                         break;
                     }
 
