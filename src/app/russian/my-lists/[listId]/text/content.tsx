@@ -5,7 +5,7 @@ import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 import { TextCrawler } from "~/utils/TextCrawler";
 import AccentedWord from "./_components/AccentedWord";
 import UnrecognizedWord from "./_components/UnrecognizedWord";
-import { russianStopWords } from "~/utils/stopWords/russian";
+import { accentStopWord, russianStopWords } from "~/utils/stopWords/russian";
 import StopWord from "./_components/StopWord";
 import Button from "~/components/Common/Button";
 import { unaccent } from "~/utils/strings";
@@ -35,7 +35,7 @@ const Content: FC<{
                         break;
                     }
                     if (russianStopWords.includes(segmentLowercase)) {
-                        accentedText.push(<StopWord word={segment.value} />);
+                        accentedText.push(<StopWord word={accentStopWord(segment.value)} />);
                         break;
                     }
 
