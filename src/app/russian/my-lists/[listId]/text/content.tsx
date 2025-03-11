@@ -37,7 +37,7 @@ const Content: FC<{
                     }
 
                     if (russianStopWords.includes(segmentLowercase)) {
-                        let accented = accentStopWord(segment.value);
+                        let accented = accentStopWord(segment.value.toLowerCase());
                         if (segment.value.charAt(0).toUpperCase() == segment.value.charAt(0)) {
                             accented = accented.charAt(0).toUpperCase() + accented.slice(1);
                         }

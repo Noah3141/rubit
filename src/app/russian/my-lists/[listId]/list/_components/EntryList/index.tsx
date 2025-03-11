@@ -10,13 +10,10 @@ const EntryList: FC<
 > = ({ children }) => {
     return (
         <div className={classNames(styles.container)}>
-            <table className={classNames(styles.list)}>
-                <tbody className={classNames(styles.body)}>
-                    <tr></tr>
-                    {/* blank row prevents styling flash */}
-                    {children}
-                </tbody>
-            </table>
+            <div className={classNames(styles.list)}>
+                {/* blank row prevents styling flash */}
+                {children}
+            </div>
         </div>
     );
 };

@@ -10,12 +10,12 @@ const Row: FC<
         selected: boolean;
         label: React.ReactNode;
     } & React.DetailedHTMLProps<React.HTMLAttributes<HTMLTableRowElement>, HTMLTableRowElement>
-> = ({ selected = false, label, lemma, className, ...props }) => {
+> = ({ selected = false, label, lemma, className = "", ...props }) => {
     return (
-        <tr {...props} className={classNames(styles.row, { [styles.selected!]: selected })}>
-            <td className={classNames(styles.lemma)}>{lemma}</td>
-            <td className="text-right text-neutral-200">{label}</td>
-        </tr>
+        <div className={classNames(styles.row, { [styles.selected!]: selected }, className)} {...props}>
+            <div className={classNames(styles.lemma)}>{lemma}</div>
+            <div className="select-none px-3 text-right text-neutral-200">{label}</div>
+        </div>
     );
 };
 
