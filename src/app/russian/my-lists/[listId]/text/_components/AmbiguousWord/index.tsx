@@ -16,6 +16,7 @@ import { unaccent } from "~/utils/strings";
 import { CgClose } from "react-icons/cg";
 import CoreLabel from "../../../list/_components/EntryViewer/MeaningDisplay/CoreLabel";
 import MeaningDisplay from "../../../list/_components/EntryViewer/MeaningDisplay";
+import RussianVerbMorphemes from "~/components/Verbs/Russian/RussianVerbMorphemes";
 
 const AmbiguousWord: FC<{
     word: string;
@@ -71,7 +72,12 @@ const AmbiguousWord: FC<{
                                             {
                                                 Adjective: <AdjectiveForms entry={entry as AdjEntry} />,
                                                 Noun: <NounForms entry={entry as NounEntry} />,
-                                                Verb: <VerbForms entry={entry as VerbEntry} />,
+                                                Verb: (
+                                                    <>
+                                                        <RussianVerbMorphemes entry={entry as VerbEntry} />
+                                                        <VerbForms entry={entry as VerbEntry} />
+                                                    </>
+                                                ),
                                                 Adverb: <></>,
                                             } satisfies Record<Type, React.ReactElement>
                                         )[entry.model.type]

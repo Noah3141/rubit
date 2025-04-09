@@ -31,17 +31,17 @@ const Content: FC<{
                         removeЁ: true,
                     });
 
-                    if (russianPrepositions.includes(segmentLowercase)) {
-                        accentedText.push(<StopWord word={segment.value} />); //TODO MAKE AN ENTRY?
-                        break;
-                    }
-
                     if (russianStopWords.includes(segmentLowercase)) {
                         let accented = accentStopWord(segment.value.toLowerCase());
                         if (segment.value.charAt(0).toUpperCase() == segment.value.charAt(0)) {
                             accented = accented.charAt(0).toUpperCase() + accented.slice(1);
                         }
                         accentedText.push(<StopWord word={accented} />);
+                        break;
+                    }
+
+                    if (russianPrepositions.includes(segmentLowercase)) {
+                        accentedText.push(<StopWord word={segment.value} />); //TODO MAKE AN ENTRY?
                         break;
                     }
 
@@ -52,8 +52,12 @@ const Content: FC<{
                     });
 
                     if (matchingEntries.length > 1) {
-                        accentedText.push(<AmbiguousWord entries={matchingEntries} word={segment.value} />);
-                        break;
+                        if (matchingEntries.length == 2 && matchingEntries[0]!.model.lemma == matchingEntries[1]!.model.lemma) {
+                            // console.log(matchingEntries[0]!.model.lemma);
+                        } else {
+                            accentedText.push(<AmbiguousWord entries={matchingEntries} word={segment.value} />);
+                            break;
+                        }
                     }
 
                     const matchingEntry = matchingEntries.at(0);
@@ -63,14 +67,13 @@ const Content: FC<{
                         break;
                     } else {
                         const accentedForms = Object.values(matchingEntry.model.dictionary_info).filter(
-                            (form) =>
+                            (form): form is string =>
                                 unaccent({ str: form, removeЁ: true }) ==
                                 unaccent({
                                     str: segmentLowercase,
                                     removeЁ: true,
                                 }),
                         );
-
                         if (!accentedForms.length) {
                             throw new Error("How can this happen");
                         }
@@ -85,7 +88,7 @@ const Content: FC<{
                             matchingForm = matchingForm.charAt(0).toUpperCase() + matchingForm.slice(1);
                         }
 
-                        accentedText.push(<AccentedWord entry={matchingEntry} word={matchingForm} />);
+                        accentedText.push(<AccentedWord entry={matchingEntry} word={matchingForm} matchingForms={accentedForms} />);
                         break;
                     }
                     break;

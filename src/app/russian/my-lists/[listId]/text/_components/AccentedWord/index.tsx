@@ -17,19 +17,23 @@ import { heatScore } from "~/utils/heatScore";
 import { CgClose } from "react-icons/cg";
 import CoreLabel from "../../../list/_components/EntryViewer/MeaningDisplay/CoreLabel";
 import MeaningDisplay from "../../../list/_components/EntryViewer/MeaningDisplay";
+import { russianNounStressLabel } from "~/utils/stressPatterns/russian";
+import RussianVerbMorphemes from "~/components/Verbs/Russian/RussianVerbMorphemes";
 
 const AccentedWord: FC<{
     word: string;
+    matchingForms: string[];
     entry: VocabularyListData["entry_list"][0];
-}> = ({ word, entry }) => {
+}> = ({ word, entry, matchingForms }) => {
     const unaccentedLemma = entry.model.lemma.replace("\u0301", "");
     const commonalityLabel = entry.model.commonality ? `${Math.floor(1 / entry.model.commonality)}  pages to see` : "commonality n/a";
-
+    const possibleAccents = [...new Set(matchingForms)];
     const [open, setOpen] = useState(false);
 
     return (
         <>
             <Tooltip clickable openOnClick setIsOpen={setOpen} isOpen={open} style={{ zIndex: 999 }} anchorSelect={`#${word}`}>
+                {possibleAccents.length > 1 && <div>{possibleAccents.join(" | ")}</div>}
                 <div>
                     <div className="flex w-full flex-row items-start justify-between">
                         <span className="text-2xl">{entry.model.lemma} </span>
@@ -46,22 +50,34 @@ const AccentedWord: FC<{
 
                 <hr className="my-3 border-neutral-700" />
 
-                <div className="flex flex-col gap-3">
+                <div className={`flex flex-col gap-3`}>
                     <MeaningDisplay entry={entry} />
-
                     <GPTSentencer token={entry.model.lemma} language="Russian" />
 
                     {
                         (
                             {
-                                Adjective: <AdjectiveForms entry={entry as AdjEntry} />,
-                                Noun: <NounForms entry={entry as NounEntry} />,
-                                Verb: <VerbForms entry={entry as VerbEntry} />,
+                                Adjective: (
+                                    <section>
+                                        <AdjectiveForms entry={entry as AdjEntry} />
+                                    </section>
+                                ),
+                                Noun: (
+                                    <section>
+                                        <div>Stress: {russianNounStressLabel(entry as NounEntry)?.label}</div>
+                                        <NounForms entry={entry as NounEntry} />
+                                    </section>
+                                ),
+                                Verb: (
+                                    <section>
+                                        <RussianVerbMorphemes entry={entry as VerbEntry} />
+                                        <VerbForms entry={entry as VerbEntry} />
+                                    </section>
+                                ),
                                 Adverb: <></>,
                             } satisfies Record<Type, React.ReactElement>
                         )[entry.model.type]
                     }
-
                     <div className="flex flex-col gap-1">
                         <Link target="_blank" href={`https://en.wiktionary.org/wiki/${unaccentedLemma}#Russian`}>
                             Wiktionary

@@ -11,7 +11,9 @@ export const VerbModel = z.object({
         ipa: z.string(),
         is_perfective: z.boolean(),
         is_transitive: z.boolean(),
-        root_space: z.string().nullable(),
+        // root_space: z.string().nullable(),
+        root: z.string().nullable(),
+        prefix: z.string().nullable(),
         aspectual_pair: z.string().nullable(),
         // Forms
         я_form: z.string().nullable(),
