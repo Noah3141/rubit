@@ -78,7 +78,7 @@ const Content: FC<{
                             throw new Error("How can this happen");
                         }
 
-                        let matchingForm = accentedForms[0] as string;
+                        let matchingForm = accentedForms[0]!;
 
                         if (accentedForms.length > 1 && accentedForms.some((form) => form !== matchingForm)) {
                             matchingForm = segmentLowercase;
