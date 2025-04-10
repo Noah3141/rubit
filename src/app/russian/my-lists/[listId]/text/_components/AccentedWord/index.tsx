@@ -18,7 +18,7 @@ import { CgClose } from "react-icons/cg";
 import CoreLabel from "../../../list/_components/EntryViewer/MeaningDisplay/CoreLabel";
 import MeaningDisplay from "../../../list/_components/EntryViewer/MeaningDisplay";
 import { russianNounStressLabel } from "~/utils/stressPatterns/russian";
-import RussianVerbMorphemes from "~/components/Verbs/Russian/RussianVerbMorphemes";
+import RussianVerbMorphemes from "~/components/Verbs/Russian/RussianVerbTreeLabel";
 
 const AccentedWord: FC<{
     word: string;
@@ -58,21 +58,19 @@ const AccentedWord: FC<{
                         (
                             {
                                 Adjective: (
-                                    <section>
+                                    <>
                                         <AdjectiveForms entry={entry as AdjEntry} />
-                                    </section>
+                                    </>
                                 ),
                                 Noun: (
-                                    <section>
-                                        <div>Stress: {russianNounStressLabel(entry as NounEntry)?.label}</div>
+                                    <>
                                         <NounForms entry={entry as NounEntry} />
-                                    </section>
+                                    </>
                                 ),
                                 Verb: (
-                                    <section>
-                                        <RussianVerbMorphemes entry={entry as VerbEntry} />
+                                    <>
                                         <VerbForms entry={entry as VerbEntry} />
-                                    </section>
+                                    </>
                                 ),
                                 Adverb: <></>,
                             } satisfies Record<Type, React.ReactElement>

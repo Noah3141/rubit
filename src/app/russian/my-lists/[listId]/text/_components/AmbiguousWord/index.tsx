@@ -16,7 +16,7 @@ import { unaccent } from "~/utils/strings";
 import { CgClose } from "react-icons/cg";
 import CoreLabel from "../../../list/_components/EntryViewer/MeaningDisplay/CoreLabel";
 import MeaningDisplay from "../../../list/_components/EntryViewer/MeaningDisplay";
-import RussianVerbMorphemes from "~/components/Verbs/Russian/RussianVerbMorphemes";
+import RussianVerbMorphemes from "~/components/Verbs/Russian/RussianVerbTreeLabel";
 
 const AmbiguousWord: FC<{
     word: string;
