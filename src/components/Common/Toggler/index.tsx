@@ -11,7 +11,7 @@ export type Option = {
 };
 
 const Toggler: FC<{
-    selected: Option;
+    selected: Option | null;
     onChange: (newVal: Option) => void;
     options: Option[];
 }> = ({ onChange, options, selected }) => {
@@ -25,7 +25,7 @@ const Toggler: FC<{
                             onChange(option);
                         }}
                         className={classNames(styles.option, {
-                            [styles.selected!]: selected.text == option.text,
+                            [styles.selected!]: selected?.text == option.text,
                         })}
                     >
                         {option.text}

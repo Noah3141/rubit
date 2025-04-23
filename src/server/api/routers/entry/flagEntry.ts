@@ -8,10 +8,6 @@ const FlagEntryScheme = z.object({
 });
 export type FlagEntryForm = z.infer<typeof FlagEntryScheme>;
 
-export const flagEntry = protectedProcedure
-    .input(FlagEntryScheme)
-    .mutation(async ({ ctx, input }) => {
-        console.error(
-            `==========\n${input.lemma} - ${input.id} [${ctx.session.user.email}]\n${input.feedback}\n==========`,
-        );
-    });
+export const flagEntry = protectedProcedure.input(FlagEntryScheme).mutation(async ({ ctx, input }) => {
+    console.error(`==========\n${input.lemma} - ${input.id} [${ctx.session.user.email}]\n${input.feedback}\n==========`);
+});

@@ -4,7 +4,7 @@ import { type VerbModel } from "~/types/russian/list/verb";
 
 export const verbsRussianRouter = createTRPCRouter({
     getAll: publicProcedure.query(async () => {
-        const res = await fetch(`${env.RUBIT_API_URL}/verbs/russian`, {
+        const res = await fetch(`${env.RUBIT_API_URL}/russian/entry/get/verbs`, {
             method: "get",
             headers: {
                 Authorization: `Bearer ${env.RUBIT_API_KEY}`,

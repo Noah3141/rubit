@@ -7,9 +7,9 @@ import Header from "~/components/Base/Header";
 import AdjectiveForms from "~/components/Tables/RussianAdjectiveForms";
 import NounForms from "~/components/Tables/RussianNounForms";
 import VerbForms from "~/components/Tables/RussianVerbForms";
-import { type VerbEntry } from "~/types/russian/list/verb";
-import { type NounEntry } from "~/types/russian/list/noun";
-import { type AdjEntry } from "~/types/russian/list/adjective";
+import { VerbModel, type VerbEntry } from "~/types/russian/list/verb";
+import { NounModel, type NounEntry } from "~/types/russian/list/noun";
+import { AdjectiveModel, type AdjEntry } from "~/types/russian/list/adjective";
 import IPA from "~/components/Common/IPA";
 import Link from "~/components/Common/Link";
 import { unaccent } from "~/utils/strings";
@@ -70,12 +70,12 @@ const AmbiguousWord: FC<{
                                     {
                                         (
                                             {
-                                                Adjective: <AdjectiveForms entry={entry as AdjEntry} />,
-                                                Noun: <NounForms entry={entry as NounEntry} />,
+                                                Adjective: <AdjectiveForms model={entry.model as AdjectiveModel} />,
+                                                Noun: <NounForms model={entry.model as NounModel} />,
                                                 Verb: (
                                                     <>
-                                                        <RussianVerbMorphemes entry={entry as VerbEntry} />
-                                                        <VerbForms entry={entry as VerbEntry} />
+                                                        <RussianVerbMorphemes model={entry.model as VerbModel} />
+                                                        <VerbForms model={entry.model as VerbModel} />
                                                     </>
                                                 ),
                                                 Adverb: <></>,

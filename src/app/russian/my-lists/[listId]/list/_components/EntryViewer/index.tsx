@@ -13,9 +13,9 @@ import Button from "~/components/Common/Button";
 import VerbForms from "~/components/Tables/RussianVerbForms";
 import NounForms from "~/components/Tables/RussianNounForms";
 import AdjectiveForms from "~/components/Tables/RussianAdjectiveForms";
-import type { VerbEntry } from "~/types/russian/list/verb";
-import type { NounEntry } from "~/types/russian/list/noun";
-import type { AdjEntry } from "~/types/russian/list/adjective";
+import type { VerbEntry, VerbModel } from "~/types/russian/list/verb";
+import type { NounEntry, NounModel } from "~/types/russian/list/noun";
+import type { AdjectiveModel, AdjEntry } from "~/types/russian/list/adjective";
 import Link from "~/components/Common/Link";
 import type { PopUpState } from "../PopUp";
 import CloseButton from "~/components/Icons/CloseButton";
@@ -65,9 +65,9 @@ const EntryViewer: FC<{
                         {
                             (
                                 {
-                                    Adjective: <AdjectiveForms entry={entry as AdjEntry} />,
-                                    Noun: <NounForms entry={entry as NounEntry} />,
-                                    Verb: <VerbForms entry={entry as VerbEntry} />,
+                                    Adjective: <AdjectiveForms model={entry.model as AdjectiveModel} />,
+                                    Noun: <NounForms model={entry.model as NounModel} />,
+                                    Verb: <VerbForms model={entry.model as VerbModel} />,
                                     Adverb: <></>,
                                 } satisfies Record<Type, React.ReactElement>
                             )[entry.model.type]

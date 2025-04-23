@@ -1,8 +1,8 @@
 .container {
-    @apply flex w-fit flex-row gap-1 rounded-lg bg-neutral-900 p-2;
+    @apply flex w-fit flex-row gap-1 rounded-lg bg-neutral-900 p-1;
 
     .option {
-        @apply rounded bg-neutral-500/20 px-4 py-2 text-neutral-200 hover:bg-orange-500/25;
+        @apply rounded bg-neutral-500/20 px-3 py-1 text-neutral-200 hover:bg-orange-500/25;
 
         &.selected {
             @apply cursor-default bg-orange-600;

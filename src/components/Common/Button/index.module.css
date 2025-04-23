@@ -50,10 +50,14 @@
 
     &.error {
         @apply cursor-not-allowed;
+
+        &:disabled {
+            @apply opacity-60;
+        }
     }
 
     &.success {
-        @apply cursor-not-allowed;
+        @apply cursor-default;
     }
 
     .spinner {

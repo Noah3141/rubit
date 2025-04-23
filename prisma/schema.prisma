@@ -88,7 +88,7 @@ model SavedList {
     language  Language
     title     String
     // modified JSON storing the list WITH frequency counts 
-    content   String   @db.Text
+    content   Json
     user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId    String?
     createdAt DateTime @default(now())

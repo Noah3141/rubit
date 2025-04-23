@@ -1,13 +1,12 @@
-import React, { useState, type FC } from "react";
+import React, { useContext, useState, type FC } from "react";
 import classNames from "classnames";
 import styles from "./index.module.css";
-import { Type, VocabularyListData } from "~/types/russian/list";
-import Header from "~/components/Base/Header";
+import { Type, VocabListEntry } from "~/types/russian/list";
 import IPA from "~/components/Common/IPA";
 import Link from "~/components/Common/Link";
-import { VerbEntry } from "~/types/russian/list/verb";
-import { NounEntry } from "~/types/russian/list/noun";
-import { AdjEntry } from "~/types/russian/list/adjective";
+import { type VerbModel } from "~/types/russian/list/verb";
+import { type NounModel } from "~/types/russian/list/noun";
+import { type AdjectiveModel } from "~/types/russian/list/adjective";
 import AdjectiveForms from "~/components/Tables/RussianAdjectiveForms";
 import NounForms from "~/components/Tables/RussianNounForms";
 import VerbForms from "~/components/Tables/RussianVerbForms";
@@ -17,18 +16,19 @@ import { heatScore } from "~/utils/heatScore";
 import { CgClose } from "react-icons/cg";
 import CoreLabel from "../../../list/_components/EntryViewer/MeaningDisplay/CoreLabel";
 import MeaningDisplay from "../../../list/_components/EntryViewer/MeaningDisplay";
-import { russianNounStressLabel } from "~/utils/stressPatterns/russian";
-import RussianVerbMorphemes from "~/components/Verbs/Russian/RussianVerbTreeLabel";
+import Button from "~/components/Common/Button";
+import { DialogContext } from "../../context";
 
 const AccentedWord: FC<{
     word: string;
     matchingForms: string[];
-    entry: VocabularyListData["entry_list"][0];
+    entry: VocabListEntry;
 }> = ({ word, entry, matchingForms }) => {
+    const [_, setDialog] = useContext(DialogContext);
     const unaccentedLemma = entry.model.lemma.replace("\u0301", "");
     const commonalityLabel = entry.model.commonality ? `${Math.floor(1 / entry.model.commonality)}  pages to see` : "commonality n/a";
-    const possibleAccents = [...new Set(matchingForms)];
     const [open, setOpen] = useState(false);
+    const possibleAccents = [...new Set(matchingForms)];
 
     return (
         <>
@@ -59,17 +59,17 @@ const AccentedWord: FC<{
                             {
                                 Adjective: (
                                     <>
-                                        <AdjectiveForms entry={entry as AdjEntry} />
+                                        <AdjectiveForms model={entry.model as AdjectiveModel} />
                                     </>
                                 ),
                                 Noun: (
                                     <>
-                                        <NounForms entry={entry as NounEntry} />
+                                        <NounForms model={entry.model as NounModel} />
                                     </>
                                 ),
                                 Verb: (
                                     <>
-                                        <VerbForms entry={entry as VerbEntry} />
+                                        <VerbForms model={entry.model as VerbModel} />
                                     </>
                                 ),
                                 Adverb: <></>,
@@ -85,6 +85,15 @@ const AccentedWord: FC<{
                         </Link>
                     </div>
                 </div>
+                <Button
+                    size="small"
+                    onClick={() => {
+                        setOpen(false);
+                        setDialog({ dialog: "UpdateWord", model: { ...entry.model } });
+                    }}
+                >
+                    Update
+                </Button>
             </Tooltip>
             <span id={word} className={classNames(styles.word)}>
                 {word}

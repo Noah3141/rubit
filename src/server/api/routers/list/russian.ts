@@ -1,14 +1,6 @@
 import { z } from "zod";
-import {
-    createTRPCRouter,
-    protectedProcedure,
-    publicProcedure,
-} from "../../trpc";
-import {
-    VocabularyEntry,
-    type VocabularyListData,
-    VocabularyListSchema,
-} from "~/types/russian/list";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../../trpc";
+import { RussianModel, RussianModelSchema, type VocabularyListData, VocabularyListSchema } from "~/types/russian/list";
 import { Language } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 
@@ -29,54 +21,87 @@ export const listRussianRouter = createTRPCRouter({
         .output(VocabularyListSchema.omit({ inputText: true }))
         .mutation(async ({ ctx, input }) => {
             // Hit rust
-            const res = await fetch(
-                `${env.RUBIT_API_URL}/list/russian/vocabulary/`,
-                {
-                    method: "POST",
-                    body: JSON.stringify({
-                        input_text: input.inputText,
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${env.RUBIT_API_KEY}`,
-                    },
+            const res = await fetch(`${env.RUBIT_API_URL}/list/russian/vocabulary/`, {
+                method: "POST",
+                body: JSON.stringify({
+                    input_text: input.inputText,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${env.RUBIT_API_KEY}`,
                 },
-            );
+            });
 
-            const json = (await res.json()) as Omit<
-                VocabularyListData,
-                "inputText"
-            >;
+            const json = (await res.json()) as Omit<VocabularyListData, "inputText">;
 
             return json;
         }),
 
-    save: protectedProcedure
-        .input(z.object({ list: VocabularyListSchema, title: z.string() }))
+    save: protectedProcedure.input(z.object({ list: VocabularyListSchema, title: z.string() })).mutation(async ({ ctx, input }) => {
+        const list = await ctx.db.savedList.create({
+            data: {
+                userId: ctx.session.user.id,
+                language: Language.Russian,
+                title: input.title,
+                content: JSON.stringify({
+                    inputText: input.list.inputText,
+                    form_frequencies: input.list.form_frequencies,
+                    entry_list: input.list.entry_list.map((entry) => ({
+                        frequency: entry.frequency,
+                        modelId: entry.model.id,
+                    })),
+                } satisfies StoredList),
+            },
+            select: {
+                id: true,
+            },
+        });
+
+        return list;
+    }),
+
+    update: protectedProcedure //
+        .input(z.object({ listId: z.string() }))
         .mutation(async ({ ctx, input }) => {
-            const list = await ctx.db.savedList.create({
+            const toUpdate = await ctx.db.savedList.findUnique({ where: { id: input.listId } });
+
+            if (!toUpdate) {
+                throw new TRPCError({ code: "NOT_FOUND" });
+            }
+            const content = JSON.parse(toUpdate.content) as StoredList;
+
+            const res = await fetch(`${env.RUBIT_API_URL}/list/russian/vocabulary/`, {
+                method: "POST",
+                body: JSON.stringify({
+                    input_text: content.inputText,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${env.RUBIT_API_KEY}`,
+                },
+            });
+
+            const json = (await res.json()) as Omit<VocabularyListData, "inputText">;
+
+            const updated = ctx.db.savedList.update({
+                where: {
+                    id: input.listId,
+                },
                 data: {
-                    userId: ctx.session.user.id,
-                    language: Language.Russian,
-                    title: input.title,
                     content: JSON.stringify({
-                        inputText: input.list.inputText,
-                        form_frequencies: input.list.form_frequencies,
-                        entry_list: input.list.entry_list.map((entry) => ({
+                        ...content,
+                        form_frequencies: json.form_frequencies,
+                        entry_list: json.entry_list.map((entry) => ({
                             frequency: entry.frequency,
                             modelId: entry.model.id,
                         })),
                     } satisfies StoredList),
                 },
-                select: {
-                    id: true,
-                },
             });
-
-            return list;
+            return updated;
         }),
 
-    get: publicProcedure
+    get: publicProcedure //
         .input(z.object({ listId: z.string() }))
         .query(async ({ ctx, input }) => {
             const savedList = await ctx.db.savedList.findUnique({
@@ -93,15 +118,13 @@ export const listRussianRouter = createTRPCRouter({
             }
             const extractedList = {
                 ...savedList,
-                content: JSON.parse(savedList.content) as StoredList,
+                content: JSON.parse(savedList.content) as StoredList, // I changed from db.text to Json , does this still need to parse or just be as is?
             };
 
-            const res = await fetch(`${env.RUBIT_API_URL}/get/entries-by-ids`, {
+            const res = await fetch(`${env.RUBIT_API_URL}/russian/entry/get/by-ids`, {
                 method: "POST",
                 body: JSON.stringify({
-                    ids: extractedList.content.entry_list.map(
-                        (entry) => entry.modelId,
-                    ),
+                    ids: extractedList.content.entry_list.map((entry) => entry.modelId),
                 }),
                 headers: {
                     "Content-Type": "application/json",
@@ -110,23 +133,19 @@ export const listRussianRouter = createTRPCRouter({
             });
 
             const json = (await res.json()) as {
-                entries: VocabularyListData["entry_list"][0]["model"][];
+                models: RussianModel[];
             };
 
             const rebuiltList = {
                 ...extractedList,
-                entry_list: extractedList.content.entry_list.map(
-                    (entry): VocabularyListData["entry_list"][0] => {
-                        const model = json.entries.find(
-                            (found) => found.id == entry.modelId,
-                        )!;
+                entry_list: extractedList.content.entry_list.map((entry): VocabularyListData["entry_list"][0] => {
+                    const model = json.models.find((found) => found.id == entry.modelId)!;
 
-                        return {
-                            frequency: entry.frequency,
-                            model,
-                        } as VocabularyListData["entry_list"][0];
-                    },
-                ),
+                    return {
+                        frequency: entry.frequency,
+                        model,
+                    } as VocabularyListData["entry_list"][0];
+                }),
                 inputText: extractedList.content.inputText,
                 form_frequencies: extractedList.content.form_frequencies,
             };

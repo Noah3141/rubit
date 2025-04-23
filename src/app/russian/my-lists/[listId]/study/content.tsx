@@ -13,9 +13,9 @@ import NounForms from "~/components/Tables/RussianNounForms";
 import VerbForms from "~/components/Tables/RussianVerbForms";
 import { type Type } from "~/types/russian/list";
 import Link from "~/components/Common/Link";
-import { type AdjEntry } from "~/types/russian/list/adjective";
-import { type NounEntry } from "~/types/russian/list/noun";
-import { type VerbEntry } from "~/types/russian/list/verb";
+import { AdjectiveModel, type AdjEntry } from "~/types/russian/list/adjective";
+import { NounModel, type NounEntry } from "~/types/russian/list/noun";
+import { VerbModel, type VerbEntry } from "~/types/russian/list/verb";
 import Dropdown from "~/components/Containers/Dropdown";
 import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 import NumberInput from "~/components/Common/NumberInput";
@@ -228,9 +228,9 @@ const Content: FC<{
                             {
                                 (
                                     {
-                                        Adjective: <AdjectiveForms entry={testEntry as AdjEntry} />,
-                                        Noun: <NounForms entry={testEntry as NounEntry} />,
-                                        Verb: <VerbForms entry={testEntry as VerbEntry} />,
+                                        Adjective: <AdjectiveForms model={testEntry.model as AdjectiveModel} />,
+                                        Noun: <NounForms model={testEntry.model as NounModel} />,
+                                        Verb: <VerbForms model={testEntry.model as VerbModel} />,
                                         Adverb: <></>,
                                     } satisfies Record<Type, React.ReactElement>
                                 )[testEntry.model.type]

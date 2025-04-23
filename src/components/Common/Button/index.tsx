@@ -14,32 +14,11 @@ const Button: FC<
             status?: "pending" | "success" | "error" | "idle";
         } & React.ButtonHTMLAttributes<HTMLButtonElement>
     >
-> = ({
-    color = "orange",
-    size = "fit",
-    status = "idle",
-    className = "",
-    children,
-    ...props
-}) => {
+> = ({ color = "orange", size = "fit", status = "idle", className = "", children, ...props }) => {
     return (
-        <button
-            className={classNames(
-                styles.button,
-                styles[color],
-                styles[size],
-                styles[status],
-                className,
-            )}
-            disabled={status !== "idle"}
-            {...props}
-        >
-            {status == "pending" && (
-                <LoadingSpinner className={styles.spinner} size="small" />
-            )}
-            <div className={`${status == "pending" && "opacity-0"}`}>
-                {children}
-            </div>
+        <button className={classNames(styles.button, styles[color], styles[size], styles[status], className)} disabled={status !== "idle"} {...props}>
+            {status == "pending" && <LoadingSpinner className={styles.spinner} size="small" />}
+            <div className={`${status == "pending" && "opacity-0"}`}>{children}</div>
         </button>
     );
 };

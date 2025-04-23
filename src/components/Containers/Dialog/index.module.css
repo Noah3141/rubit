@@ -6,7 +6,7 @@
     }
 
     .content {
-        @apply pointer-events-auto h-full w-full max-w-3xl scale-0 bg-neutral-800 p-6 text-neutral-200 shadow shadow-neutral-950 drop-shadow-xl transition-all md:h-fit;
+        @apply pointer-events-auto h-full max-h-screen w-full max-w-3xl scale-0 overflow-y-auto overscroll-contain bg-neutral-800 p-6 text-neutral-200 shadow shadow-neutral-950 drop-shadow-xl transition-all md:h-fit;
 
         &.open {
             @apply scale-100;

@@ -10,6 +10,7 @@ import { useVocabularyList } from "~/layouts/VocabListSuite/context";
 import AnalysisTextArea from "~/app/russian/writing-workshop/_components/AnalysisTextArea";
 import DeleteListButton from "./_components/DeleteListButton";
 import { useRouter } from "next/navigation";
+import UpdateListButton from "./_components/UpdateListButton";
 
 const Content: FC<{
     //
@@ -64,6 +65,7 @@ const Content: FC<{
 
             <AnalysisTextArea />
 
+            <UpdateListButton />
             <DeleteListButton />
         </>
     );

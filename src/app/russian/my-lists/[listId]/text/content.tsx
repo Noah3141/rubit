@@ -23,7 +23,7 @@ const Content: FC<{
     const applyAccents = (list: typeof vocabularyList): React.ReactNode[] => {
         const accentedText: React.ReactNode[] = [];
 
-        new TextCrawler(list.inputText).forEach((segment) => {
+        new TextCrawler(list.inputText).forEach((segment, previousWords) => {
             switch (segment.type) {
                 case "word":
                     const segmentLowercase = unaccent({
@@ -63,7 +63,7 @@ const Content: FC<{
                     const matchingEntry = matchingEntries.at(0);
 
                     if (!matchingEntry) {
-                        accentedText.push(<UnrecognizedWord word={segment.value} />);
+                        accentedText.push(<UnrecognizedWord word={segment.value} listId={vocabularyList.id} />);
                         break;
                     } else {
                         const accentedForms = Object.values(matchingEntry.model.dictionary_info).filter(
@@ -81,9 +81,16 @@ const Content: FC<{
                         let matchingForm = accentedForms[0]!;
 
                         if (accentedForms.length > 1 && accentedForms.some((form) => form !== matchingForm)) {
-                            matchingForm = segmentLowercase;
+                            matchingForm = segmentLowercase; // do not accent if multiple of the entry's forms COULD be right, BUT their stresses differ from one another
                         }
 
+                        if (segmentLowercase.endsWith("у") && matchingEntry.model.type == "Noun" && !!matchingEntry.model.dictionary_info.loc_sing) {
+                            if (previousWords.at(-1)?.value == "в") {
+                                matchingForm = matchingEntry.model.dictionary_info.loc_sing;
+                            }
+                        }
+
+                        // Re-institute first letter capitalization
                         if (!segment.value.startsWith(segmentLowercase.charAt(0))) {
                             matchingForm = matchingForm.charAt(0).toUpperCase() + matchingForm.slice(1);
                         }
@@ -134,7 +141,7 @@ const Content: FC<{
 
                 <div className="mx-auto max-w-screen-lg whitespace-pre-wrap py-12 leading-8">{accentedText}</div>
             </div>
-            <Dialogs />
+            <Dialogs listId={vocabularyList.id} />
         </DialogProvider>
     );
 };

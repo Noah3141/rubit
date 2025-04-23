@@ -1,8 +1,13 @@
-import { createTRPCRouter } from "../../trpc";
+import { createTRPCRouter } from "~/server/api/trpc";
+import { getRouter } from "./get";
+import { update } from "./update";
+import { create } from "./create";
 import { flagEntry } from "./flagEntry";
-import { getForWord } from "./getForWord";
+// import { createRouter } from "./create";
 
 export const entryRouter = createTRPCRouter({
+    get: getRouter,
+    update: update,
     flagEntry,
-    getForWord,
+    create: create,
 });

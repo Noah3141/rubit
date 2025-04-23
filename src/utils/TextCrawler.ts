@@ -24,7 +24,7 @@ export class TextCrawler {
                 yield { type: "whitespace", value: segment };
             } else {
                 // Check if segment ends with punctuation
-                const wordMatch = segment.match(/([\("'«]*)(\S+?)([)'.,%:?!…"»]+)?$/);
+                const wordMatch = segment.match(/([\("'«]*)(\S+?)([)'.,%:;?!…"»]+)?$/);
                 // const wordMatch = segment.match(/([\("'«]*)(\S+?)([\[)'.,%:?!…"»]+)?$/);
                 if (wordMatch) {
                     const [_, punctuationFore, word, punctuationAft] = wordMatch;
@@ -56,9 +56,19 @@ export class TextCrawler {
         return result;
     }
 
-    public forEach(callback: (chunk: Segment) => void): void {
+    // public forEach(callback: (chunk: Segment) => void): void {
+    //     for (const segment of this.iterator()) {
+    //         callback(segment);
+    //     }
+    // }
+
+    public forEach(callback: (chunk: Segment, previousWords: Segment[]) => void): void {
+        const previousWords: Segment[] = [];
         for (const segment of this.iterator()) {
-            callback(segment);
+            callback(segment, previousWords);
+            if (segment.type == "word") {
+                previousWords.push(segment);
+            }
         }
     }
 }

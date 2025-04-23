@@ -5,7 +5,8 @@ import { DialogContext } from "../../context";
 
 const UnrecognizedWord: FC<{
     word: string;
-}> = ({ word }) => {
+    listId: string;
+}> = ({ word, listId }) => {
     const [state, setState] = useContext(DialogContext);
     return (
         <span id={word} className={classNames(styles.word)} onClick={() => setState({ dialog: "AddNewWord", word })}>

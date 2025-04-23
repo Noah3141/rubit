@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React, { type FC } from "react";
-import type { AdjEntry } from "~/types/russian/list/adjective";
+import type { AdjectiveModel, AdjEntry } from "~/types/russian/list/adjective";
 import styles from "./index.module.css";
 
 const AdjectiveForms: FC<{
-    entry: AdjEntry;
-}> = ({ entry }) => {
+    model: AdjectiveModel;
+}> = ({ model }) => {
     return (
         <div className={classNames(styles.container)}>
             <table className={classNames(styles.adjTable)}>
@@ -19,58 +19,58 @@ const AdjectiveForms: FC<{
                 <tbody>
                     <tr>
                         <td className="p-1 text-right">nom.</td>
-                        <td>{entry.model.dictionary_info.nom_masc}</td>
-                        <td>{entry.model.dictionary_info.nom_neut}</td>
-                        <td>{entry.model.dictionary_info.nom_fem}</td>
-                        <td>{entry.model.dictionary_info.nom_plur}</td>
+                        <td>{model.dictionary_info.nom_masc}</td>
+                        <td>{model.dictionary_info.nom_neut}</td>
+                        <td>{model.dictionary_info.nom_fem}</td>
+                        <td>{model.dictionary_info.nom_plur}</td>
                     </tr>
                     <tr>
                         <td className="p-1 text-right">gen.</td>
-                        <td>{entry.model.dictionary_info.gen_masc}</td>
-                        <td>{entry.model.dictionary_info.gen_neut}</td>
-                        <td>{entry.model.dictionary_info.gen_fem}</td>
-                        <td>{entry.model.dictionary_info.gen_plur}</td>
+                        <td>{model.dictionary_info.gen_masc}</td>
+                        <td>{model.dictionary_info.gen_neut}</td>
+                        <td>{model.dictionary_info.gen_fem}</td>
+                        <td>{model.dictionary_info.gen_plur}</td>
                     </tr>
                     <tr>
                         <td className="p-1 text-right">acc.</td>
                         <td>
-                            {entry.model.dictionary_info.acc_masc}/<br />
-                            {entry.model.dictionary_info.nom_masc}
+                            {model.dictionary_info.acc_masc}/<br />
+                            {model.dictionary_info.nom_masc}
                         </td>
-                        <td>{entry.model.dictionary_info.acc_neut}</td>
-                        <td>{entry.model.dictionary_info.acc_fem}</td>
+                        <td>{model.dictionary_info.acc_neut}</td>
+                        <td>{model.dictionary_info.acc_fem}</td>
                         <td>
-                            {entry.model.dictionary_info.acc_plur}/<br />
-                            {entry.model.dictionary_info.nom_plur}
+                            {model.dictionary_info.acc_plur}/<br />
+                            {model.dictionary_info.nom_plur}
                         </td>
                     </tr>
                     <tr>
                         <td className="p-1 text-right">dat.</td>
-                        <td>{entry.model.dictionary_info.dat_masc}</td>
-                        <td>{entry.model.dictionary_info.dat_neut}</td>
-                        <td>{entry.model.dictionary_info.dat_fem}</td>
-                        <td>{entry.model.dictionary_info.dat_plur}</td>
+                        <td>{model.dictionary_info.dat_masc}</td>
+                        <td>{model.dictionary_info.dat_neut}</td>
+                        <td>{model.dictionary_info.dat_fem}</td>
+                        <td>{model.dictionary_info.dat_plur}</td>
                     </tr>
                     <tr>
                         <td className="p-1 text-right">ins.</td>
-                        <td>{entry.model.dictionary_info.ins_masc}</td>
-                        <td>{entry.model.dictionary_info.ins_neut}</td>
-                        <td>{entry.model.dictionary_info.ins_fem}</td>
-                        <td>{entry.model.dictionary_info.ins_plur}</td>
+                        <td>{model.dictionary_info.ins_masc}</td>
+                        <td>{model.dictionary_info.ins_neut}</td>
+                        <td>{model.dictionary_info.ins_fem}</td>
+                        <td>{model.dictionary_info.ins_plur}</td>
                     </tr>
                     <tr>
                         <td className="p-1 text-right">pre.</td>
-                        <td>{entry.model.dictionary_info.pre_masc}</td>
-                        <td>{entry.model.dictionary_info.pre_neut}</td>
-                        <td>{entry.model.dictionary_info.pre_fem}</td>
-                        <td>{entry.model.dictionary_info.pre_plur}</td>
+                        <td>{model.dictionary_info.pre_masc}</td>
+                        <td>{model.dictionary_info.pre_neut}</td>
+                        <td>{model.dictionary_info.pre_fem}</td>
+                        <td>{model.dictionary_info.pre_plur}</td>
                     </tr>
                     <tr>
                         <td className="p-1 text-right">short</td>
-                        <td>{entry.model.dictionary_info.m_short ?? "-"}</td>
-                        <td>{entry.model.dictionary_info.n_short ?? "-"}</td>
-                        <td>{entry.model.dictionary_info.f_short ?? "-"}</td>
-                        <td>{entry.model.dictionary_info.p_short ?? "-"}</td>
+                        <td>{model.dictionary_info.m_short ?? "-"}</td>
+                        <td>{model.dictionary_info.n_short ?? "-"}</td>
+                        <td>{model.dictionary_info.f_short ?? "-"}</td>
+                        <td>{model.dictionary_info.p_short ?? "-"}</td>
                     </tr>
                 </tbody>
             </table>

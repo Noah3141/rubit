@@ -1,22 +1,21 @@
 import { z } from "zod";
-import { AdjEntry } from "./adjective";
-import { AdvEntry } from "./adverb";
-import { VerbEntry } from "./verb";
-import { NounEntry } from "./noun";
+import { AdjEntry, AdjModel } from "./adjective";
+import { AdvEntry, AdvModel } from "./adverb";
+import { VerbEntry, VerbModel } from "./verb";
+import { NounEntry, NounModel } from "./noun";
 
-export const VocabularyEntry = z.union([
-    NounEntry,
-    VerbEntry,
-    AdjEntry,
-    AdvEntry,
-]);
+export const VocabListEntrySchema = z.union([NounEntry, VerbEntry, AdjEntry, AdvEntry]);
+export type VocabListEntry = z.infer<typeof VocabListEntrySchema>;
 
-export type Type = "Noun" | "Adjective" | "Verb" | "Adverb";
+export const RussianModelSchema = z.union([NounModel, VerbModel, AdjModel, AdvModel]);
+export type RussianModel = z.infer<typeof RussianModelSchema>;
+
+export const TypeSchema = z.enum(["Noun", "Adjective", "Verb", "Adverb"]);
+export type Type = z.infer<typeof TypeSchema>;
 
 export const VocabularyListSchema = z.object({
     inputText: z.string(),
     form_frequencies: z.record(z.number()),
-    entry_list: z.array(VocabularyEntry),
+    entry_list: z.array(VocabListEntrySchema),
 });
-
 export type VocabularyListData = z.infer<typeof VocabularyListSchema>;

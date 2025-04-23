@@ -17,8 +17,8 @@ const AnalysisTextArea: FC<
     } & TextareaHTMLAttributes<HTMLTextAreaElement>
 > = ({}) => {
     const [text, setText] = useState<string>("");
-    const [entries, setEntries] = useState<RouterOutputs["entry"]["getForWord"]>([]);
-    const getEntry = api.entry.getForWord.useMutation({
+    const [entries, setEntries] = useState<RouterOutputs["entry"]["get"]["byForm"]>([]);
+    const getEntry = api.entry.get.byForm.useMutation({
         onMutate: () => {
             return;
         },
@@ -59,7 +59,7 @@ const AnalysisTextArea: FC<
                 onChange={(e) => {
                     setText(e.target.value);
                     const lastWord = e.target.value.split(" ").at(-1) ?? "";
-                    getEntry.mutate({ word: lastWord });
+                    getEntry.mutate({ form: lastWord });
                 }}
             />
             <div className="">
