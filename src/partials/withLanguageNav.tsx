@@ -13,25 +13,17 @@ const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
         case "russian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/${language}/verbs`}>
-                        Verbs
-                    </LanguageNav.Item>
-                    <LanguageNav.Item link={`/${language}/trees`}>
-                        Trees
-                    </LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/verbs`}>Verbs</LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/complete-verbs`}>Complete Verbs</LanguageNav.Item>
+
+                    <LanguageNav.Item link={`/${language}/trees`}>Trees</LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/tree-model`}>Tree Model</LanguageNav.Item>
+
                     {!!session && (
                         <>
-                            <LanguageNav.Item link={`/${language}/new-list`}>
-                                Make New List
-                            </LanguageNav.Item>
-                            <LanguageNav.Item link={`/${language}/my-lists`}>
-                                My Lists
-                            </LanguageNav.Item>
-                            <LanguageNav.Item
-                                link={`/${language}/writing-workshop`}
-                            >
-                                Writing Workshop
-                            </LanguageNav.Item>
+                            <LanguageNav.Item link={`/${language}/new-list`}>Make New List</LanguageNav.Item>
+                            <LanguageNav.Item link={`/${language}/my-lists`}>My Lists</LanguageNav.Item>
+                            <LanguageNav.Item link={`/${language}/writing-workshop`}>Writing Workshop</LanguageNav.Item>
                         </>
                     )}
                 </LanguageNav.Bar>
@@ -40,39 +32,19 @@ const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
         case "belarusian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/${language}/verbs`}>
-                        Verbs
-                    </LanguageNav.Item>
-                    <LanguageNav.Item link={`/${language}/trees`}>
-                        Trees
-                    </LanguageNav.Item>
-                    <LanguageNav.Item link={`/${language}/new-list`}>
-                        Make New List
-                    </LanguageNav.Item>
-                    {!!session && (
-                        <LanguageNav.Item link={`/${language}/my-lists`}>
-                            My Lists
-                        </LanguageNav.Item>
-                    )}
+                    <LanguageNav.Item link={`/${language}/verbs`}>Verbs</LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/trees`}>Trees</LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/new-list`}>Make New List</LanguageNav.Item>
+                    {!!session && <LanguageNav.Item link={`/${language}/my-lists`}>My Lists</LanguageNav.Item>}
                 </LanguageNav.Bar>
             );
         case "ukrainian":
             return (
                 <LanguageNav.Bar language={language}>
-                    <LanguageNav.Item link={`/${language}/verbs`}>
-                        Verbs
-                    </LanguageNav.Item>
-                    <LanguageNav.Item link={`/${language}/trees`}>
-                        Trees
-                    </LanguageNav.Item>
-                    <LanguageNav.Item link={`/${language}/new-list`}>
-                        Make New List
-                    </LanguageNav.Item>
-                    {!!session && (
-                        <LanguageNav.Item link={`/${language}/my-lists`}>
-                            My Lists
-                        </LanguageNav.Item>
-                    )}
+                    <LanguageNav.Item link={`/${language}/verbs`}>Verbs</LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/trees`}>Trees</LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/new-list`}>Make New List</LanguageNav.Item>
+                    {!!session && <LanguageNav.Item link={`/${language}/my-lists`}>My Lists</LanguageNav.Item>}
                 </LanguageNav.Bar>
             );
     }
