@@ -18,6 +18,7 @@ const WithLanguageNav: FC<{ session: Session | null }> = ({ session }) => {
 
                     <LanguageNav.Item link={`/${language}/trees`}>Trees</LanguageNav.Item>
                     <LanguageNav.Item link={`/${language}/tree-model`}>Tree Model</LanguageNav.Item>
+                    <LanguageNav.Item link={`/${language}/noun-stress`}>Noun Stress</LanguageNav.Item>
 
                     {!!session && (
                         <>

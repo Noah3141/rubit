@@ -25,7 +25,6 @@ const tree_model = () => {
                         demonstrations, and semantic snapshots of the Russian verbal prefixes.
                     </p>
                     <p>
-                        {" "}
                         The verb tree model presents Russian verbs as routinely derived sets of branch pairs, generated predictably from a small number of Rootspace
                         arrangements.
                     </p>
