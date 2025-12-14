@@ -68,7 +68,7 @@ export const listRussianRouter = createTRPCRouter({
             if (!toUpdate) {
                 throw new TRPCError({ code: "NOT_FOUND" });
             }
-            const content = JSON.parse(toUpdate.content) as StoredList;
+            const content = toUpdate.content as StoredList;
 
             const res = await fetch(`${env.RUBIT_API_URL}/list/russian/vocabulary/`, {
                 method: "POST",
@@ -118,7 +118,7 @@ export const listRussianRouter = createTRPCRouter({
             }
             const extractedList = {
                 ...savedList,
-                content: JSON.parse(savedList.content) as StoredList, // I changed from db.text to Json , does this still need to parse or just be as is?
+                content: savedList.content as StoredList, // I changed from db.text to Json , does this still need to parse or just be as is?
             };
 
             const res = await fetch(`${env.RUBIT_API_URL}/russian/entry/get/by-ids`, {
@@ -163,7 +163,7 @@ export const listRussianRouter = createTRPCRouter({
 
         return savedLists.map((list) => ({
             ...list,
-            content: JSON.parse(list.content) as StoredList,
+            content: list.content as StoredList,
         }));
     }),
 });
