@@ -73,7 +73,7 @@ export const listUkrainianRouter = createTRPCRouter({
 
         return {
             ...savedList,
-            content: savedList.content as VocabularyListData,
+            content: JSON.parse(savedList.content) as VocabularyListData,
         };
     }),
 
@@ -87,7 +87,7 @@ export const listUkrainianRouter = createTRPCRouter({
 
         return savedLists.map((list) => ({
             ...list,
-            content: list.content as VocabularyListData,
+            content: JSON.parse(list.content) as VocabularyListData,
         }));
     }),
 });

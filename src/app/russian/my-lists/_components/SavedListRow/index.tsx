@@ -7,6 +7,7 @@ import Link from "next/link";
 const SavedListRow: FC<{
     savedList: RouterOutputs["list"]["russian"]["bySessionUser"][0];
 }> = ({ savedList }) => {
+    console.log(savedList);
     return (
         <Link className="" href={`/${savedList.language.toLowerCase()}/my-lists/${savedList.id}/text`}>
             <div className={classNames(styles.row)}>
